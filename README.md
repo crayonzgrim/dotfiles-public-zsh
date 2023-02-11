@@ -1,8 +1,14 @@
-![nvim screenshot](./images/neovim-image.png)
+
 
 # crayonzgrim's dotfiles
 
-Check my neovim, tmux, git dotfiles!
+Check my neovim, tmux, git dotfiles.
+<br />
+Enjoy it!😁
+<br />
+<br />
+![nvim screenshot](./images/neovim-image.png)
+
 
 ## Contents
 
@@ -42,5 +48,6 @@ Requires [Neovim](https://neovim.io/) (>= 0.8)
 
 ## About me
 
+- [Resume](https://lush-viscount-141.notion.site/b01ba12effe4459d9c5702778fb9688f)
 - [Blog](https://patrick-f.tistory.com/category)
-- [LinkedIn](https://www.linkedin.com/in/patrick69/)
+- [Linkedin](https://www.linkedin.com/in/patrick69/)
