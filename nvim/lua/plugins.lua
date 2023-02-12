@@ -98,5 +98,5 @@ packer.startup(function(use)
 
 	-- toggle terminal
 	use({ "akinsho/toggleterm.nvim", tag = "*" })
-	use("voldikss/vim-floaterm")
+	-- use("voldikss/vim-floaterm")
 end)
