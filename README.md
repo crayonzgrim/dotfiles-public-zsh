@@ -1,6 +1,6 @@
 
 
-# crayonzgrim's dotfiles
+# crayonzgrim's dotfiles _ KIM DONG IL
 
 Check my neovim, tmux, git dotfiles.
 <br />
