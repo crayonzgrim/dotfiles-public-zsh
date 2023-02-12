@@ -10,9 +10,6 @@ local opt = vim.opt
 opt.title = true
 vim.opt.shell = "zsh"
 opt.expandtab = true
--- opt.showcmd = true
--- opt.cmdheight = 1
--- opt.laststatus = 2
 
 -- scroll moving off
 opt.scrolloff = 5
@@ -50,28 +47,28 @@ opt.hlsearch = true
 opt.backspace = { "start", "eol", "indent" }
 
 -- clipboard
-opt.clipboard:append { "unnamedplus" }
+opt.clipboard:append({ "unnamedplus" })
 
 -- split windows
 opt.inccommand = "split"
 opt.splitright = true
 opt.splitbelow = true
 
-vim.opt.wildignore:append { '*/node_modules/*' }
+vim.opt.wildignore:append({ "*/node_modules/*" })
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = '*',
-    command = "set nopaste"
+	pattern = "*",
+	command = "set nopaste",
 })
 
 -- Add asterisks in block comments
-vim.opt.formatoptions:append { 'r' }
+vim.opt.formatoptions:append({ "r" })
 
 -- highlight yanked text for 200ms using the "Visual" highlight group
-vim.cmd [[
+vim.cmd([[
   augroup highlight_yank
   autocmd!
   au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=100})
   augroup END
-]]
+]])
