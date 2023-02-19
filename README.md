@@ -1,6 +1,4 @@
-
-
-# crayonzgrim's dotfiles _ KIM DONG IL
+# crayonzgrim's dotfiles \_ Welcome to check my dotfiles
 
 Check my neovim, tmux, git dotfiles.
 <br />
@@ -9,10 +7,10 @@ Enjoy it!😁
 <br />
 ![nvim screenshot](./images/neovim-image.png)
 
-
 ## Contents
 
 - NeoVim config
+- zsh config
 - tmux config
 - git config
 
@@ -45,6 +43,10 @@ Requires [Neovim](https://neovim.io/) (>= 0.8)
 - [lewis6991/gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) - Git integration for buffers
 - [dinhhuy258/git.nvim](https://github.com/dinhhuy258/git.nvim) - A simple clone of the plugin vim-fugitive
 - [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Markdown live preview
+
+## Try to use later...
+
+- zellij
 
 ## About me
 

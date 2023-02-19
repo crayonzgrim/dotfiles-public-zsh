@@ -14,8 +14,15 @@ packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- theme
-	-- use({ "catppuccin/nvim", as = "catppuccin" })
-	use({ "svrana/neosolarized.nvim", requires = { "tjdevries/colorbuddy.nvim" } })
+	-- use({ "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" })
+	use({
+		"svrana/neosolarized.nvim",
+		requires = { "tjdevries/colorbuddy.nvim" },
+	})
+	-- use({
+	-- 	"catppuccin/nvim",
+	-- 	as = "catppuccin",
+	-- })
 
 	-- Comment
 	use({
@@ -34,7 +41,9 @@ packer.startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
+			require("nvim-treesitter.install").update({
+				with_sync = true,
+			})
 		end,
 	})
 
@@ -65,7 +74,10 @@ packer.startup(function(use)
 	-- configuring lsp servers
 	use("neovim/nvim-lspconfig")
 	use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim's built-in LSP
-	use({ "glepnir/lspsaga.nvim", branch = "main" }) -- LSP UIs
+	use({
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+	}) -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
 
@@ -97,6 +109,16 @@ packer.startup(function(use)
 	})
 
 	-- toggle terminal
-	use({ "akinsho/toggleterm.nvim", tag = "*" })
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+	})
 	-- use("voldikss/vim-floaterm")
+
+	-- cmp-tabnine
+	use({
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+	})
 end)

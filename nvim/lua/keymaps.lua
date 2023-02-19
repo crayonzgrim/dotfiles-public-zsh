@@ -4,13 +4,17 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<ESC>")
 
 -- Do not yank with 'x'
-keymap.set('n', 'x', '"_x')
+keymap.set("n", "x", '"_x')
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
 
 -- New tab with Enter
 keymap.set("n", "te", ":tabedit<Return>Enter", { silent = true })
+
+-- Buffer move
+keymap.set("n", ";b", ":bprev<CR>")
+keymap.set("n", ";n", ":bnext<CR>")
 
 -- Split window
 keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true })

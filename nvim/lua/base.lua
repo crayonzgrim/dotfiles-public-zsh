@@ -7,9 +7,8 @@ vim.opt.fileencoding = "utf-8"
 local opt = vim.opt
 
 -- set basic
+opt.shell = "zsh"
 opt.title = true
-vim.opt.shell = "zsh"
-opt.expandtab = true
 
 -- scroll moving off
 opt.scrolloff = 5
@@ -21,11 +20,11 @@ opt.number = true
 -- tabs & indentation
 opt.tabstop = 2
 opt.shiftwidth = 2
-opt.expandtab = true
 opt.autoindent = true
+opt.smartindent = true
 
 -- line wrapping
-opt.wrap = true
+opt.wrap = false
 
 -- search settings
 opt.ignorecase = true
@@ -51,10 +50,10 @@ opt.clipboard:append({ "unnamedplus" })
 
 -- split windows
 opt.inccommand = "split"
-opt.splitright = true
-opt.splitbelow = true
+-- opt.splitright = true -- move cursor when split window
+-- opt.splitbelow = true
 
-vim.opt.wildignore:append({ "*/node_modules/*" })
+opt.wildignore:append({ "*/node_modules/*" })
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd("InsertLeave", {
@@ -63,7 +62,29 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 -- Add asterisks in block comments
-vim.opt.formatoptions:append({ "r" })
+opt.formatoptions:append({ "r" })
+
+-- Faster scrolling
+opt.lazyredraw = true
+
+-- Remember history
+opt.history = 100
+
+-- Add exatra...
+opt.swapfile = false
+opt.showcmd = true
+opt.cmdheight = 1
+opt.updatetime = 100 -- faster completion (40000ms default)
+opt.conceallevel = 0 -- so that `` is visibvle in markdown files
+opt.laststatus = 2
+opt.expandtab = true
+opt.smarttab = true
+opt.breakindent = true
+-- opt.path:append { '**' } -- Finding files - Search down into subfolders
+
+-- Undercurl
+vim.cmd([[let &t_Cs = "\e[4:3m"]])
+vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 -- highlight yanked text for 200ms using the "Visual" highlight group
 vim.cmd([[
