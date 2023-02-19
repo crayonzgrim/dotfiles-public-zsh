@@ -1,6 +1,6 @@
 
 
-# crayonzgrim's dotfiles _ KIM DONG IL
+# crayonzgrim's dotfiles
 
 Check my neovim, tmux, git dotfiles.
 <br />
@@ -12,7 +12,7 @@ Enjoy it!😁
 
 ## Contents
 
-- NeoVim config
+- Neovim config
 - tmux config
 - git config
 
