@@ -1,4 +1,4 @@
-# crayonzgrim's dotfiles \_ Welcome to check my dotfiles
+# crayonzgrim's dotfiles
 
 Check my neovim, tmux, git dotfiles.
 <br />
@@ -10,9 +10,8 @@ Enjoy it!😁
 ## Contents
 
 - NeoVim config
-- zsh config
 - tmux config
-- git config
+- git config (with git-delta)
 
 ## Neovim setup
 
