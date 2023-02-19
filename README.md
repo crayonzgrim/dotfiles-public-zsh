@@ -9,7 +9,7 @@ Enjoy it!😁
 
 ## Contents
 
-- NeoVim config
+- Neovim config
 - tmux config
 - git config (with git-delta)
 
