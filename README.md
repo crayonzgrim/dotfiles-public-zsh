@@ -46,6 +46,10 @@ Requires [Neovim](https://neovim.io/) (>= 0.8)
 - [dinhhuy258/git.nvim](https://github.com/dinhhuy258/git.nvim) - A simple clone of the plugin vim-fugitive
 - [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim) - Markdown live preview
 
+## Try to use later...
+
+- zellij
+
 ## About me
 
 - [Resume](https://lush-viscount-141.notion.site/b01ba12effe4459d9c5702778fb9688f)
