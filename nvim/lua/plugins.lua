@@ -80,6 +80,8 @@ packer.startup(function(use)
 	}) -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
+	use("jose-elias-alvarez/nvim-lsp-ts-utils") -- update typescript lsp
+	use("lvimuser/lsp-inlayhints.nvim") -- inline hint (name: string ... )
 
 	-- formatting & linting //  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use("jose-elias-alvarez/null-ls.nvim")
@@ -99,6 +101,10 @@ packer.startup(function(use)
 	-- git
 	use("lewis6991/gitsigns.nvim")
 	use("dinhhuy258/git.nvim") -- For git blame & browse
+	use("tpope/vim-fugitive")
+
+	-- local git history
+	use("m42e/lgh.nvim")
 
 	-- markdown
 	use({
@@ -108,12 +114,14 @@ packer.startup(function(use)
 		end,
 	})
 
+	-- preview
+	use({ "rmagatti/goto-preview" })
+
 	-- toggle terminal
 	use({
 		"akinsho/toggleterm.nvim",
 		tag = "*",
 	})
-	-- use("voldikss/vim-floaterm")
 
 	-- cmp-tabnine
 	use({
@@ -121,4 +129,10 @@ packer.startup(function(use)
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp",
 	})
+
+	-- multi cursor
+	use("mg979/vim-visual-multi")
+
+	-- live-server // :LiveServer start // :LiveServer stop
+	use("manzeloth/live-server")
 end)

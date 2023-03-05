@@ -28,6 +28,8 @@ tree.setup({
 	},
 	ensure_installed = {
 		"markdown",
+		"markdown_inline",
+		"json",
 		"tsx",
 		"toml",
 		"fish",
@@ -35,7 +37,6 @@ tree.setup({
 		"javascript",
 		"typescript",
 		"php",
-		"json",
 		"yaml",
 		"swift",
 		"css",

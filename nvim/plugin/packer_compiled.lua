@@ -129,6 +129,26 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["goto-preview"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/goto-preview",
+    url = "https://github.com/rmagatti/goto-preview"
+  },
+  ["lgh.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lgh.nvim",
+    url = "https://github.com/m42e/lgh.nvim"
+  },
+  ["live-server"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/live-server",
+    url = "https://github.com/manzeloth/live-server"
+  },
+  ["lsp-inlayhints.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lsp-inlayhints.nvim",
+    url = "https://github.com/lvimuser/lsp-inlayhints.nvim"
+  },
   ["lspkind-nvim"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lspkind-nvim",
@@ -194,6 +214,11 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
+  ["nvim-lsp-ts-utils"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-lsp-ts-utils",
+    url = "https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -258,6 +283,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/typescript.nvim",
     url = "https://github.com/jose-elias-alvarez/typescript.nvim"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-visual-multi"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
+    url = "https://github.com/mg979/vim-visual-multi"
   }
 }
 

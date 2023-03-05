@@ -24,7 +24,7 @@ local function formatForTailwindCSS(entry, vim_item)
 end
 
 -- Load friendly-snippets
-require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
 	snippet = {
