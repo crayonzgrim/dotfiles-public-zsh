@@ -11,8 +11,10 @@ end
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 -- recommended settings from nvim-tree documentation
-vim.g.loaded = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded = 1
+-- vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrw_plugin = 1
 
 nvim_tree.setup({
 	hijack_directories = {

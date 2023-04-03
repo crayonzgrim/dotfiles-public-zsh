@@ -57,6 +57,9 @@ packer.startup(function(use)
 	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-file-browser.nvim")
 
+	-- lazygit
+	use("kdheepak/lazygit.nvim")
+
 	-- auto completion
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
@@ -66,6 +69,11 @@ packer.startup(function(use)
 	use("rafamadriz/friendly-snippets")
 	use("saadparwaiz1/cmp_luasnip")
 	use("L3MON4D3/LuaSnip")
+	use("hrsh7th/vim-vsnip")
+	use("hrsh7th/cmp-vsnip")
+	use("hrsh7th/vim-vsnip-integ")
+	use("hrsh7th/cmp-calc")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
 
 	-- managing & installing lsp servers
 	use("williamboman/mason.nvim")
@@ -135,4 +143,6 @@ packer.startup(function(use)
 
 	-- live-server // :LiveServer start // :LiveServer stop
 	use("manzeloth/live-server")
+
+	use("folke/zen-mode.nvim")
 end)
