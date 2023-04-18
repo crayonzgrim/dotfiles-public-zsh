@@ -5,6 +5,9 @@ end
 
 local lspkind = require("lspkind")
 
+-- Load friendly-snippets
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local function formatForTailwindCSS(entry, vim_item)
 	if vim_item.kind == "Color" and entry.completion_item.documentation then
 		local _, _, r, g, b = string.find(entry.completion_item.documentation, "^rgb%((%d+), (%d+), (%d+)")
@@ -23,9 +26,6 @@ local function formatForTailwindCSS(entry, vim_item)
 	return vim_item
 end
 
--- Load friendly-snippets
-require("luasnip.loaders.from_vscode").lazy_load()
-
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -33,8 +33,6 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-		["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
@@ -46,10 +44,9 @@ cmp.setup({
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" }, -- snippets
-		{ name = "luasnip" }, -- snippets
 		{ name = "buffer" }, -- text within current buffer
-		{ name = "path" }, -- file system paths
 		{ name = "cmp_tabnine" }, -- tabnine
+		{ name = "path" }, -- file system paths
 	}),
 	formatting = {
 		format = lspkind.cmp_format({

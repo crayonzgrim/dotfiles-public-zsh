@@ -3,7 +3,7 @@ if not status then
 	return
 end
 
-local status2, lspconfig = pcall(require, "mason-lspconfig")
+local status2, mason_lspconfig = pcall(require, "mason-lspconfig")
 if not status2 then
 	return
 end
@@ -23,15 +23,16 @@ mason.setup({
 	},
 })
 
-lspconfig.setup({
-	-- ensure_installed = {
-	--     "tsserver",
-	--     "html",
-	--     "cssls",
-	--     "tailwindcss",
-	--     "sumneko_lua",
-	--     -- "emmet_ls",
-	-- },
+mason_lspconfig.setup({
+	-- list of servers for mason to install
+	ensure_installed = {
+		"tsserver",
+		"html",
+		"cssls",
+		"tailwindcss",
+		"lua_ls",
+		"emmet_ls",
+	},
 	automatic_installation = true,
 })
 

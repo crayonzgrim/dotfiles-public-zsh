@@ -14,15 +14,10 @@ packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- theme
-	-- use({ "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" })
 	use({
 		"svrana/neosolarized.nvim",
 		requires = { "tjdevries/colorbuddy.nvim" },
 	})
-	-- use({
-	-- 	"catppuccin/nvim",
-	-- 	as = "catppuccin",
-	-- })
 
 	-- Comment
 	use({
@@ -47,11 +42,9 @@ packer.startup(function(use)
 		end,
 	})
 
-	-- icons
-	use("kyazdani42/nvim-web-devicons")
+	use("kyazdani42/nvim-web-devicons") -- icons
 
-	-- statusline
-	use("nvim-lualine/lualine.nvim")
+	use("nvim-lualine/lualine.nvim") -- statusline
 
 	-- telescope file find
 	use("nvim-telescope/telescope.nvim")
@@ -61,19 +54,19 @@ packer.startup(function(use)
 	use("kdheepak/lazygit.nvim")
 
 	-- auto completion
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
+	use("hrsh7th/nvim-cmp") -- Completion
+	use("hrsh7th/cmp-buffer") -- nvim-cmp source for buffer words
+	use("hrsh7th/cmp-path") -- source for file system paths
 
 	-- snippets
 	use("rafamadriz/friendly-snippets")
 	use("saadparwaiz1/cmp_luasnip")
 	use("L3MON4D3/LuaSnip")
-	use("hrsh7th/vim-vsnip")
-	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/vim-vsnip-integ")
-	use("hrsh7th/cmp-calc")
-	use("hrsh7th/cmp-nvim-lsp-signature-help")
+	-- use("SirVer/ultisnips")
+	-- use("mlaursen/vim-react-snippets")
+
+	-- emmet
+	use("mattn/emmet-vim")
 
 	-- managing & installing lsp servers
 	use("williamboman/mason.nvim")
@@ -88,8 +81,6 @@ packer.startup(function(use)
 	}) -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
-	use("jose-elias-alvarez/nvim-lsp-ts-utils") -- update typescript lsp
-	use("lvimuser/lsp-inlayhints.nvim") -- inline hint (name: string ... )
 
 	-- formatting & linting //  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use("jose-elias-alvarez/null-ls.nvim")
@@ -101,7 +92,7 @@ packer.startup(function(use)
 	use("windwp/nvim-ts-autotag")
 
 	-- buffer line
-	use("akinsho/nvim-bufferline.lua")
+	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- show hex color
 	use("norcalli/nvim-colorizer.lua")
@@ -144,5 +135,9 @@ packer.startup(function(use)
 	-- live-server // :LiveServer start // :LiveServer stop
 	use("manzeloth/live-server")
 
+	-- zen-mode
 	use("folke/zen-mode.nvim")
+
+	-- maximizer
+	use("szw/vim-maximizer") -- maximizes and restores current window
 end)

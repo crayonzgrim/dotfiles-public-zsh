@@ -84,25 +84,20 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["bufferline.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-buffer",
     url = "https://github.com/hrsh7th/cmp-buffer"
   },
-  ["cmp-calc"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-calc",
-    url = "https://github.com/hrsh7th/cmp-calc"
-  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
-  },
-  ["cmp-nvim-lsp-signature-help"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
-    url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
   ["cmp-path"] = {
     loaded = true,
@@ -114,11 +109,6 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-tabnine",
     url = "https://github.com/tzachar/cmp-tabnine"
   },
-  ["cmp-vsnip"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp-vsnip",
-    url = "https://github.com/hrsh7th/cmp-vsnip"
-  },
   cmp_luasnip = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
@@ -128,6 +118,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
     url = "https://github.com/tjdevries/colorbuddy.nvim"
+  },
+  ["emmet-vim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/emmet-vim",
+    url = "https://github.com/mattn/emmet-vim"
   },
   ["friendly-snippets"] = {
     loaded = true,
@@ -163,11 +158,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/live-server",
     url = "https://github.com/manzeloth/live-server"
-  },
-  ["lsp-inlayhints.nvim"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lsp-inlayhints.nvim",
-    url = "https://github.com/lvimuser/lsp-inlayhints.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -219,11 +209,6 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
   },
-  ["nvim-bufferline.lua"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-bufferline.lua",
-    url = "https://github.com/akinsho/nvim-bufferline.lua"
-  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -233,11 +218,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
     url = "https://github.com/norcalli/nvim-colorizer.lua"
-  },
-  ["nvim-lsp-ts-utils"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nvim-lsp-ts-utils",
-    url = "https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -309,20 +289,15 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
+  ["vim-maximizer"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-maximizer",
+    url = "https://github.com/szw/vim-maximizer"
+  },
   ["vim-visual-multi"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
     url = "https://github.com/mg979/vim-visual-multi"
-  },
-  ["vim-vsnip"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-vsnip",
-    url = "https://github.com/hrsh7th/vim-vsnip"
-  },
-  ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ",
-    url = "https://github.com/hrsh7th/vim-vsnip-integ"
   },
   ["zen-mode.nvim"] = {
     loaded = true,

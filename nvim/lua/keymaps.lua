@@ -1,7 +1,10 @@
 local keymap = vim.keymap
 
 -- ESC replace
-keymap.set("i", "jk", "<ESC>")
+keymap.set("i", "jk", "<ESC>", { silent = true })
+
+-- Save all buffers
+-- keymap.set("i", "<D-s>", ":wa", { silent = true })
 
 -- Do not yank with 'x'
 keymap.set("n", "x", '"_x')
