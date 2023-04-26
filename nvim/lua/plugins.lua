@@ -140,4 +140,17 @@ packer.startup(function(use)
 
 	-- maximizer
 	use("szw/vim-maximizer") -- maximizes and restores current window
+
+	-- hop
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup()
+		end,
+	})
+
+	-- codeium
+	use({ "Exafunction/codeium.vim" })
 end)

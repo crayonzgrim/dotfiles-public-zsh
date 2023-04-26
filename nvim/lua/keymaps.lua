@@ -6,6 +6,23 @@ keymap.set("i", "jk", "<ESC>", { silent = true })
 -- Save all buffers
 -- keymap.set("i", "<D-s>", ":wa", { silent = true })
 
+-- codeium
+keymap.set("i", "<C-g>", function()
+	return vim.fn["codeium#Accept"]()
+end, { expr = true })
+
+keymap.set("i", "<C-[>", function()
+	return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true })
+
+keymap.set("i", "<C-]>", function()
+	return vim.fn["codeium#CycleCompletions"](-1)
+end, { expr = true })
+
+keymap.set("i", "<C-q>", function()
+	return vim.fn["codeium#Clear"]()
+end, { expr = true })
+
 -- Do not yank with 'x'
 keymap.set("n", "x", '"_x')
 
