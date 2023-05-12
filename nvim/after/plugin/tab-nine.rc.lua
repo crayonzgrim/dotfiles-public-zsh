@@ -1,4 +1,7 @@
-local tabnine = require("cmp_tabnine.config")
+local status, tabnine = pcall(require, "cmp_tabnine.config")
+if not status then
+	return
+end
 
 tabnine:setup({
 	max_lines = 1000,

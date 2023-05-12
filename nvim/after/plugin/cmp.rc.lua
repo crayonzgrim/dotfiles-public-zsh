@@ -45,7 +45,7 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" }, -- snippets
 		{ name = "buffer" }, -- text within current buffer
-		{ name = "cmp_tabnine" }, -- tabnine
+		-- { name = "cmp_tabnine" }, -- tabnine
 		{ name = "path" }, -- file system paths
 	}),
 	formatting = {

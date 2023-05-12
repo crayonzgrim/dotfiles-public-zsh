@@ -14,7 +14,7 @@ toggleterm.setup({
 	insert_mappings = true,
 	terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
 	persist_size = true,
-	direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float'
+	direction = "horizontal", -- 'vertical' | 'horizontal' | 'tab' | 'float'
 	close_on_exit = true,
 	shell = vim.o.shell,
 	float_opts = {

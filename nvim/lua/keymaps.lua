@@ -64,3 +64,6 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Cursor don't move when press 'J'
 keymap.set("n", "J", "mzJ`z")
+
+-- Undotree
+keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")

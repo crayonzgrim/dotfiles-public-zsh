@@ -49,14 +49,14 @@ packer.startup(function(use)
 	-- telescope file find
 	use("nvim-telescope/telescope.nvim")
 	use("nvim-telescope/telescope-file-browser.nvim")
-
-	-- lazygit
-	use("kdheepak/lazygit.nvim")
+	use("nvim-telescope/telescope-media-files.nvim")
 
 	-- auto completion
 	use("hrsh7th/nvim-cmp") -- Completion
 	use("hrsh7th/cmp-buffer") -- nvim-cmp source for buffer words
 	use("hrsh7th/cmp-path") -- source for file system paths
+	use("hrsh7th/vim-vsnip")
+	use("hrsh7th/vim-vsnip-integ")
 
 	-- snippets
 	use("rafamadriz/friendly-snippets")
@@ -72,8 +72,7 @@ packer.startup(function(use)
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 
-	-- configuring lsp servers
-	use("neovim/nvim-lspconfig")
+	use("neovim/nvim-lspconfig") -- configuring lsp servers
 	use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim's built-in LSP
 	use({
 		"glepnir/lspsaga.nvim",
@@ -81,6 +80,7 @@ packer.startup(function(use)
 	}) -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
+	use("folke/lsp-colors.nvim")
 
 	-- formatting & linting //  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 	use("jose-elias-alvarez/null-ls.nvim")
@@ -102,8 +102,15 @@ packer.startup(function(use)
 	use("dinhhuy258/git.nvim") -- For git blame & browse
 	use("tpope/vim-fugitive")
 
+	-- lazygit
+	use("kdheepak/lazygit.nvim")
+
+	-- diffview
+	use("sindrets/diffview.nvim")
+
 	-- local git history
-	use("m42e/lgh.nvim")
+	-- use("m42e/lgh.nvim")
+	use("mbbill/undotree")
 
 	-- markdown
 	use({
@@ -123,11 +130,11 @@ packer.startup(function(use)
 	})
 
 	-- cmp-tabnine
-	use({
-		"tzachar/cmp-tabnine",
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp",
-	})
+	-- use({
+	-- 	"tzachar/cmp-tabnine",
+	-- 	run = "./install.sh",
+	-- 	requires = "hrsh7th/nvim-cmp",
+	-- })
 
 	-- multi cursor
 	use("mg979/vim-visual-multi")
@@ -150,6 +157,9 @@ packer.startup(function(use)
 			require("hop").setup()
 		end,
 	})
+
+	-- fzf
+	use({ "junegunn/fzf", run = "./install --bin" })
 
 	-- codeium
 	use({ "Exafunction/codeium.vim" })
