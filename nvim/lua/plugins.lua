@@ -18,6 +18,10 @@ packer.startup(function(use)
 		"svrana/neosolarized.nvim",
 		requires = { "tjdevries/colorbuddy.nvim" },
 	})
+	-- use({ "catppuccin/nvim", as = "catppuccin" })
+
+	-- indent-blankline
+	-- use("lukas-reineke/indent-blankline.nvim")
 
 	-- Comment
 	use({

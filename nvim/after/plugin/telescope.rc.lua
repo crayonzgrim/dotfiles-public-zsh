@@ -14,6 +14,15 @@ end
 
 telescope.setup({
 	defaults = {
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+		},
 		file_ignore_patterns = { "node_modules" },
 		path_display = { "smart" },
 		mappings = {
@@ -57,7 +66,7 @@ telescope.load_extension("lazygit")
 telescope.load_extension("file_browser")
 telescope.load_extension("media_files")
 
-vim.keymap.set("n", ";w", function()
+vim.keymap.set("n", ";m", function()
 	telescope.extensions.media_files.media_files()
 end)
 
@@ -73,9 +82,6 @@ end)
 vim.keymap.set("n", "\\\\", function()
 	builtin.buffers()
 end)
--- vim.keymap.set("n", ";t", function()
--- 	builtin.help_tags()
--- end)
 vim.keymap.set("n", ";;", function()
 	builtin.resume()
 end)
@@ -85,8 +91,14 @@ end)
 vim.keymap.set("n", ";s", function()
 	builtin.git_status()
 end)
+vim.keymap.set("n", ";b", function()
+	builtin.git_branches()
+end)
 vim.keymap.set("n", ";c", function()
 	builtin.git_commits()
+end)
+vim.keymap.set("n", ";t", function()
+	builtin.git_stash()
 end)
 vim.keymap.set("n", "sf", function()
 	telescope.extensions.file_browser.file_browser({
@@ -95,7 +107,7 @@ vim.keymap.set("n", "sf", function()
 		respect_gitignore = false,
 		hidden = true,
 		grouped = true,
-		previewer = false,
+		previewer = true,
 		initial_mode = "normal",
 		layout_config = { height = 40 },
 	})

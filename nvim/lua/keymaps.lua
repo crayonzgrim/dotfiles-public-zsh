@@ -33,8 +33,8 @@ keymap.set("n", "dw", 'vb"_d')
 keymap.set("n", "te", ":tabedit<Return>Enter", { silent = true })
 
 -- Buffer move
-keymap.set("n", ";b", ":bprevious<CR>")
-keymap.set("n", ";n", ":bnext<CR>")
+keymap.set("n", ";[", ":bprevious<CR>")
+keymap.set("n", ";]", ":bnext<CR>")
 
 -- Split window
 keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true })
