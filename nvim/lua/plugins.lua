@@ -21,7 +21,7 @@ packer.startup(function(use)
 	-- use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- indent-blankline
-	-- use("lukas-reineke/indent-blankline.nvim")
+	use("lukas-reineke/indent-blankline.nvim")
 
 	-- Comment
 	use({
