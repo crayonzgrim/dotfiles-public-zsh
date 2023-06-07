@@ -170,10 +170,10 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
     url = "https://github.com/kdheepak/lazygit.nvim"
   },
-  ["live-server"] = {
+  ["live-server.nvim"] = {
     loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/live-server",
-    url = "https://github.com/manzeloth/live-server"
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/live-server.nvim",
+    url = "https://github.com/barrett-ruth/live-server.nvim"
   },
   ["lsp-colors.nvim"] = {
     loaded = true,

@@ -144,7 +144,7 @@ packer.startup(function(use)
 	use("mg979/vim-visual-multi")
 
 	-- live-server // :LiveServer start // :LiveServer stop
-	use("manzeloth/live-server")
+	use("barrett-ruth/live-server.nvim")
 
 	-- zen-mode
 	use("folke/zen-mode.nvim")
