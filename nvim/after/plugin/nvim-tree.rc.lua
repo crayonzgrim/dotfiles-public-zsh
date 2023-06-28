@@ -66,7 +66,8 @@ nvim_tree.setup({
 	diagnostics = {
 		enable = true,
 		icons = {
-			hint = "💡",
+			-- hint = "💡",
+			hint = " ",
 			info = "ℹ️",
 			warning = "⚠️",
 			error = "🐞",
