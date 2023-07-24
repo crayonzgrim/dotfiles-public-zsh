@@ -16,6 +16,9 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrw_plugin = 1
 
+-- change color for arrows in tree to light blue
+vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
+
 nvim_tree.setup({
 	hijack_directories = {
 		enable = true,

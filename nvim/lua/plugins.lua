@@ -14,10 +14,11 @@ packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- theme
-	use({
-		"svrana/neosolarized.nvim",
-		requires = { "tjdevries/colorbuddy.nvim" },
-	})
+	use({ "rose-pine/neovim", as = "rose-pine" })
+	-- use({
+	-- 	"svrana/neosolarized.nvim",
+	-- 	requires = { "tjdevries/colorbuddy.nvim" },
+	-- })
 	-- use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- indent-blankline
@@ -40,9 +41,8 @@ packer.startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			require("nvim-treesitter.install").update({
-				with_sync = true,
-			})
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+			ts_update()
 		end,
 	})
 
@@ -133,13 +133,6 @@ packer.startup(function(use)
 		tag = "*",
 	})
 
-	-- cmp-tabnine
-	-- use({
-	-- 	"tzachar/cmp-tabnine",
-	-- 	run = "./install.sh",
-	-- 	requires = "hrsh7th/nvim-cmp",
-	-- })
-
 	-- multi cursor
 	use("mg979/vim-visual-multi")
 
@@ -153,18 +146,17 @@ packer.startup(function(use)
 	use("szw/vim-maximizer") -- maximizes and restores current window
 
 	-- hop
-	use({
-		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup()
-		end,
-	})
+	use({ "phaazon/hop.nvim", branch = "v2" })
 
 	-- fzf
 	use({ "junegunn/fzf", run = "./install --bin" })
 
 	-- codeium
 	use({ "Exafunction/codeium.vim" })
+
+	-- color-picker
+	use({ "ziontee113/color-picker.nvim" })
+
+	-- harpoon
+	use({ "ThePrimeagen/harpoon" })
 end)

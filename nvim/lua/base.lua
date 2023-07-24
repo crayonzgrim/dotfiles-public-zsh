@@ -16,7 +16,7 @@ vim.opt.showcmd = false
 vim.opt.cmdheight = 1
 vim.opt.laststatus = 2
 vim.opt.expandtab = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 5
 vim.opt.shell = "zsh"
 vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 vim.opt.inccommand = "split"
@@ -29,6 +29,8 @@ vim.opt.wrap = false -- No Wrap lines
 vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 vim.opt.wildignore:append({ "*/node_modules/*" })
+
+vim.o.smoothscroll = true
 
 ------------------------------ Highlights
 vim.opt.cursorline = true

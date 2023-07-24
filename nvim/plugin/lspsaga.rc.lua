@@ -12,6 +12,9 @@ saga.setup({
 			normal_bg = "#002b36",
 		},
 	},
+	symbol_in_winbar = {
+		enable = false,
+	},
 })
 
 local diagnostic = require("lspsaga.diagnostic")

@@ -8,6 +8,7 @@ local queries = require("nvim-treesitter.query")
 tree.setup({
 	context_commentstring = {
 		enable = true,
+		enable_autocmd = false,
 		config = {
 			javascript = {
 				__default = "// %s",
@@ -32,18 +33,24 @@ tree.setup({
 		"markdown",
 		"markdown_inline",
 		"json",
-		"tsx",
 		"toml",
 		"fish",
 		"python",
 		"javascript",
 		"typescript",
+		"tsx",
 		"php",
 		"yaml",
 		"swift",
 		"css",
 		"html",
 		"lua",
+		"svelte",
+		"graphql",
+		"bash",
+		"vim",
+		"dockerfile",
+		"gitignore",
 	},
 	autotag = {
 		enable = true,

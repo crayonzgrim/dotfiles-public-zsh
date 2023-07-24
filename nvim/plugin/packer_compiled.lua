@@ -114,10 +114,10 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/codeium.vim",
     url = "https://github.com/Exafunction/codeium.vim"
   },
-  ["colorbuddy.nvim"] = {
+  ["color-picker.nvim"] = {
     loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/colorbuddy.nvim",
-    url = "https://github.com/tjdevries/colorbuddy.nvim"
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/color-picker.nvim",
+    url = "https://github.com/ziontee113/color-picker.nvim"
   },
   ["diffview.nvim"] = {
     loaded = true,
@@ -154,8 +154,12 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/goto-preview",
     url = "https://github.com/rmagatti/goto-preview"
   },
+  harpoon = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/harpoon",
+    url = "https://github.com/ThePrimeagen/harpoon"
+  },
   ["hop.nvim"] = {
-    config = { "\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bhop\frequire\0" },
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/hop.nvim",
     url = "https://github.com/phaazon/hop.nvim"
@@ -214,11 +218,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
-  },
-  ["neosolarized.nvim"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/neosolarized.nvim",
-    url = "https://github.com/svrana/neosolarized.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -285,6 +284,11 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
   },
+  ["rose-pine"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/rose-pine",
+    url = "https://github.com/rose-pine/neovim"
+  },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
@@ -348,10 +352,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: hop.nvim
-time([[Config for hop.nvim]], true)
-try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\bhop\frequire\0", "config", "hop.nvim")
-time([[Config for hop.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
