@@ -113,8 +113,12 @@ packer.startup(function(use)
 	use("sindrets/diffview.nvim")
 
 	-- local git history
-	-- use("m42e/lgh.nvim")
-	use("mbbill/undotree")
+	use({
+		"jiaoshijie/undotree",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
 
 	-- markdown
 	use({

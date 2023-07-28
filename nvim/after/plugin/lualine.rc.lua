@@ -21,17 +21,11 @@ lualine.setup({
 				path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
 			},
 		},
-		-- hint = ''
 		lualine_x = {
 			{
-				"diagnostics",
+				"diagnoseics",
 				sources = { "nvim_diagnostic" },
-				symbols = {
-					error = " ",
-					warn = " ",
-					info = " ",
-					hint = " ",
-				},
+				symbols = { error = " ", warn = " ", info = " ", hint = " " },
 			},
 			"encoding",
 			"filetype",

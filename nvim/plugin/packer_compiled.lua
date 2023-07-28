@@ -317,7 +317,7 @@ _G.packer_plugins = {
   undotree = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/undotree",
-    url = "https://github.com/mbbill/undotree"
+    url = "https://github.com/jiaoshijie/undotree"
   },
   ["vim-fugitive"] = {
     loaded = true,

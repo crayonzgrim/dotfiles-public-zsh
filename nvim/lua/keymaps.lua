@@ -25,6 +25,7 @@ end, { expr = true })
 
 -- Do not yank with 'x'
 keymap.set("n", "x", '"_x')
+keymap.set("v", "x", '"_x')
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
@@ -65,8 +66,5 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Cursor don't move when press 'J'
 keymap.set("n", "J", "mzJ`z")
 
--- modify text
+-- Modify all same text
 keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
-
--- Undotree
-keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
