@@ -192,7 +192,7 @@ _G.packer_plugins = {
   ["lspsaga.nvim"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
-    url = "https://github.com/glepnir/lspsaga.nvim"
+    url = "https://github.com/nvimdev/lspsaga.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -218,6 +218,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["nightfox.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/nightfox.nvim",
+    url = "https://github.com/EdenEast/nightfox.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -284,11 +289,6 @@ _G.packer_plugins = {
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
   },
-  ["rose-pine"] = {
-    loaded = true,
-    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/rose-pine",
-    url = "https://github.com/rose-pine/neovim"
-  },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/telescope-file-browser.nvim",
@@ -303,6 +303,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["template-string.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/template-string.nvim",
+    url = "https://github.com/axelvc/template-string.nvim"
+  },
+  ["todo-comments.nvim"] = {
+    loaded = true,
+    path = "/Users/crayonzgrim/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
+    url = "https://github.com/folke/todo-comments.nvim"
   },
   ["toggleterm.nvim"] = {
     loaded = true,

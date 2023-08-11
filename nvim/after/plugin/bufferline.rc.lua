@@ -6,17 +6,17 @@ end
 bufferline.setup({
 	options = {
 		mode = "tabs",
-		separator_style = "slant",
+		separator_style = "slop", -- slant -- slop
 		always_show_bufferline = true,
 		show_buffer_close_icons = false,
 		show_close_icon = true,
 		color_icons = true,
-		--
+
 		left_trunc_marker = "",
 		right_trunc_marker = "",
 		max_name_length = 30,
 		max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
-		tab_size = 21,
+		tab_size = 25,
 		diagnostics = "nvim_lsp", -- | false | "nvim_lsp" | "coc",
 		diagnostics_update_in_insert = true,
 	},
@@ -37,7 +37,7 @@ bufferline.setup({
 			bold = true,
 		},
 		fill = {
-			bg = "#073642",
+			-- bg = "#073642",
 		},
 	},
 })

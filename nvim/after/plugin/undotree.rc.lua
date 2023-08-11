@@ -22,3 +22,10 @@ undotree.setup({
 })
 
 vim.keymap.set("n", "<leader>u", require("undotree").toggle, { noremap = true, silent = true })
+--
+-- Enable undofile and specify undodir
+local config_dir = vim.fn.stdpath("config")
+
+vim.opt.undofile = true
+vim.opt.undodir = config_dir .. "/undodir"
+vim.opt.undolevels = 100

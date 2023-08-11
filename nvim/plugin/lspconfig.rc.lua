@@ -32,15 +32,11 @@ local on_attach = function(client, bufnr)
 
 		-- typescript specific keymaps (e.g. rename file and update imports)
 		if client.name == "tsserver" then
-			vim.keymap.set("n", "<leader>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
-			vim.keymap.set("n", "<leader>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
-			vim.keymap.set("n", "<leader>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
+			vim.keymap.set("n", "<space>rf", ":TypescriptRenameFile<CR>") -- rename file and update imports
+			vim.keymap.set("n", "<space>oi", ":TypescriptOrganizeImports<CR>") -- organize imports (not in youtube nvim video)
+			vim.keymap.set("n", "<space>ru", ":TypescriptRemoveUnused<CR>") -- remove unused variables (not in youtube nvim video)
 		end
 	end
-
-	--Enable completion triggered by <c-x><c-o>
-	--local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-	--buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
@@ -50,6 +46,23 @@ local on_attach = function(client, bufnr)
 	--buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	--buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
+	if client.server_capabilities.documentHighlightProvider then
+		vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
+		vim.api.nvim_create_autocmd("CursorHold", {
+			callback = vim.lsp.buf.document_highlight,
+			buffer = bufnr,
+			group = "lsp_document_highlight",
+			desc = "Document Highlight",
+		})
+		vim.api.nvim_create_autocmd("CursorMoved", {
+			callback = vim.lsp.buf.clear_references,
+			buffer = bufnr,
+			group = "lsp_document_highlight",
+			desc = "Clear All the References",
+		})
+	end
 end
 
 protocol.CompletionItemKind = {
@@ -82,6 +95,34 @@ protocol.CompletionItemKind = {
 
 -- Set up completion using nvim_cmp with LSP source
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local lsp_config = {
+	capabilities = capabilities,
+	on_attach = function(_, bufnr)
+		on_attach(_, bufnr)
+	end,
+}
+
+require("mason-lspconfig").setup_handlers({
+	function(server_name)
+		require("lspconfig")[server_name].setup(lsp_config)
+	end,
+	tsserver = function()
+		require("typescript").setup({
+			server = vim.tbl_extend("force", lsp_config, {
+				on_attach = function(_, bufnr)
+					on_attach(_, bufnr)
+				end,
+				init_options = {
+					preferences = {
+						importModuleSpecifierPreference = "project=relative",
+						jsxAttributeCompletionStylr = "none",
+					},
+				},
+			}),
+		})
+	end,
+})
 
 -- configure typescript server with plugin
 typescript.setup({

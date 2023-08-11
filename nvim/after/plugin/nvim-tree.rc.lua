@@ -54,6 +54,16 @@ nvim_tree.setup({
 			glyphs = {
 				default = "",
 				symlink = "",
+				folder = {
+					arrow_open = "",
+					arrow_closed = "",
+					default = "",
+					open = "",
+					empty = "",
+					empty_open = "",
+					symlink = "",
+					symlink_open = "",
+				},
 				git = {
 					unstaged = "",
 					staged = "S",
@@ -68,9 +78,9 @@ nvim_tree.setup({
 	},
 	diagnostics = {
 		enable = true,
+		show_on_dirs = true,
 		icons = {
-			-- hint = "💡",
-			hint = " ",
+			hint = "💡",
 			info = "ℹ️",
 			warning = "⚠️",
 			error = "🐞",
@@ -94,19 +104,23 @@ nvim_tree.setup({
 		},
 	},
 	view = {
-		side = "left",
-		width = 40,
 		hide_root_folder = true,
-		mappings = {
-			custom_only = false,
-			list = {
-				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-				{ key = "v", cb = tree_cb("vsplit") },
-				{ key = "s", cb = tree_cb("split") },
-			},
-		},
+		width = 40,
+		adaptive_size = true,
 		number = false,
 		relativenumber = false,
+		side = "left",
+		mappings = {
+			list = {
+				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
+				{ key = "h", cb = tree_cb("close_node") },
+				{ key = "v", cb = tree_cb("vsplit") },
+				{ key = "s", cb = tree_cb("split") },
+				{ key = "u", cb = tree_cb("dir_up") },
+				{ key = "e", cb = tree_cb("toggle") },
+				{ key = "i", cb = tree_cb("show_info_popup") },
+			},
+		},
 	},
 })
 

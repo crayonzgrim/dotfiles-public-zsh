@@ -4,7 +4,10 @@ local keymap = vim.keymap
 keymap.set("i", "jk", "<ESC>", { silent = true })
 
 -- Save all buffers
--- keymap.set("i", "<D-s>", ":wa", { silent = true })
+-- keymap.set("n", "<leader>w", "<cmd>wa<cr>")
+
+keymap.set("n", "j", [[v:count?'j':'gj']], { noremap = true, expr = true })
+keymap.set("n", "k", [[v:count?'k':'gk']], { noremap = true, expr = true })
 
 -- codeium
 keymap.set("i", "<C-g>", function()

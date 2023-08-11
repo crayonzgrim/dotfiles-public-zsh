@@ -12,6 +12,28 @@ local function telescope_buffer_dir()
 	return vim.fn.expand("%:p:h")
 end
 
+local action_state = require("telescope.actions.state")
+
+--- Insert filename into the current buffer and keeping the insert mode.
+actions.insert_name_i = function(prompt_bufnr)
+	local symbol = action_state.get_selected_entry().ordinal
+	actions.close(prompt_bufnr)
+	vim.schedule(function()
+		vim.cmd([[startinsert]])
+		vim.api.nvim_put({ symbol }, "", true, true)
+	end)
+end
+
+--- Insert file path and name into the current buffer and keeping the insert mode.
+actions.insert_name_and_path_i = function(prompt_bufnr)
+	local symbol = action_state.get_selected_entry().value
+	actions.close(prompt_bufnr)
+	vim.schedule(function()
+		vim.cmd([[startinsert]])
+		vim.api.nvim_put({ symbol }, "", true, true)
+	end)
+end
+
 telescope.setup({
 	defaults = {
 		vimgrep_arguments = {
@@ -29,6 +51,9 @@ telescope.setup({
 			n = {
 				["q"] = actions.close,
 			},
+			i = {
+				["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+			},
 		},
 	},
 	extensions = {
@@ -43,13 +68,16 @@ telescope.setup({
 			-- disables netrw and use telescope-file-browser in its place
 			hijack_netrw = true,
 			mappings = {
-				-- your custom insert mode mappings
 				["i"] = {
-					["<C-w>"] = function()
-						vim.cmd("normal vbd")
-					end,
+					["<C-j>"] = actions.cycle_history_next,
+					["<C-k>"] = actions.cycle_history_prev,
+
+					["<C-m>"] = fb_actions.move,
+					["<C-y>"] = actions.insert_name_i,
+					["<C-p>"] = actions.insert_name_and_path_i,
 				},
 				["n"] = {
+					["<C-w>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					-- your custom normal mode mappings
 					["N"] = fb_actions.create,
 					["h"] = fb_actions.goto_parent_dir,
@@ -79,7 +107,7 @@ end)
 vim.keymap.set("n", ";r", function()
 	builtin.live_grep()
 end)
-vim.keymap.set("n", "\\\\", function()
+vim.keymap.set("n", ";fb", function()
 	builtin.buffers()
 end)
 vim.keymap.set("n", ";;", function()
@@ -88,16 +116,16 @@ end)
 vim.keymap.set("n", ";e", function()
 	builtin.diagnostics()
 end)
-vim.keymap.set("n", ";s", function()
+vim.keymap.set("n", ";gs", function()
 	builtin.git_status()
 end)
-vim.keymap.set("n", ";b", function()
+vim.keymap.set("n", ";gb", function()
 	builtin.git_branches()
 end)
-vim.keymap.set("n", ";c", function()
+vim.keymap.set("n", ";gc", function()
 	builtin.git_commits()
 end)
-vim.keymap.set("n", ";t", function()
+vim.keymap.set("n", ";gs", function()
 	builtin.git_stash()
 end)
 vim.keymap.set("n", "sf", function()
@@ -111,4 +139,7 @@ vim.keymap.set("n", "sf", function()
 		initial_mode = "normal",
 		layout_config = { height = 40 },
 	})
+end)
+vim.keymap.set("n", "fw", function()
+	builtin.grep_string()
 end)

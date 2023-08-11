@@ -13,7 +13,7 @@ saga.setup({
 		},
 	},
 	symbol_in_winbar = {
-		enable = false,
+		enable = true,
 	},
 	lightbulb = {
 		enable = false,
@@ -35,7 +35,7 @@ vim.keymap.set("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>", opts)
 vim.keymap.set("i", "<leader>h", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<cr>", opts)
 vim.keymap.set("n", "<K>", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
-vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
+-- vim.keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts)
 vim.keymap.set("n", "<leader>r", "<cmd>Lspsaga rename<CR>", opts)
 
 -- code action

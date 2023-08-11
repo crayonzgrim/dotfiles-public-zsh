@@ -14,12 +14,12 @@ packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- theme
-	use({ "rose-pine/neovim", as = "rose-pine" })
+	use({ "EdenEast/nightfox.nvim" })
+	-- use({ "rose-pine/neovim", as = "rose-pine" })
 	-- use({
 	-- 	"svrana/neosolarized.nvim",
 	-- 	requires = { "tjdevries/colorbuddy.nvim" },
 	-- })
-	-- use({ "catppuccin/nvim", as = "catppuccin" })
 
 	-- indent-blankline
 	use("lukas-reineke/indent-blankline.nvim")
@@ -78,10 +78,7 @@ packer.startup(function(use)
 
 	use("neovim/nvim-lspconfig") -- configuring lsp servers
 	use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim's built-in LSP
-	use({
-		"glepnir/lspsaga.nvim",
-		branch = "main",
-	}) -- LSP UIs
+	use({ "nvimdev/lspsaga.nvim" }) -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
 	use("folke/lsp-colors.nvim")
@@ -163,4 +160,9 @@ packer.startup(function(use)
 
 	-- harpoon
 	use({ "ThePrimeagen/harpoon" })
+
+	-- todo
+	use({ "folke/todo-comments.nvim" })
+
+	use({ "axelvc/template-string.nvim" })
 end)

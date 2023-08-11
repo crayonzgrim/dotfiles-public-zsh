@@ -9,25 +9,22 @@ tree.setup({
 	context_commentstring = {
 		enable = true,
 		enable_autocmd = false,
+		config = {
+			javascript = {
+				__default = "// %s",
+				jsx_element = "{/* %s */}",
+				jsx_fragment = "{/* %s */}",
+				jsx_attribute = "// %s",
+				comment = "// %s",
+			},
+			typescript = { __default = "// %s", __multiline = "/* %s */" },
+			css = "// %s",
+		},
 	},
-	-- context_commentstring = {
-	-- 	enable = true,
-	-- 	enable_autocmd = false,
-	-- 	config = {
-	-- 		javascript = {
-	-- 			__default = "// %s",
-	-- 			jsx_element = "{/* %s */}",
-	-- 			jsx_fragment = "{/* %s */}",
-	-- 			jsx_attribute = "// %s",
-	-- 			comment = "// %s",
-	-- 		},
-	-- 		typescript = { __default = "// %s", __multiline = "/* %s */" },
-	-- 		css = "// %s",
-	-- 	},
-	-- },
 	highlight = {
 		enable = true,
 		disable = {},
+		additional_vim_regex_highlighting = false,
 	},
 	indent = {
 		enable = true,
@@ -55,18 +52,22 @@ tree.setup({
 		"vim",
 		"dockerfile",
 		"gitignore",
+		"regex",
+		"graphql",
 	},
+	sync_install = false,
+	auto_install = true,
 	autotag = {
 		enable = true,
 	},
 	rainbow = {
 		enable = true,
+		extended_mode = true,
 		max_file_lines = nil, -- Do not enable for files with more than n lines, int
 		-- module_path = "rainbow.internal",
 		is_supported = function(lang)
 			return queries.get_query(lang, "parens") ~= nil
 		end,
-		extended_mode = true,
 		colors = {
 			"#cc241d",
 			"#a89984",
