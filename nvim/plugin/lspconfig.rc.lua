@@ -38,6 +38,23 @@ local on_attach = function(client, bufnr)
 		end
 	end
 
+	vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
+
+	-- vim.api.nvim_create_autocmd("InsertEnter", {
+	--     buffer = bufnr,
+	--     callback = function()
+	--       vim.lsp.buf.inlay_hint(bufnr, true)
+	--     end,
+	--     group = "lsp_augroup",
+	-- })
+	-- vim.api.nvim_create_autocmd("InsertLeave", {
+	--     buffer = bufnr,
+	--     callback = function()
+	--       vim.lsp.buf.inlay_hint(0, false)
+	--     end,
+	--     group = "lsp_augroup",
+	-- })
+
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
 
@@ -129,6 +146,31 @@ typescript.setup({
 	server = {
 		capabilities = capabilities,
 		on_attach = on_attach,
+		settings = {
+			-- specify some or all of the following settings if you want to adjust the default behavior
+			javascript = {
+				inlayHints = {
+					includeInlayEnumMemberValueHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayVariableTypeHints = true,
+				},
+			},
+			typescript = {
+				inlayHints = {
+					includeInlayEnumMemberValueHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayVariableTypeHints = true,
+				},
+			},
+		},
 	},
 })
 
@@ -183,6 +225,15 @@ nvim_lsp.lua_ls.setup({
 				library = vim.api.nvim_get_runtime_file("", true),
 				checkThirdParty = false,
 			},
+			hint = {
+				enable = true,
+				arrayIndex = "Enable",
+				setType = true,
+			},
+		},
+		workspace = {
+			library = vim.api.nvim_get_runtime_file("", true),
+			checkThirdParty = false,
 		},
 	},
 })
@@ -205,7 +256,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 -- Diagnostic symbols in the sign column (gutter)
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })

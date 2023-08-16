@@ -32,5 +32,5 @@ keymap("n", "<leader>4", function()
 	ui.nav_file(4)
 end)
 
-keymap("n", "<leader>[", ui.nav_next)
-keymap("n", "<leader>]", ui.nav_prev)
+-- keymap("n", "{", ui.nav_next)
+-- keymap("n", "}", ui.nav_prev)

@@ -11,8 +11,6 @@ end
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 -- recommended settings from nvim-tree documentation
--- vim.g.loaded = 1
--- vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrw_plugin = 1
 
@@ -76,24 +74,30 @@ nvim_tree.setup({
 			},
 		},
 	},
+	update_focused_file = {
+		enable = true,
+		update_cwd = true,
+	},
+	git = {
+		enable = false,
+		timeout = 500,
+	},
+	log = {
+		enable = true,
+		types = {
+			diagnostics = true,
+		},
+	},
 	diagnostics = {
 		enable = true,
-		show_on_dirs = true,
+		show_on_dirs = false,
+		debounce_delay = 50,
 		icons = {
 			hint = "💡",
 			info = "ℹ️",
 			warning = "⚠️",
 			error = "🐞",
 		},
-	},
-	update_focused_file = {
-		enable = true,
-		update_cwd = false,
-	},
-	git = {
-		enable = false,
-		-- ignore = false,
-		timeout = 500,
 	},
 	actions = {
 		open_file = {

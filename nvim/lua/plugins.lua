@@ -59,6 +59,8 @@ packer.startup(function(use)
 	use("hrsh7th/nvim-cmp") -- Completion
 	use("hrsh7th/cmp-buffer") -- nvim-cmp source for buffer words
 	use("hrsh7th/cmp-path") -- source for file system paths
+	use("hrsh7th/cmp-cmdline")
+	use("hrsh7th/cmp-vsnip")
 	use("hrsh7th/vim-vsnip")
 	use("hrsh7th/vim-vsnip-integ")
 
@@ -66,8 +68,6 @@ packer.startup(function(use)
 	use("rafamadriz/friendly-snippets")
 	use("saadparwaiz1/cmp_luasnip")
 	use("L3MON4D3/LuaSnip")
-	-- use("SirVer/ultisnips")
-	-- use("mlaursen/vim-react-snippets")
 
 	-- emmet
 	use("mattn/emmet-vim")
@@ -78,7 +78,7 @@ packer.startup(function(use)
 
 	use("neovim/nvim-lspconfig") -- configuring lsp servers
 	use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim's built-in LSP
-	use({ "nvimdev/lspsaga.nvim" }) -- LSP UIs
+	use("nvimdev/lspsaga.nvim") -- LSP UIs
 	use("onsails/lspkind-nvim") -- vscode-like pictograms
 	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
 	use("folke/lsp-colors.nvim")
@@ -156,7 +156,12 @@ packer.startup(function(use)
 	use({ "Exafunction/codeium.vim" })
 
 	-- color-picker
-	use({ "ziontee113/color-picker.nvim" })
+	use({
+		"ziontee113/color-picker.nvim",
+		config = function()
+			require("color-picker")
+		end,
+	})
 
 	-- harpoon
 	use({ "ThePrimeagen/harpoon" })
@@ -164,5 +169,16 @@ packer.startup(function(use)
 	-- todo
 	use({ "folke/todo-comments.nvim" })
 
+	-- template-string
 	use({ "axelvc/template-string.nvim" })
+
+	-- inlay-hint
+	use({ "lvimuser/lsp-inlayhints.nvim" })
+
+	-- remember and open last file
+	use({ "tpope/vim-obsession" })
+	use({ "dhruvasagar/vim-prosession" })
+
+	-- hydra
+	use({ "anuvyklack/hydra.nvim" })
 end)

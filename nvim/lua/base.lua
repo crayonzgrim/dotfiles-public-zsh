@@ -8,6 +8,12 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 vim.opt.updatetime = 100
+vim.opt.timeoutlen = 500
+
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldlevel = 99
+
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -22,6 +28,7 @@ vim.opt.shell = "zsh"
 vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
+vim.opt.smartcase = true
 vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.shiftwidth = 2
@@ -31,7 +38,12 @@ vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 vim.opt.wildignore:append({ "*/node_modules/*" })
 
-vim.o.smoothscroll = true
+vim.opt.swapfile = false
+vim.opt.autoread = true
+vim.bo.autoread = true
+
+vim.opt.signcolumn = "yes"
+vim.opt.list = true
 
 ------------------------------ Highlights
 vim.opt.cursorline = true
