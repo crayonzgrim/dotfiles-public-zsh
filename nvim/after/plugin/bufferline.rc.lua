@@ -9,8 +9,8 @@ bufferline.setup({
 		separator_style = "slop", -- slant -- slop
 		always_show_bufferline = true,
 		show_buffer_close_icons = false,
-		show_close_icon = true,
-		color_icons = true,
+		show_close_icon = false,
+		color_icons = false,
 
 		left_trunc_marker = "",
 		right_trunc_marker = "",

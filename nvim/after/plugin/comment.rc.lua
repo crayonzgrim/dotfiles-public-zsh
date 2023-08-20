@@ -4,6 +4,22 @@ if not status then
 end
 
 comment.setup({
+	padding = true,
+	sticky = true,
+	ignore = "^$",
+	toggler = {
+		line = "gcc",
+		block = "gbc",
+	},
+	opleader = {
+		line = "gc",
+		block = "gb",
+	},
+	mappings = {
+		basic = true,
+		extra = false,
+		extended = false,
+	},
 	pre_hook = function(ctx)
 		-- Only calculate commentstring for tsx filetypes
 		if vim.bo.filetype == "typescriptreact" then
@@ -24,4 +40,5 @@ comment.setup({
 			})
 		end
 	end,
+	post_hook = nil,
 })

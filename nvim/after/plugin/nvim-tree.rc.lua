@@ -18,12 +18,13 @@ vim.g.loaded_netrw_plugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 nvim_tree.setup({
+	hijack_unnamed_buffer_when_opening = true,
 	hijack_directories = {
-		enable = true,
-		auto_open = true,
+		enable = false,
+		auto_open = false,
 	},
-	hijack_netrw = true,
-	hijack_cursor = true,
+	hijack_netrw = false,
+	hijack_cursor = false,
 	renderer = {
 		add_trailing = false,
 		group_empty = false,
@@ -31,7 +32,7 @@ nvim_tree.setup({
 		highlight_opened_files = "1",
 		root_folder_modifier = ":t",
 		indent_markers = {
-			enable = true,
+			enable = false,
 			icons = {
 				corner = "└ ",
 				edge = "│ ",
@@ -97,14 +98,6 @@ nvim_tree.setup({
 			info = "ℹ️",
 			warning = "⚠️",
 			error = "🐞",
-		},
-	},
-	actions = {
-		open_file = {
-			resize_window = true,
-			window_picker = {
-				enable = false,
-			},
 		},
 	},
 	view = {

@@ -172,9 +172,6 @@ packer.startup(function(use)
 	-- template-string
 	use({ "axelvc/template-string.nvim" })
 
-	-- inlay-hint
-	use({ "lvimuser/lsp-inlayhints.nvim" })
-
 	-- remember and open last file
 	use({ "tpope/vim-obsession" })
 	use({ "dhruvasagar/vim-prosession" })

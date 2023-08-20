@@ -50,3 +50,4 @@ fox.setup({
 
 -- setup must be called before loading
 vim.cmd("colorscheme nightfox")
+vim.cmd("highlight VertSplit guifg=#304d69")
