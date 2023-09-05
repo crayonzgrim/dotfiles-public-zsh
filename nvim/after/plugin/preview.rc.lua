@@ -26,5 +26,5 @@ preview.setup({
 })
 
 vim.api.nvim_set_keymap("n", "gp", "<Cmd>lua require('goto-preview').goto_preview_definition()<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "q", "<Cmd>q<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "gq", "<Cmd>q<CR>", { noremap = true })
 -- vim.api.nvim_set_keymap("n", "q", "<Cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })

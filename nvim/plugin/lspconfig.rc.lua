@@ -24,6 +24,33 @@ local enable_format_on_save = function(_, bufnr)
 	})
 end
 
+------------ inlayhints --------------------
+-- vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	group = "LspAttach_inlayhints",
+-- 	callback = function(args)
+-- 		if not (args.data and args.data.client_id) then
+-- 			return
+-- 		end
+
+-- 		local bufnr = args.buf
+-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
+-- 		require("lsp-inlayhints").on_attach(client, bufnr)
+-- 	end,
+-- })
+
+-- vim.api.nvim_create_autocmd("LspAttach", {
+-- 	group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
+-- 	callback = function(args)
+-- 		if not (args.data and args.data.client_id) then
+-- 			return
+-- 		end
+-- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
+-- 		require("lsp-inlayhints").on_attach(client, args.buf)
+-- 	end,
+-- })
+-------------------------------------------
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -38,23 +65,6 @@ local on_attach = function(client, bufnr)
 		end
 	end
 
-	vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
-
-	-- vim.api.nvim_create_autocmd("InsertEnter", {
-	--     buffer = bufnr,
-	--     callback = function()
-	--       vim.lsp.buf.inlay_hint(bufnr, true)
-	--     end,
-	--     group = "lsp_augroup",
-	-- })
-	-- vim.api.nvim_create_autocmd("InsertLeave", {
-	--     buffer = bufnr,
-	--     callback = function()
-	--       vim.lsp.buf.inlay_hint(0, false)
-	--     end,
-	--     group = "lsp_augroup",
-	-- })
-
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
 
@@ -64,6 +74,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	--buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
+	-- Highlight same words when cursor hovered
 	if client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
 		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
@@ -150,24 +161,26 @@ typescript.setup({
 			-- specify some or all of the following settings if you want to adjust the default behavior
 			javascript = {
 				inlayHints = {
-					includeInlayEnumMemberValueHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
 					includeInlayFunctionParameterTypeHints = true,
-					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = false,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayVariableTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
 				},
 			},
 			typescript = {
 				inlayHints = {
-					includeInlayEnumMemberValueHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
 					includeInlayFunctionParameterTypeHints = true,
-					includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-					includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+					includeInlayVariableTypeHints = false,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayVariableTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
 				},
 			},
 		},
@@ -231,10 +244,6 @@ nvim_lsp.lua_ls.setup({
 				setType = true,
 			},
 		},
-		workspace = {
-			library = vim.api.nvim_get_runtime_file("", true),
-			checkThirdParty = false,
-		},
 	},
 })
 
@@ -251,7 +260,7 @@ nvim_lsp.astro.setup({
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
 	update_in_insert = false,
-	virtual_text = { spacing = 4, prefix = "●" },
+	virtual_text = { spacing = 4, prefix = "\u{ea71}" },
 	severity_sort = true,
 })
 

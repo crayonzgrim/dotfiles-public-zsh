@@ -1,10 +1,18 @@
 local keymap = vim.keymap
 
+vim.g.mapleader = " "
+
+-- q
+keymap.set("n", "\\q", "<cmd>q<cr>", { silent = true })
+
 -- ESC replace
 keymap.set("i", "jk", "<ESC>", { silent = true })
 
 -- Save all buffers
--- keymap.set("n", "<leader>w", "<cmd>wa<cr>")
+keymap.set("n", "<leader>w", ":wa<CR>", { noremap = true })
+
+-- Copy current buffer name and path
+keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
 
 keymap.set("n", "j", [[v:count?'j':'gj']], { noremap = true, expr = true })
 keymap.set("n", "k", [[v:count?'k':'gk']], { noremap = true, expr = true })
@@ -27,14 +35,17 @@ keymap.set("i", "<C-q>", function()
 end, { expr = true })
 
 -- Do not yank with 'x'
-keymap.set("n", "x", '"_x')
-keymap.set("v", "x", '"_x')
+keymap.set({ "n", "v" }, "x", '"_x')
+-- keymap.set("n", "x", '"_x')
+-- keymap.set("v", "x", '"_x')
 
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
 
 -- New tab with Enter
 keymap.set("n", "te", ":tabedit<Return>Enter", { silent = true })
+-- Open new editor in this buffer
+-- keymap.set("n", "ne", "<cmd>enew<cr>", { silent = true })
 
 -- Buffer move
 keymap.set("n", ";[", ":bprevious<CR>")
@@ -47,11 +58,11 @@ keymap.set("n", "se", "<C-w>=")
 keymap.set("n", "<leader>x", ":close<CR>")
 
 -- Move window
-keymap.set("n", "<Space>", "<C-w>w")
-keymap.set("", "sh", "<C-w>h")
-keymap.set("", "sk", "<C-w>k")
-keymap.set("", "sj", "<C-w>j")
-keymap.set("", "sl", "<C-w>l")
+-- keymap.set("n", "<Space>", "<C-w>w")
+keymap.set("", "<C-h>", "<C-w>h")
+keymap.set("", "<C-k>", "<C-w>k")
+keymap.set("", "<C-j>", "<C-w>j")
+keymap.set("", "<C-l>", "<C-w>l")
 
 -- Resize window
 keymap.set("n", "<C-w><left>", "<C-w><")
@@ -69,5 +80,7 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Cursor don't move when press 'J'
 keymap.set("n", "J", "mzJ`z")
 
+-- Modify all same text
+keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
 -- Modify all same text
 keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")

@@ -4,9 +4,6 @@ vim.scriptencoding = "utf-8"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 
--- vim.opt.spell = true
--- vim.opt.spelllang = { "en_us" }
-
 vim.wo.number = true
 vim.wo.relativenumber = true
 
@@ -48,6 +45,12 @@ vim.bo.autoread = true
 vim.opt.signcolumn = "yes"
 vim.opt.list = true
 
+vim.opt.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match in cmdline area
+vim.opt.cursorlineopt = "both"
+vim.opt.lazyredraw = true
+
+vim.o.wrapscan = false -- 찾기에서 파일의 맨 끝에 이르면 계속하여 찾지 않음
+
 ------------------------------ Highlights
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
@@ -77,5 +80,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })
+
+vim.opt.clipboard:append({ "unnamedplus" })
 
 vim.opt.clipboard:append({ "unnamedplus" })

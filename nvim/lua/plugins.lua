@@ -1,181 +1,216 @@
-local status, packer = pcall(require, "packer")
-if not status then
-	print("Packer is not installed")
-	return
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[packadd packer.nvim]])
-
-packer.startup(function(use)
+local plugins = {
 	-- packer
-	use("wbthomason/packer.nvim")
+	"wbthomason/packer.nvim",
 
 	-- Common utilities. lua functions that many plugins use
-	use("nvim-lua/plenary.nvim")
+	"nvim-lua/plenary.nvim",
 
 	-- theme
-	use({ "EdenEast/nightfox.nvim" })
-	-- use({ "rose-pine/neovim", as = "rose-pine" })
-	-- use({
-	-- 	"svrana/neosolarized.nvim",
-	-- 	requires = { "tjdevries/colorbuddy.nvim" },
-	-- })
+	"neanias/everforest-nvim",
+	-- {
+	-- "svrana/neosolarized.nvim",
+	-- requires = { "tjdevries/colorbuddy.nvim" },
+	--   }
 
 	-- indent-blankline
-	use("lukas-reineke/indent-blankline.nvim")
+	"lukas-reineke/indent-blankline.nvim",
 
 	-- Comment
-	use({
+	{
 		"numToStr/Comment.nvim",
 		requires = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
-	})
+	},
 
 	-- explorer files
-	use({
+	{
 		"nvim-tree/nvim-tree.lua",
 		tag = "nightly", -- optional, updated every week. (see issue #1193)
-	})
+	},
 
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
-	})
+		event = { "BufReadPre", "BufNewFile" },
+		build = ":TSUpdate",
+		dependencies = {
+			"windwp/nvim-ts-autotag",
+		},
+	},
 
-	use("kyazdani42/nvim-web-devicons") -- icons
+	-- icons
+	"kyazdani42/nvim-web-devicons",
 
-	use("nvim-lualine/lualine.nvim") -- statusline
+	-- statusline
+	"nvim-lualine/lualine.nvim",
 
 	-- telescope file find
-	use("nvim-telescope/telescope.nvim")
-	use("nvim-telescope/telescope-file-browser.nvim")
-	use("nvim-telescope/telescope-media-files.nvim")
+	"nvim-telescope/telescope.nvim",
+	"nvim-telescope/telescope-file-browser.nvim",
+	"nvim-telescope/telescope-media-files.nvim",
 
 	-- auto completion
-	use("hrsh7th/nvim-cmp") -- Completion
-	use("hrsh7th/cmp-buffer") -- nvim-cmp source for buffer words
-	use("hrsh7th/cmp-path") -- source for file system paths
-	use("hrsh7th/cmp-cmdline")
-	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/vim-vsnip")
-	use("hrsh7th/vim-vsnip-integ")
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/cmp-vsnip",
+	"hrsh7th/vim-vsnip", -- auto completion
+	"hrsh7th/vim-vsnip-integ",
 
 	-- snippets
-	use("rafamadriz/friendly-snippets")
-	use("saadparwaiz1/cmp_luasnip")
-	use("L3MON4D3/LuaSnip")
+	"rafamadriz/friendly-snippets",
+	"saadparwaiz1/cmp_luasnip",
+	"L3MON4D3/LuaSnip",
 
 	-- emmet
-	use("mattn/emmet-vim")
+	"mattn/emmet-vim",
+
+	-- lsp-zero
+	{
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v2.x",
+		lazy = true,
+		config = function()
+			-- This is where you modify the settings for lsp-zero
+			-- Note: autocompletion settings will not take effect
+
+			require("lsp-zero.settings").preset({
+				-- LSP Support
+				{ "neovim/nvim-lspconfig" }, -- Required (configuring lsp servers)
+				{ "williamboman/mason.nvim" },
+				{ "williamboman/mason-lspconfig.nvim" },
+
+				-- Autocompletion
+				{ "hrsh7th/nvim-cmp" }, -- Required
+				{ "hrsh7th/cmp-nvim-lsp" }, -- Required (nvim-cmp source for neovim's built-in LSP)
+				{ "hrsh7th/cmp-buffer" }, -- nvim-cmp source for buffer words
+				{ "hrsh7th/cmp-path" }, -- source for file system paths
+				{ "hrsh7th/cmp-cmdline" },
+				{ "saadparwaiz1/cmp_luasnip" },
+				{ "hrsh7th/cmp-nvim-lua" },
+
+				-- Snippets
+				{ "L3MON4D3/LuaSnip" }, -- Required
+				{ "rafamadriz/friendly-snippets" },
+				{ "hrsh7th/vim-vsnip-integ" },
+			})
+		end,
+	},
 
 	-- managing & installing lsp servers
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
 
-	use("neovim/nvim-lspconfig") -- configuring lsp servers
-	use("hrsh7th/cmp-nvim-lsp") -- nvim-cmp source for neovim's built-in LSP
-	use("nvimdev/lspsaga.nvim") -- LSP UIs
-	use("onsails/lspkind-nvim") -- vscode-like pictograms
-	use("jose-elias-alvarez/typescript.nvim") -- renaming, updating .. and so on
-	use("folke/lsp-colors.nvim")
+	"neovim/nvim-lspconfig", -- configuring lsp servers
+	"hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim's built-in LSP
+	"nvimdev/lspsaga.nvim", -- LSP UIs
+	"onsails/lspkind-nvim", -- vscode-like pictograms
+
+	"jose-elias-alvarez/typescript.nvim", -- renaming, updating .. and so on
+	"folke/lsp-colors.nvim",
 
 	-- formatting & linting //  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-	use("jose-elias-alvarez/null-ls.nvim")
-	use("jayp0521/mason-null-ls.nvim")
-	use("MunifTanjim/prettier.nvim")
+	"jose-elias-alvarez/null-ls.nvim",
+	"jayp0521/mason-null-ls.nvim",
+	"MunifTanjim/prettier.nvim",
 
 	-- bracket auto-pairs & auto-tag
-	use("windwp/nvim-autopairs")
-	use("windwp/nvim-ts-autotag")
+	"windwp/nvim-autopairs",
+	"windwp/nvim-ts-autotag",
 
 	-- buffer line
-	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
+	{ "akinsho/bufferline.nvim", version = "*" },
 
-	-- show hex color
-	use("norcalli/nvim-colorizer.lua")
+	-- showex color
+	"norcalli/nvim-colorizer.lua",
 
 	-- git
-	use("lewis6991/gitsigns.nvim")
-	use("dinhhuy258/git.nvim") -- For git blame & browse
-	use("tpope/vim-fugitive")
+	"lewis6991/gitsigns.nvim",
+	"dinhhuy258/git.nvim", -- For git blame & browse
+	"tpope/vim-fugitive",
+	"kdheepak/lazygit.nvim",
+	"sindrets/diffview.nvim",
 
-	-- lazygit
-	use("kdheepak/lazygit.nvim")
-
-	-- diffview
-	use("sindrets/diffview.nvim")
-
-	-- local git history
-	use({
-		"jiaoshijie/undotree",
-		requires = {
-			"nvim-lua/plenary.nvim",
+	-- undo
+	{
+		{
+			"jiaoshijie/undotree",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
 		},
-	})
+	},
 
 	-- markdown
-	use({
-		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	})
-
+	{
+		{
+			"iamcco/markdown-preview.nvim",
+			run = function()
+				vim.fn["mkdp#util#install"]()
+			end,
+		},
+	},
 	-- preview
-	use({ "rmagatti/goto-preview" })
+	"rmagatti/goto-preview",
 
 	-- toggle terminal
-	use({
-		"akinsho/toggleterm.nvim",
-		tag = "*",
-	})
+	{
+		{
+			"akinsho/toggleterm.nvim",
+			version = "*",
+		},
+	},
 
 	-- multi cursor
-	use("mg979/vim-visual-multi")
+	"mg979/vim-visual-multi",
 
 	-- live-server // :LiveServer start // :LiveServer stop
-	use("barrett-ruth/live-server.nvim")
-
-	-- zen-mode
-	use("folke/zen-mode.nvim")
+	"barrett-ruth/live-server.nvim",
 
 	-- maximizer
-	use("szw/vim-maximizer") -- maximizes and restores current window
+	"szw/vim-maximizer",
+	"christoomey/vim-tmux-navigator",
 
 	-- hop
-	use({ "phaazon/hop.nvim", branch = "v2" })
-
-	-- fzf
-	use({ "junegunn/fzf", run = "./install --bin" })
+	{
+		{ "phaazon/hop.nvim", branch = "v2" },
+	},
 
 	-- codeium
-	use({ "Exafunction/codeium.vim" })
+	"Exafunction/codeium.vim",
 
 	-- color-picker
-	use({
-		"ziontee113/color-picker.nvim",
-		config = function()
-			require("color-picker")
-		end,
-	})
+	"ziontee113/color-picker.nvim",
 
-	-- harpoon
-	use({ "ThePrimeagen/harpoon" })
+	"ThePrimeagen/harpoon",
 
-	-- todo
-	use({ "folke/todo-comments.nvim" })
-
-	-- template-string
-	use({ "axelvc/template-string.nvim" })
+	"folke/todo-comments.nvim",
+	"axelvc/template-string.nvim",
 
 	-- remember and open last file
-	use({ "tpope/vim-obsession" })
-	use({ "dhruvasagar/vim-prosession" })
+	"tpope/vim-obsession",
+	{
+		"dhruvasagar/vim-prosession",
+		dependencies = { { "tpope/vim-obsession" } },
+	},
 
-	-- hydra
-	use({ "anuvyklack/hydra.nvim" })
-end)
+	"anuvyklack/hydra.nvim",
+}
+
+local opts = {}
+
+require("lazy").setup(plugins, opts)
