@@ -3,7 +3,7 @@ local keymap = vim.keymap
 vim.g.mapleader = " "
 
 -- q
-keymap.set("n", "\\q", "<cmd>q<cr>", { silent = true })
+keymap.set("n", "\\q", "<cmd>q<CR>", { silent = true, noremap = true })
 
 -- ESC replace
 keymap.set("i", "jk", "<ESC>", { silent = true })

@@ -6,7 +6,7 @@ end
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "auto", -- solarized_dark -- nightfox
+		theme = "solarized_dark", -- solarized_dark -- nightfox -- everforest
 		section_separators = { left = "", right = "" },
 		component_separators = { left = "", right = "" },
 		disabled_filetypes = {},

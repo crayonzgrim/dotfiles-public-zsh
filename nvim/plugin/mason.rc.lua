@@ -30,8 +30,11 @@ mason_lspconfig.setup({
 		"html",
 		"cssls",
 		"tailwindcss",
+		"svelte",
 		"lua_ls",
+		"graphql",
 		"emmet_ls",
+		"prismals",
 	},
 	automatic_installation = true,
 })

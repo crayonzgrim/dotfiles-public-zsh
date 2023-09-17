@@ -27,6 +27,9 @@ local function formatForTailwindCSS(entry, vim_item)
 end
 
 cmp.setup({
+	complete = {
+		completeopt = "menu,menuone,preview,noselect",
+	},
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
@@ -43,8 +46,8 @@ cmp.setup({
 		}),
 	}),
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" }, -- snippets
-		{ name = "luasnip" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" }, -- snippets
 		{ name = "buffer" }, -- text within current buffer
 		{ name = "path" }, -- file system paths
 	}),
@@ -58,7 +61,6 @@ cmp.setup({
 		}),
 	},
 })
-
 vim.cmd([[
   set completeopt=menuone,noinsert,noselect
   highlight! default link CmpItemKind CmpItemMenuDefault

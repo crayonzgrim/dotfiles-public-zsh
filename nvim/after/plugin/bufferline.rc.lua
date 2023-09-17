@@ -37,7 +37,7 @@ bufferline.setup({
 			bold = true,
 		},
 		fill = {
-			-- bg = "#073642",
+			bg = "#073642",
 		},
 	},
 })

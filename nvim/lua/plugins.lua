@@ -19,11 +19,14 @@ local plugins = {
 	"nvim-lua/plenary.nvim",
 
 	-- theme
-	"neanias/everforest-nvim",
 	-- {
-	-- "svrana/neosolarized.nvim",
-	-- requires = { "tjdevries/colorbuddy.nvim" },
-	--   }
+	-- 	"neanias/everforest-nvim",
+	-- 	requires = { "tjdevries/colorbuddy.nvim" },
+	-- },
+	{
+		"svrana/neosolarized.nvim",
+		dependencies = { "tjdevries/colorbuddy.nvim" },
+	},
 
 	-- indent-blankline
 	"lukas-reineke/indent-blankline.nvim",
@@ -31,7 +34,8 @@ local plugins = {
 	-- Comment
 	{
 		"numToStr/Comment.nvim",
-		requires = {
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 	},
@@ -58,18 +62,22 @@ local plugins = {
 	"nvim-lualine/lualine.nvim",
 
 	-- telescope file find
-	"nvim-telescope/telescope.nvim",
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			"kyazdani42/nvim-web-devicons",
+		},
+	},
 	"nvim-telescope/telescope-file-browser.nvim",
 	"nvim-telescope/telescope-media-files.nvim",
 
 	-- auto completion
 	"hrsh7th/nvim-cmp",
-	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
 	"hrsh7th/cmp-cmdline",
-	"hrsh7th/cmp-vsnip",
-	"hrsh7th/vim-vsnip", -- auto completion
-	"hrsh7th/vim-vsnip-integ",
 
 	-- snippets
 	"rafamadriz/friendly-snippets",
@@ -85,14 +93,22 @@ local plugins = {
 		branch = "v2.x",
 		lazy = true,
 		config = function()
-			-- This is where you modify the settings for lsp-zero
-			-- Note: autocompletion settings will not take effect
-
 			require("lsp-zero.settings").preset({
 				-- LSP Support
-				{ "neovim/nvim-lspconfig" }, -- Required (configuring lsp servers)
-				{ "williamboman/mason.nvim" },
-				{ "williamboman/mason-lspconfig.nvim" },
+				{
+					"neovim/nvim-lspconfig",
+					event = { "BufReadPre", "BufNewFile" },
+					dependencies = {
+						"hrsh7th/cmp-nvim-lsp",
+						{ "antosha417/nvim-lsp-file-operations", config = true },
+					},
+				}, -- Required (configuring lsp servers)
+				{
+					"williamboman/mason.nvim",
+					dependencies = {
+						"williamboman/mason-lspconfig.nvim",
+					},
+				},
 
 				-- Autocompletion
 				{ "hrsh7th/nvim-cmp" }, -- Required
@@ -100,13 +116,9 @@ local plugins = {
 				{ "hrsh7th/cmp-buffer" }, -- nvim-cmp source for buffer words
 				{ "hrsh7th/cmp-path" }, -- source for file system paths
 				{ "hrsh7th/cmp-cmdline" },
-				{ "saadparwaiz1/cmp_luasnip" },
-				{ "hrsh7th/cmp-nvim-lua" },
 
 				-- Snippets
 				{ "L3MON4D3/LuaSnip" }, -- Required
-				{ "rafamadriz/friendly-snippets" },
-				{ "hrsh7th/vim-vsnip-integ" },
 			})
 		end,
 	},
@@ -129,14 +141,18 @@ local plugins = {
 	"MunifTanjim/prettier.nvim",
 
 	-- bracket auto-pairs & auto-tag
-	"windwp/nvim-autopairs",
 	"windwp/nvim-ts-autotag",
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+	},
 
 	-- buffer line
 	{ "akinsho/bufferline.nvim", version = "*" },
 
 	-- showex color
 	"norcalli/nvim-colorizer.lua",
+	"ap/vim-css-color",
 
 	-- git
 	"lewis6991/gitsigns.nvim",
@@ -147,39 +163,38 @@ local plugins = {
 
 	-- undo
 	{
-		{
-			"jiaoshijie/undotree",
-			requires = {
-				"nvim-lua/plenary.nvim",
-			},
+		"jiaoshijie/undotree",
+		requires = {
+			"nvim-lua/plenary.nvim",
 		},
 	},
 
 	-- markdown
 	{
-		{
-			"iamcco/markdown-preview.nvim",
-			run = function()
-				vim.fn["mkdp#util#install"]()
-			end,
-		},
+		"iamcco/markdown-preview.nvim",
+		config = function()
+			vim.fn["mkdp#util#install"]()
+		end,
 	},
+
 	-- preview
 	"rmagatti/goto-preview",
 
 	-- toggle terminal
 	{
-		{
-			"akinsho/toggleterm.nvim",
-			version = "*",
-		},
+		"akinsho/toggleterm.nvim",
+		version = "*",
 	},
 
 	-- multi cursor
 	"mg979/vim-visual-multi",
 
 	-- live-server // :LiveServer start // :LiveServer stop
-	"barrett-ruth/live-server.nvim",
+	{
+		"barrett-ruth/live-server.nvim",
+		build = "yarn global add live-server",
+		config = true,
+	},
 
 	-- maximizer
 	"szw/vim-maximizer",
@@ -209,8 +224,22 @@ local plugins = {
 	},
 
 	"anuvyklack/hydra.nvim",
+
+	-- dressing
+	{
+		"stevearc/dressing.nvim",
+		event = "VeryLazy",
+	},
 }
 
-local opts = {}
+local opts = {
+	checker = {
+		enabled = true,
+		notify = false,
+	},
+	change_detection = {
+		notify = false,
+	},
+}
 
 require("lazy").setup(plugins, opts)
