@@ -1,2 +1,2 @@
 -- vim-maximizer
-vim.keymap.set("n", "<leader>m", ":MaximizerToggle<CR>") -- toggle split window maximization
+vim.keymap.set("n", "<leader>m", ":MaximizerToggle<CR>", { silent = true }) -- toggle split window maximization

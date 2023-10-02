@@ -29,7 +29,12 @@ local plugins = {
 	},
 
 	-- indent-blankline
-	"lukas-reineke/indent-blankline.nvim",
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		event = "BufReadPost",
+		opts = {},
+	},
 
 	-- Comment
 	{
@@ -225,10 +230,13 @@ local plugins = {
 
 	"anuvyklack/hydra.nvim",
 
-	-- dressing
 	{
-		"stevearc/dressing.nvim",
+		"folke/noice.nvim",
 		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
 	},
 }
 

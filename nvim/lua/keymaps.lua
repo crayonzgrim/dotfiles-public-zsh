@@ -71,16 +71,17 @@ keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
 -- Greatest remap ever ---> About paste
-keymap.set("x", "<leader>p", '"_dP')
+keymap.set("x", "<leader>p", '"_dP', { silent = true })
 
 -- Move up & down with all of blocks
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
 -- Cursor don't move when press 'J'
-keymap.set("n", "J", "mzJ`z")
+keymap.set("n", "J", "mzJ`z", { silent = true })
+
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- Modify all same text
-keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
--- Modify all same text
-keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>//g<Left><Left>")
+keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

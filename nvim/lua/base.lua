@@ -47,7 +47,6 @@ vim.opt.list = true
 
 vim.opt.shortmess = vim.o.shortmess .. "S" -- stops display of currentsearch match in cmdline area
 vim.opt.cursorlineopt = "both"
-vim.opt.lazyredraw = true
 
 vim.o.wrapscan = false -- 찾기에서 파일의 맨 끝에 이르면 계속하여 찾지 않음
 

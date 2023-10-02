@@ -18,21 +18,28 @@ vim.g.loaded_netrw_plugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 nvim_tree.setup({
-	hijack_unnamed_buffer_when_opening = true,
+	auto_reload_on_write = false,
+	disable_netrw = false,
+	hijack_cursor = false,
+	hijack_netrw = true,
+	hijack_unnamed_buffer_when_opening = false,
+	sync_root_with_cwd = true,
+	reload_on_bufenter = false,
+	respect_buf_cwd = false,
 	hijack_directories = {
 		enable = false,
 		auto_open = false,
 	},
-	hijack_netrw = false,
-	hijack_cursor = false,
 	renderer = {
 		add_trailing = false,
 		group_empty = false,
-		highlight_git = false,
-		highlight_opened_files = "1",
+		highlight_git = true,
+		full_name = false,
+		highlight_opened_files = "none",
 		root_folder_modifier = ":t",
 		indent_markers = {
 			enable = false,
+			inline_arrow = true,
 			icons = {
 				corner = "└ ",
 				edge = "│ ",
@@ -101,12 +108,13 @@ nvim_tree.setup({
 		},
 	},
 	view = {
-		hide_root_folder = true,
+		adaptive_size = false,
+		hide_root_folder = false,
 		width = 40,
-		adaptive_size = true,
+		side = "left",
+		preserve_window_proportions = false,
 		number = false,
 		relativenumber = false,
-		side = "left",
 		mappings = {
 			list = {
 				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
@@ -121,4 +129,4 @@ nvim_tree.setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })

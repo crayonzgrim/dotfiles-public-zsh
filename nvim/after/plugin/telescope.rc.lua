@@ -106,6 +106,7 @@ telescope.load_extension("lazygit")
 telescope.load_extension("file_browser")
 telescope.load_extension("media_files")
 telescope.load_extension("fzf")
+telescope.load_extension("noice")
 
 vim.keymap.set("n", ";m", function()
 	telescope.extensions.media_files.media_files()

@@ -6,7 +6,7 @@ end
 bufferline.setup({
 	options = {
 		mode = "tabs",
-		separator_style = "slop", -- slant -- slop
+		separator_style = "padded_slop", -- slant -- slop
 		always_show_bufferline = true,
 		show_buffer_close_icons = false,
 		show_close_icon = false,
