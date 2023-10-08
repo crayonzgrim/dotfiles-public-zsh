@@ -18,7 +18,7 @@ vim.g.loaded_netrw_plugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 nvim_tree.setup({
-	auto_reload_on_write = false,
+	auto_reload_on_write = true,
 	disable_netrw = false,
 	hijack_cursor = false,
 	hijack_netrw = true,
@@ -39,7 +39,7 @@ nvim_tree.setup({
 		root_folder_modifier = ":t",
 		indent_markers = {
 			enable = false,
-			inline_arrow = true,
+			-- inline_arrow = true,
 			icons = {
 				corner = "└ ",
 				edge = "│ ",
