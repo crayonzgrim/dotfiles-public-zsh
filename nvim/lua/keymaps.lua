@@ -9,7 +9,7 @@ keymap.set("n", "\\q", "<cmd>q<CR>", { silent = true, noremap = true })
 keymap.set("i", "jk", "<ESC>", { silent = true })
 
 -- Save all buffers
-keymap.set("n", "<leader>w", ":wa<CR>", { noremap = true })
+keymap.set("n", "<leader>w", ":wa<CR>", { silent = true, noremap = true })
 
 -- Copy current buffer name and path
 keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
@@ -43,8 +43,8 @@ keymap.set("n", ";[", ":bprevious<CR>")
 keymap.set("n", ";]", ":bnext<CR>")
 
 -- Split window
-keymap.set("n", "ss", ":split<Return><C-w>w", { silent = true })
-keymap.set("n", "sv", ":vsplit<Return><C-w>w", { silent = true })
+keymap.set("n", "ss", ":split<Return><C-w>j", { silent = true })
+keymap.set("n", "sv", ":vsplit<Return><C-w>l", { silent = true })
 keymap.set("n", "se", "<C-w>=")
 keymap.set("n", "<leader>x", ":close<CR>")
 
@@ -81,7 +81,7 @@ keymap.set("n", "\\s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 keymap.set("n", "\\v", [[:vim /\<<C-r><C-w>\>/ **<Left><Left>]])
 
 --  Open quickfix navigation
-keymap.set("n", "\\o", "<cmd>copen<CR>", { desc = "Open qfixlist" })
+keymap.set("n", "\\c", "<cmd>copen<CR>", { desc = "Open qfixlist" })
 
 -- Navigate between quickfix items
 keymap.set("n", "\\]", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
@@ -90,3 +90,7 @@ keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })
 -- Stay in indent-mode
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
+
+-- foling
+keymap.set("n", "-", "<cmd>foldclose<cr>", { desc = "Close code fold" })
+keymap.set("n", "+", "<cmd>foldopen<cr>", { desc = "Open code fold" })

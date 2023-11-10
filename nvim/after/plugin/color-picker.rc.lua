@@ -13,12 +13,12 @@ vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
 
 picker.setup({
 	-- for changing icons & mappings
-	-- ["icons"] = { "ﱢ", "" },
+	["icons"] = { "", "🎨" },
 	-- ["icons"] = { "ﮊ", "" },
 	-- ["icons"] = { "", "ﰕ" },
 	-- ["icons"] = { "", "" },
 	-- ["icons"] = { "", "" },
-	["icons"] = { "ﱢ", "" },
+	-- ["icons"] = { "ﱢ", "" },
 	["border"] = "rounded", -- none | single | double | rounded | solid | shadow
 	["keymap"] = { -- mapping example:
 		["U"] = "<Plug>ColorPickerSlider5Decrease",

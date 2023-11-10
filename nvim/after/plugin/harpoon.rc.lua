@@ -27,8 +27,8 @@ require("harpoon").setup({
 
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>a", mark.add_file)
--- keymap("n", "<leader>o", ui.toggle_quick_menu)
+keymap("n", "\\a", mark.add_file)
+keymap("n", "\\o", ui.toggle_quick_menu)
 
 keymap("n", "<leader>1", function()
 	ui.nav_file(1)

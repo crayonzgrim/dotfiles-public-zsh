@@ -119,7 +119,10 @@ vim.keymap.set("n", ";f", function()
 	})
 end)
 vim.keymap.set("n", ";r", function()
-	builtin.live_grep()
+	builtin.live_grep({
+		no_ignore = false,
+		hidden = true,
+	})
 end)
 vim.keymap.set("n", ";fb", function()
 	builtin.buffers()
@@ -147,14 +150,14 @@ vim.keymap.set("n", "sf", function()
 		path = "%:p:h",
 		cwd = telescope_buffer_dir(),
 		respect_gitignore = false,
-		hidden = true,
 		grouped = true,
 		previewer = true,
 		initial_mode = "normal",
-		layout_config = { height = 40 },
+		layout_config = { height = 23 },
 	})
 end)
 vim.keymap.set("n", "fw", function()
 	builtin.grep_string()
 end)
 vim.keymap.set("n", "fh", ":Telescope harpoon marks<CR>", { silent = true })
+vim.keymap.set("n", "fo", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })

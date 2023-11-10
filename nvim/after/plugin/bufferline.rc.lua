@@ -6,7 +6,7 @@ end
 bufferline.setup({
 	options = {
 		mode = "tabs", -- tabs -- buffers
-		separator_style = "slant", -- slant -- slop -- padded_slant
+		separator_style = "slop", -- slant -- slop -- padded_slant
 		always_show_bufferline = true,
 		show_buffer_close_icons = false,
 		show_close_icon = false,
@@ -30,7 +30,7 @@ bufferline.setup({
 			bold = true,
 		},
 		fill = {
-			-- bg = "#073642",
+			bg = "#073642",
 		},
 	},
 })

@@ -1,15 +1,11 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+  -- bootstrap lazy.nvim
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+      lazypath })
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 local plugins = {
 	-- packer
@@ -19,14 +15,22 @@ local plugins = {
 	"nvim-lua/plenary.nvim",
 
 	-- theme
-	-- {
-	-- 	"neanias/everforest-nvim",
-	-- 	requires = { "tjdevries/colorbuddy.nvim" },
-	-- },
 	{
-		"svrana/neosolarized.nvim",
-		dependencies = { "tjdevries/colorbuddy.nvim" },
+		"craftzdog/solarized-osaka.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
 	},
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	opts = {},
+	-- },
+	-- {
+	-- 	"svrana/neosolarized.nvim",
+	-- 	dependencies = { "tjdevries/colorbuddy.nvim" },
+	-- },
 
 	-- indent-blankline
 	{
@@ -97,43 +101,104 @@ local plugins = {
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v2.x",
 		lazy = true,
+		dependencies = {
+			{
+				"williamboman/mason.nvim",
+				opts = {
+					ui = { border = "rounded" },
+				},
+			},
+			{ "williamboman/mason-lspconfig.nvim" },
+			{ "neovim/nvim-lspconfig" },
+
+			-- cmp
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lua" },
+
+			-- snippets
+			{ "L3MON4D3/LuaSnip" },
+			{ "rafamadriz/friendly-snippets" },
+		},
 		config = function()
-			require("lsp-zero.settings").preset({
-				-- LSP Support
-				{
-					"neovim/nvim-lspconfig",
-					event = { "BufReadPre", "BufNewFile" },
-					dependencies = {
-						"hrsh7th/cmp-nvim-lsp",
-						{ "antosha417/nvim-lsp-file-operations", config = true },
-					},
-				}, -- Required (configuring lsp servers)
-				{
-					"williamboman/mason.nvim",
-					dependencies = {
-						"williamboman/mason-lspconfig.nvim",
+			local lsp = require("lsp-zero")
+
+			lsp.preset("recommended")
+
+			lsp.ensure_installed({
+				"tsserver",
+				"lua_ls",
+				"eslint_d",
+			})
+
+			-- Fix Undefined global 'vim'
+			lsp.configure("lua_ls", {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
 					},
 				},
-
-				-- Autocompletion
-				{ "hrsh7th/nvim-cmp" }, -- Required
-				{ "hrsh7th/cmp-nvim-lsp" }, -- Required (nvim-cmp source for neovim's built-in LSP)
-				{ "hrsh7th/cmp-buffer" }, -- nvim-cmp source for buffer words
-				{ "hrsh7th/cmp-path" }, -- source for file system paths
-				{ "hrsh7th/cmp-cmdline" },
-
-				-- Snippets
-				{ "L3MON4D3/LuaSnip" }, -- Required
 			})
 		end,
+		-- config = function()
+		-- 	require("lsp-zero.settings").preset({
+		-- 		-- LSP Support
+		-- 		{
+		-- 			"neovim/nvim-lspconfig",
+		-- 			event = { "BufReadPre", "BufNewFile" },
+		-- 			dependencies = {
+		-- 				"hrsh7th/cmp-nvim-lsp",
+		-- 				{ "antosha417/nvim-lsp-file-operations", config = true },
+		-- 			},
+		-- 			opts = {
+		-- 				servers = {
+		-- 					tailwindcss = {},
+		-- 				},
+		-- 			},
+		-- 		}, -- Required (configuring lsp servers)
+		-- 		{
+		-- 			"williamboman/mason.nvim",
+		-- 			dependencies = {
+		-- 				"williamboman/mason-lspconfig.nvim",
+		-- 			},
+		-- 		},
+		--
+		-- 		-- Autocompletion
+		-- 		{
+		-- 			"hrsh7th/nvim-cmp",
+		-- 			dependencies = {
+		-- 				{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+		-- 			},
+		-- 			opts = function(_, opts)
+		-- 				local format_kinds = opts.formatting.format
+		-- 				opts.formatting.format = function(entry, item)
+		-- 					format_kinds(entry, item) -- add icons
+		-- 					return require("tailwindcss-colorizer-cmp").formatter(entry, item)
+		-- 				end
+		-- 			end,
+		-- 		}, -- Required
+		-- 		{ "hrsh7th/cmp-nvim-lsp" }, -- Required (nvim-cmp source for neovim's built-in LSP)
+		-- 		{ "hrsh7th/cmp-buffer" }, -- nvim-cmp source for buffer words
+		-- 		{ "hrsh7th/cmp-path" }, -- source for file system paths
+		-- 		{ "hrsh7th/cmp-cmdline" },
+		--
+		-- 		-- Snippets
+		-- 		{ "L3MON4D3/LuaSnip" }, -- Required
+		-- 	})
+		-- end,
 	},
 
 	-- managing & installing lsp servers
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
+	-- "williamboman/mason.nvim",
+	-- "williamboman/mason-lspconfig.nvim",
 
-	"neovim/nvim-lspconfig", -- configuring lsp servers
-	"hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim's built-in LSP
+	-- "neovim/nvim-lspconfig", -- configuring lsp servers
+	-- "hrsh7th/cmp-nvim-lsp", -- nvim-cmp source for neovim's built-in LSP
 	"nvimdev/lspsaga.nvim", -- LSP UIs
 	"onsails/lspkind-nvim", -- vscode-like pictograms
 
@@ -156,7 +221,9 @@ local plugins = {
 	{ "akinsho/bufferline.nvim", version = "*" },
 
 	-- showex color
-	"norcalli/nvim-colorizer.lua",
+	{
+		"NvChad/nvim-colorizer.lua",
+	},
 	"ap/vim-css-color",
 
 	-- git
@@ -231,13 +298,19 @@ local plugins = {
 	"anuvyklack/hydra.nvim",
 
 	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
+		"stevearc/oil.nvim",
+		opt = {},
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 	},
+	-- },
 }
 
 local opts = {

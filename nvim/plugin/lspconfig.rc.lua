@@ -24,33 +24,6 @@ local enable_format_on_save = function(_, bufnr)
 	})
 end
 
------------- inlayhints --------------------
--- vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
--- vim.api.nvim_create_autocmd("LspAttach", {
--- 	group = "LspAttach_inlayhints",
--- 	callback = function(args)
--- 		if not (args.data and args.data.client_id) then
--- 			return
--- 		end
-
--- 		local bufnr = args.buf
--- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
--- 		require("lsp-inlayhints").on_attach(client, bufnr)
--- 	end,
--- })
-
--- vim.api.nvim_create_autocmd("LspAttach", {
--- 	group = vim.api.nvim_create_augroup("LspAttach_inlayhints", {}),
--- 	callback = function(args)
--- 		if not (args.data and args.data.client_id) then
--- 			return
--- 		end
--- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
--- 		require("lsp-inlayhints").on_attach(client, args.buf)
--- 	end,
--- })
--------------------------------------------
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)

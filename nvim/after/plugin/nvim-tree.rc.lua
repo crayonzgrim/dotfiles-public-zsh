@@ -18,17 +18,51 @@ vim.g.loaded_netrw_plugin = 1
 vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
 nvim_tree.setup({
-	auto_reload_on_write = true,
-	disable_netrw = false,
-	hijack_cursor = false,
-	hijack_netrw = true,
-	hijack_unnamed_buffer_when_opening = false,
-	sync_root_with_cwd = true,
-	reload_on_bufenter = false,
-	respect_buf_cwd = false,
+	sort_by = "case_sensitive",
 	hijack_directories = {
 		enable = false,
 		auto_open = false,
+	},
+	update_focused_file = {
+		enable = false,
+		update_cwd = true,
+	},
+	log = {
+		enable = true,
+		types = {
+			diagnostics = true,
+		},
+	},
+	diagnostics = {
+		enable = true,
+		show_on_dirs = false,
+		debounce_delay = 50,
+		icons = {
+			hint = "💡",
+			info = "ℹ️",
+			warning = "⚠️",
+			error = "🐞",
+		},
+	},
+	view = {
+		adaptive_size = false,
+		hide_root_folder = false,
+		width = 40,
+		side = "left",
+		preserve_window_proportions = false,
+		number = false,
+		relativenumber = false,
+		mappings = {
+			list = {
+				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
+				{ key = "h", cb = tree_cb("close_node") },
+				{ key = "v", cb = tree_cb("vsplit") },
+				{ key = "s", cb = tree_cb("split") },
+				{ key = "u", cb = tree_cb("dir_up") },
+				{ key = "e", cb = tree_cb("toggle") },
+				{ key = "i", cb = tree_cb("show_info_popup") },
+			},
+		},
 	},
 	renderer = {
 		add_trailing = false,
@@ -72,60 +106,22 @@ nvim_tree.setup({
 				},
 				git = {
 					unstaged = "",
-					staged = "S",
+					staged = "✓",
 					unmerged = "",
 					renamed = "➜",
-					untracked = "U",
+					untracked = "✗",
 					deleted = "",
 					ignored = "◌",
 				},
 			},
 		},
 	},
-	update_focused_file = {
-		enable = true,
-		update_cwd = true,
+	filters = {
+		custom = { ".DS_Store", "^.git$", "^.github$" },
 	},
 	git = {
-		enable = false,
+		enable = true,
 		timeout = 500,
-	},
-	log = {
-		enable = true,
-		types = {
-			diagnostics = true,
-		},
-	},
-	diagnostics = {
-		enable = true,
-		show_on_dirs = false,
-		debounce_delay = 50,
-		icons = {
-			hint = "💡",
-			info = "ℹ️",
-			warning = "⚠️",
-			error = "🐞",
-		},
-	},
-	view = {
-		adaptive_size = false,
-		hide_root_folder = false,
-		width = 40,
-		side = "left",
-		preserve_window_proportions = false,
-		number = false,
-		relativenumber = false,
-		mappings = {
-			list = {
-				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-				{ key = "h", cb = tree_cb("close_node") },
-				{ key = "v", cb = tree_cb("vsplit") },
-				{ key = "s", cb = tree_cb("split") },
-				{ key = "u", cb = tree_cb("dir_up") },
-				{ key = "e", cb = tree_cb("toggle") },
-				{ key = "i", cb = tree_cb("show_info_popup") },
-			},
-		},
 	},
 })
 
