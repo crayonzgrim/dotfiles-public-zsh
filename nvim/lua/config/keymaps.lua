@@ -46,11 +46,17 @@ keymap.set("n", "{", ":tabprev<Return>", opts)
 -- Split window
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
+keymap.set("n", "se", "<C-w>=")
+keymap.set("n", "<leader>x", ":close<CR>")
 -- Move window
-keymap.set("n", "sh", "<C-w>h")
-keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
-keymap.set("n", "sl", "<C-w>l")
+-- keymap.set("n", "sh", "<C-w>h")
+-- keymap.set("n", "sk", "<C-w>k")
+-- keymap.set("n", "sj", "<C-w>j")
+-- keymap.set("n", "sl", "<C-w>l")
+-- keymap.set("", "<C-h>", "<C-w>h")
+-- keymap.set("", "<C-k>", "<C-w>k")
+-- keymap.set("", "<C-j>", "<C-w>j")
+-- keymap.set("", "<C-l>", "<C-w>l")
 
 -- codeium
 keymap.set("i", "<C-g>", function()
@@ -90,7 +96,7 @@ keymap.set("n", "-", "<cmd>foldclose<cr>", { desc = "Close code fold" })
 keymap.set("n", "+", "<cmd>foldopen<cr>", { desc = "Open code fold" })
 
 -- Diagnostics
-keymap.set("n", "<C-j>", function()
+keymap.set("n", "<\\p>", function()
   vim.diagnostic.goto_next()
 end, opts)
 
@@ -99,10 +105,8 @@ keymap.set("n", "\\s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Search quickfix with vim grep
 keymap.set("n", "\\v", [[:vim /\<<C-r><C-w>\>/ **<Left><Left>]])
-
 --  Open quickfix navigation
 keymap.set("n", "\\c", "<cmd>copen<CR>", { desc = "Open qfixlist" })
-
 -- Navigate between quickfix items
 keymap.set("n", "\\]", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
 keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })

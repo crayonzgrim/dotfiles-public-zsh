@@ -6,7 +6,7 @@ return {
       vim.list_extend(opts.ensure_installed, {
         "stylua",
         "selene",
-        "luacheck",
+        -- "luacheck",
         "shellcheck",
         "shfmt",
         "tailwindcss-language-server",
@@ -293,5 +293,8 @@ return {
       },
       setup = {},
     },
+  },
+  {
+    "nvim-lua/plenary.nvim", -- lua functions that many plugins use
   },
 }
