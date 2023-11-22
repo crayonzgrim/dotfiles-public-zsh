@@ -5,7 +5,8 @@ Check my Lazyvim, tmux and other dotfiles.
 Enjoy it!😁
 <br />
 <br />
-![nvim screenshot](./images/neovim-image.png)
+![lazyvim screenshot](./images/Lazyvim.png)
+![usage screenshot](./images/usage.png)
 
 ## Contents
 
