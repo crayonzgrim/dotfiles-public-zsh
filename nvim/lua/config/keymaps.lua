@@ -10,7 +10,8 @@ keymap.set("n", "\\q", "<cmd>q<CR>", opts)
 keymap.set("i", "jk", "<ESC>", opts)
 
 -- Save all buffers
-keymap.set("n", "<leader>w", ":wa<CR>", opts)
+keymap.set("n", "<C-s>", ":w<CR>", opts)
+keymap.set("n", "<C-w>", ":wa<CR>", opts)
 
 -- Copy current buffer name and path
 keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
@@ -30,7 +31,7 @@ keymap.set("n", "-", "<C-x>")
 keymap.set("n", "dw", 'vb"_d')
 
 -- Select all
-keymap.set("n", "<C-a>", "gg<S-v>G")
+-- keymap.set("n", "<C-a>", "gg<S-v>G")
 
 -- Disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
@@ -53,10 +54,10 @@ keymap.set("n", "<leader>x", ":close<CR>")
 -- keymap.set("n", "sk", "<C-w>k")
 -- keymap.set("n", "sj", "<C-w>j")
 -- keymap.set("n", "sl", "<C-w>l")
--- keymap.set("", "<C-h>", "<C-w>h")
--- keymap.set("", "<C-k>", "<C-w>k")
--- keymap.set("", "<C-j>", "<C-w>j")
--- keymap.set("", "<C-l>", "<C-w>l")
+keymap.set("n", "<C-h>", "<C-w>h")
+keymap.set("n", "<C-k>", "<C-w>k")
+keymap.set("n", "<C-j>", "<C-w>j")
+keymap.set("n", "<C-l>", "<C-w>l")
 
 -- codeium
 keymap.set("i", "<C-g>", function()
@@ -112,5 +113,5 @@ keymap.set("n", "\\]", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
 keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })
 
 keymap.set("n", "<leader>r", function()
-  require("craftzdog.utils").replaceHexWithHSL()
+  require("crayonzgrim.utils").replaceHexWithHSL()
 end)

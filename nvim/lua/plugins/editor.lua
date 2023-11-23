@@ -42,7 +42,7 @@ return {
         hsl_color = {
           pattern = "hsl%(%d+,? %d+,? %d+%)",
           group = function(_, match)
-            local utils = require("craftzdog.utils")
+            local utils = require("crayonzgrim.utils")
             local h, s, l = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
             h, s, l = tonumber(h), tonumber(s), tonumber(l)
             local hex_color = utils.hslToHex(h, s, l)
@@ -106,7 +106,9 @@ return {
         ";r",
         function()
           local builtin = require("telescope.builtin")
-          builtin.live_grep()
+          builtin.live_grep({
+            file_ignore_patterns = { "node_modules" }, -- Exclude node_modules directory
+          })
         end,
         desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
       },
@@ -233,7 +235,16 @@ return {
     end,
   },
   {
-    "christoomey/vim-tmux-navigator", -- tmux & split window navigation
+    -- "christoomey/vim-tmux-navigator", -- tmux & split window navigation
+    "christoomey/vim-tmux-navigator",
+
+    keys = {
+      { "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", desc = "Go to the previous pane" },
+      { "<C-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Got to the left pane" },
+      { "<C-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Got to the down pane" },
+      { "<C-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Got to the up pane" },
+      { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Got to the right pane" },
+    },
   },
   {
     "inkarkat/vim-ReplaceWithRegister", -- replace with register contents using motion (gr + motion)

@@ -151,6 +151,39 @@ return {
   },
   {
     "NvChad/nvim-colorizer.lua", -- showex color
+    event = "VeryLazy",
+    config = function()
+      require("colorizer").setup({
+        filetypes = {
+          "*", -- Highlight all files, but customize some others.
+          html = { names = false }, -- Disable parsing "names" like Blue or Gray
+        },
+        user_default_options = {
+          RGB = true, -- #RGB hex codes
+          RRGGBB = true, -- #RRGGBB hex codes
+          names = false, -- "Name" codes like Blue or blue
+          RRGGBBAA = true, -- #RRGGBBAA hex codes
+          AARRGGBB = true, -- 0xAARRGGBB hex codes
+          rgb_fn = true, -- CSS rgb() and rgba() functions
+          hsl_fn = true, -- CSS hsl() and hsla() functions
+          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          -- Available modes for `mode`: foreground, background,  virtualtext
+          mode = "background", -- Set the display mode. "foreground" / "background" / "virtualtext"
+          -- Available methods are false / true / "normal" / "lsp" / "both"
+          -- True is same as normal
+          tailwind = false, -- Enable tailwind colors
+          -- parsers can contain values used in |user_default_options|
+          sass = { enable = true, parsers = { "css" } }, -- Enable sass colors
+          virtualtext = "■",
+          -- update color values even if buffer is not focused
+          -- example use: cmp_menu, cmp_docs
+          always_update = false,
+        },
+        -- all the sub-options of filetypes apply to buftypes
+        buftypes = {},
+      })
+    end,
   },
   {
     "ap/vim-css-color",
@@ -170,10 +203,10 @@ return {
         },
         heads = {
           -- resizing window
-          { "H", "<C-w>2<" },
-          { "L", "<C-w>2>" },
-          { "K", "<C-w>2+" },
-          { "J", "<C-w>2-" },
+          { "H", "<C-w>2<", { noremap = true } },
+          { "L", "<C-w>2>", { noremap = true } },
+          { "K", "<C-w>2+", { noremap = true } },
+          { "J", "<C-w>2-", { noremap = true } },
 
           -- exit this Hydra
           { "q", nil, { exit = true, nowait = true } },
@@ -247,6 +280,7 @@ return {
   },
   {
     "ziontee113/color-picker.nvim",
+    enable = true,
     config = function()
       local picker = require("color-picker")
 
@@ -316,11 +350,6 @@ return {
         { noremap = true }
       )
       vim.api.nvim_set_keymap("n", "gq", "<Cmd>q<CR>", { noremap = true })
-      -- vim.api.nvim_set_keymap("n", "q", "<Cmd>lua require('goto-preview').close_all_win()<CR>", { noremap = true })
     end,
-  },
-  {
-    "akinsho/toggleterm.nvim", -- toggle terminal
-    version = "*",
   },
 }
