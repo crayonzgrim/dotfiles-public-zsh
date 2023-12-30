@@ -69,10 +69,10 @@ keymap.set("i", "<C-q>", function()
 end, { expr = true })
 
 -- Resize window
-keymap.set("n", "<C-w><left>", "<C-w><")
-keymap.set("n", "<C-w><right>", "<C-w>>")
-keymap.set("n", "<C-w><up>", "<C-w>+")
-keymap.set("n", "<C-w><down>", "<C-w>-")
+-- keymap.set("n", "<C-w><left>", "<C-w><")
+-- keymap.set("n", "<C-w><right>", "<C-w>>")
+-- keymap.set("n", "<C-w><up>", "<C-w>+")
+-- keymap.set("n", "<C-w><down>", "<C-w>-")
 
 -- Greatest remap ever-1 ---> About paste
 keymap.set("v", "p", '"_dP', { silent = true })
@@ -97,9 +97,9 @@ keymap.set("n", "-", "<cmd>foldclose<cr>", { desc = "Close code fold" })
 keymap.set("n", "+", "<cmd>foldopen<cr>", { desc = "Open code fold" })
 
 -- Diagnostics
-keymap.set("n", "<\\p>", function()
-  vim.diagnostic.goto_next()
-end, opts)
+-- keymap.set("n", "<\\p>", function()
+--   vim.diagnostic.goto_next()
+-- end, opts)
 
 -- Modify all same text
 keymap.set("n", "\\s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -107,7 +107,7 @@ keymap.set("n", "\\s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- Search quickfix with vim grep
 keymap.set("n", "\\v", [[:vim /\<<C-r><C-w>\>/ **<Left><Left>]])
 --  Open quickfix navigation
-keymap.set("n", "\\c", "<cmd>copen<CR>", { desc = "Open qfixlist" })
+keymap.set("n", "<leader>c", "<cmd>copen<CR>", { desc = "Open qfixlist" })
 -- Navigate between quickfix items
 keymap.set("n", "\\]", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
 keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })

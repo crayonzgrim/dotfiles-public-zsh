@@ -8,7 +8,6 @@ return {
         "astro",
         "cmake",
         "cpp",
-        "fish",
         "go",
         "http",
         "java",
@@ -67,6 +66,9 @@ return {
       },
     },
     config = function(_, opts)
+      opts.autotag = {
+        enable_close_on_slash = false,
+      }
       require("nvim-treesitter.configs").setup(opts)
 
       -- MDX

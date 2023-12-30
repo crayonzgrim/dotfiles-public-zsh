@@ -75,16 +75,17 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    keys = {
-      { "}", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "{", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-    },
     opts = {
       options = {
         mode = "tabs",
-        always_show_bufferline = false,
+        always_show_bufferline = true,
         show_buffer_close_icons = false,
         show_close_icon = false,
+        hover = {
+          enabled = true,
+          delay = 150,
+          reveal = { "close" },
+        },
       },
     },
   },
@@ -101,7 +102,7 @@ return {
     },
   },
 
-  -- filename
+  -- Floating file name
   {
     "b0o/incline.nvim",
     dependencies = { "craftzdog/solarized-osaka.nvim" },
@@ -132,6 +133,7 @@ return {
       })
     end,
   },
+
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
@@ -203,10 +205,10 @@ return {
         },
         heads = {
           -- resizing window
-          { "H", "<C-w>2<", { noremap = true } },
-          { "L", "<C-w>2>", { noremap = true } },
-          { "K", "<C-w>2+", { noremap = true } },
-          { "J", "<C-w>2-", { noremap = true } },
+          { "<left>", "<C-w>2<", { noremap = true } },
+          { "<right>", "<C-w>2>", { noremap = true } },
+          { "<up>", "<C-w>2+", { noremap = true } },
+          { "<down>", "<C-w>2-", { noremap = true } },
 
           -- exit this Hydra
           { "q", nil, { exit = true, nowait = true } },
@@ -286,8 +288,8 @@ return {
 
       local opts = { noremap = true, silent = true }
 
-      vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", opts)
-      vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
+      vim.keymap.set("n", "\\c", "<cmd>PickColor<cr>", opts)
+      vim.keymap.set("i", "\\c", "<cmd>PickColorInsert<cr>", opts)
 
       -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandRGB<cr>", opts)
       -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandHSL<cr>", opts)
@@ -295,11 +297,6 @@ return {
       picker.setup({
         -- for changing icons & mappings
         ["icons"] = { "", "🎨" },
-        -- ["icons"] = { "ﮊ", "" },
-        -- ["icons"] = { "", "ﰕ" },
-        -- ["icons"] = { "", "" },
-        -- ["icons"] = { "", "" },
-        -- ["icons"] = { "ﱢ", "" },
         ["border"] = "rounded", -- none | single | double | rounded | solid | shadow
         ["keymap"] = { -- mapping example:
           ["U"] = "<Plug>ColorPickerSlider5Decrease",
@@ -350,6 +347,31 @@ return {
         { noremap = true }
       )
       vim.api.nvim_set_keymap("n", "gq", "<Cmd>q<CR>", { noremap = true })
+    end,
+  },
+  {
+    "samodostal/image.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("image").setup({
+        render = {
+          min_padding = 5,
+          show_label = true,
+          show_image_dimensions = true,
+          use_dither = true,
+          foreground_color = true,
+          background_color = true,
+        },
+        events = {
+          update_on_nvim_resize = true,
+        },
+      })
+    end,
+  },
+  {
+    "m00qek/baleia.nvim",
+    config = function()
+      require("baleia").setup({})
     end,
   },
 }

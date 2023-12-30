@@ -17,6 +17,7 @@ vim.opt.scrolloff = 10
 vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
+vim.opt.smartcase = true
 vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.shiftwidth = 2
@@ -29,7 +30,13 @@ vim.opt.splitbelow = true -- Put new windows below current
 vim.opt.splitright = true -- Put new windows right of current
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = "a" -- 마우스 지원 활성화
+vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("c") -- 'c' 옵션을 추가하여 "Pattern not found" 메시지를 표시하지 않음
+vim.opt.wrap = false -- Disable line wrap
+
+vim.opt.swapfile = false
+vim.opt.autoread = true
+vim.bo.autoread = true
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
