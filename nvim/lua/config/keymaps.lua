@@ -74,32 +74,27 @@ end, { expr = true })
 -- keymap.set("n", "<C-w><up>", "<C-w>+")
 -- keymap.set("n", "<C-w><down>", "<C-w>-")
 
--- Greatest remap ever-1 ---> About paste
+-- Greatest remap ever-1 -> About paste
 keymap.set("v", "p", '"_dP', { silent = true })
 
 -- Greatest remap ever-2 ---> Move up & down with all of blocks
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 
--- Greatest remap ever-3 ---> Cursor don't move
+-- Greatest remap ever-3 -> Cursor don't move
 keymap.set("n", "J", "mzJ`z", { silent = true })
 keymap.set("n", "n", "nzzzv")
 keymap.set("n", "N", "Nzzzv")
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
--- Greatest remap ever-4 ---> Stay in indent-mode
+-- Greatest remap ever-4 -> Stay in indent-mode
 keymap.set("v", "<", "<gv")
 keymap.set("v", ">", ">gv")
 
 -- foling
 keymap.set("n", "-", "<cmd>foldclose<cr>", { desc = "Close code fold" })
 keymap.set("n", "+", "<cmd>foldopen<cr>", { desc = "Open code fold" })
-
--- Diagnostics
--- keymap.set("n", "<\\p>", function()
---   vim.diagnostic.goto_next()
--- end, opts)
 
 -- Modify all same text
 keymap.set("n", "\\s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -115,3 +110,6 @@ keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })
 keymap.set("n", "<leader>r", function()
   require("crayonzgrim.utils").replaceHexWithHSL()
 end)
+
+keymap.set("n", "Q", "@qj")
+keymap.set("x", "Q", ":norm @q<CR>")

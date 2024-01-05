@@ -60,7 +60,7 @@ return {
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
 
         opts.desc = "Show current buffer diagnostics"
-        keymap.set("n", "\\e", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+        keymap.set("n", "\\d", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
 
         opts.desc = "Show line diagnostics"
         keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
@@ -76,15 +76,6 @@ return {
 
         opts.desc = "Signature_help"
         keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts) -- Signature_help
-
-        -- opts.desc = "Add workspace"
-        -- keymap.set("n", "<leader>aw", vim.lsp.buf.add_workspace_folder, opts) --  Add workspace
-        --
-        -- opts.desc = "Remove workspace"
-        -- keymap.set("n", "<leader>rw", vim.lsp.buf.remove_workspace_folder, opts) -- Remove workspace
-
-        -- opts.desc = "Restart LSP"
-        -- keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
       end
 
       -- used to enable autocompletion (assign to every lsp server config)

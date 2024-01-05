@@ -49,7 +49,7 @@ return {
       local config_dir = vim.fn.stdpath("config")
 
       vim.opt.undofile = true
-      vim.opt.undodir = config_dir .. "/undodir"
+      vim.opt.undodir = config_dir .. "~/.config/nvim/undodir"
       vim.opt.undolevels = 100
     end,
   },
