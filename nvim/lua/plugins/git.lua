@@ -5,6 +5,8 @@ return {
 
   "kdheepak/lazygit.nvim",
 
+  { "akinsho/git-conflict.nvim", version = "*", config = true },
+
   {
     "dinhhuy258/git.nvim",
     event = "BufReadPre",

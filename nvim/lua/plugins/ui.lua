@@ -57,6 +57,7 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 5000,
+      background_colour = "#000000",
     },
   },
 
@@ -372,6 +373,15 @@ return {
     "m00qek/baleia.nvim",
     config = function()
       require("baleia").setup({})
+    end,
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    name = "window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup()
     end,
   },
 }

@@ -81,8 +81,8 @@ return {
         git_status = {
           symbols = {
             -- Change type
-            added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+            added = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
             deleted = "✖", -- this can only be used in the git_status source
             renamed = "󰁕", -- this can only be used in the git_status source
             -- Status type
@@ -120,7 +120,7 @@ return {
       commands = {},
       window = {
         position = "left",
-        width = 40,
+        width = 35,
         mapping_options = {
           noremap = true,
           nowait = true,
@@ -198,7 +198,7 @@ return {
             --".gitignored",
           },
           never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-            --".DS_Store",
+            ".DS_Store",
             --"thumbs.db"
           },
           never_show_by_pattern = { -- uses glob style patterns
@@ -216,7 +216,7 @@ return {
         -- "open_current",  -- netrw disabled, opening a directory opens within the
         -- window like netrw would, regardless of window.position
         -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-        use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+        use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
         -- instead of relying on nvim autocmd events.
         window = {
           mappings = {

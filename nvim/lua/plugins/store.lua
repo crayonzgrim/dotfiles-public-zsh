@@ -44,14 +44,14 @@ return {
         },
       })
 
-      vim.keymap.set("n", "<leader>u", require("undotree").toggle, { noremap = true, silent = true })
+      vim.keymap.set("n", "\\u", require("undotree").toggle, { noremap = true, silent = true })
       --
       -- Enable undofile and specify undodir
       local config_dir = vim.fn.stdpath("config")
 
       vim.opt.undofile = true
-      vim.opt.undodir = config_dir .. "~/.config/nvim/undodir"
-      vim.opt.undolevels = 100
+      vim.opt.undodir = config_dir .. "/.config/nvim/undodir"
+      vim.opt.undolevels = 300
     end,
   },
 }
