@@ -98,7 +98,7 @@ return {
     opts = {
       options = {
         -- globalstatus = false,
-        theme = "solarized_dark",
+        theme = "solarized-osaka", --"rose-pine", "catppuccin", "tokyonight", "solarized-osaka"
       },
     },
   },

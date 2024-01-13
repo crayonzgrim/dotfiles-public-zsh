@@ -13,7 +13,7 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        colorscheme = "rose-pine", --"rose-pine", "catppuccin", "tokyonight", "solarized-osaka"
+        colorscheme = "solarized-osaka", --"rose-pine", "catppuccin", "tokyonight", "solarized-osaka"
         news = {
           lazyvim = true,
           neovim = true,
@@ -47,13 +47,10 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  -- install = { colorscheme = { "solarized-osaka" } },
-  -- install = { colorscheme = { "catppuccin", "tokyonight", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     cache = {
       enabled = true,
-      -- disable_events = {},
     },
     rtp = {
       -- disable some rtp plugins

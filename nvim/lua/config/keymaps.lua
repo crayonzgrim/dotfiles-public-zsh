@@ -78,8 +78,8 @@ end, { expr = true })
 keymap.set("v", "p", '"_dP', { silent = true })
 
 -- Greatest remap ever-2 ---> Move up & down with all of blocks
-keymap.set("v", "J", ":m '>+1<CR>gv=gv", { silent = true })
-keymap.set("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 -- Greatest remap ever-3 -> Cursor don't move
 keymap.set("n", "J", "mzJ`z", { silent = true })

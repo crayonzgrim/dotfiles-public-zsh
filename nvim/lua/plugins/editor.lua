@@ -1,20 +1,76 @@
 return {
+  -- {
+  --   "ggandor/flit.nvim",
+  --   enabled = true,
+  --   dependencies = {
+  --     "ggandor/leap.nvim",
+  --     "tpope/vim-repeat",
+  --   },
+  --   keys = function()
+  --     -- @type LazyKeys[]
+  --     local ret = {}
+  --     for _, key in ipairs({ "f", "F", "t", "T" }) do
+  --       ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+  --     end
+  --     return ret
+  --   end,
+  --   opts = { labeled_modes = "nx" },
+  -- },
   {
-    "ggandor/flit.nvim",
-    enabled = true,
-    dependencies = {
-      "ggandor/leap.nvim",
-      "tpope/vim-repeat",
+    enabled = false,
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {
+      search = {
+        forward = true,
+        multi_window = false,
+        wrap = false,
+        incremental = true,
+      },
     },
-    keys = function()
-      -- @type LazyKeys[]
-      local ret = {}
-      for _, key in ipairs({ "f", "F", "t", "T" }) do
-        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-      end
-      return ret
-    end,
-    opts = { labeled_modes = "nx" },
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
   },
 
   {
@@ -25,7 +81,6 @@ return {
         hsl_color = {
           pattern = "hsl%(%d+,? %d+,? %d+%)",
           group = function(_, match)
-            -- local utils = require("crayonzgrim.utils")
             local utils = require("solarized-osaka.hsl")
             local h, s, l = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
             h, s, l = tonumber(h), tonumber(s), tonumber(l)
@@ -216,6 +271,7 @@ return {
       telescope.setup(opts)
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
+      require("telescope").load_extension("harpoon")
     end,
   },
   {
@@ -384,7 +440,7 @@ return {
         },
       })
 
-      vim.keymap.set("n", "<leader>/", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+      vim.keymap.set("n", "\\o", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
   },
   {
