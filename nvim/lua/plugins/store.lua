@@ -34,16 +34,21 @@ return {
       -- set keymaps
       local keymap = vim.keymap -- for conciseness
 
-      keymap.set("n", "ha", "<cmd>lua require('harpoon.mark').add_file()<cr>", { desc = "Mark file with harpoon" })
       keymap.set(
         "n",
-        "ho",
+        "<leader>ha",
+        "<cmd>lua require('harpoon.mark').add_file()<cr>",
+        { desc = "Mark file with harpoon" }
+      )
+      keymap.set(
+        "n",
+        "<leader>ho",
         "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
         { desc = "Open harpoon quick menu" }
       )
-      keymap.set("n", "sh", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
-      keymap.set("n", "hn", require("harpoon.ui").nav_next, { desc = "Next mark file on harpoon" })
-      keymap.set("n", "hp", require("harpoon.ui").nav_prev, { desc = "Previous mark file on harpoon" })
+      keymap.set("n", "<leader>sh", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
+      keymap.set("n", "<leader>hn", require("harpoon.ui").nav_next, { desc = "Next mark file on harpoon" })
+      keymap.set("n", "<leader>hp", require("harpoon.ui").nav_prev, { desc = "Previous mark file on harpoon" })
     end,
   },
 

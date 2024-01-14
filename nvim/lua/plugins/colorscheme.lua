@@ -11,16 +11,6 @@ return {
     end,
   },
 
-  -- tokyonight
-  {
-    "folke/tokyonight.nvim",
-    lazy = true,
-    opts = {
-      style = "moon",
-      transparent = true,
-    },
-  },
-
   -- catppuccin
   {
     "catppuccin/nvim",

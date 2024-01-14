@@ -1,76 +1,20 @@
 return {
-  -- {
-  --   "ggandor/flit.nvim",
-  --   enabled = true,
-  --   dependencies = {
-  --     "ggandor/leap.nvim",
-  --     "tpope/vim-repeat",
-  --   },
-  --   keys = function()
-  --     -- @type LazyKeys[]
-  --     local ret = {}
-  --     for _, key in ipairs({ "f", "F", "t", "T" }) do
-  --       ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
-  --     end
-  --     return ret
-  --   end,
-  --   opts = { labeled_modes = "nx" },
-  -- },
   {
-    enabled = false,
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {
-      search = {
-        forward = true,
-        multi_window = false,
-        wrap = false,
-        incremental = true,
-      },
+    "ggandor/flit.nvim",
+    enabled = true,
+    dependencies = {
+      "ggandor/leap.nvim",
+      "tpope/vim-repeat",
     },
-    keys = {
-      {
-        "s",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "S",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").treesitter()
-        end,
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        mode = "o",
-        function()
-          require("flash").remote()
-        end,
-        desc = "Remote Flash",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function()
-          require("flash").treesitter_search()
-        end,
-        desc = "Treesitter Search",
-      },
-      {
-        "<c-s>",
-        mode = { "c" },
-        function()
-          require("flash").toggle()
-        end,
-        desc = "Toggle Flash Search",
-      },
-    },
+    keys = function()
+      -- @type LazyKeys[]
+      local ret = {}
+      for _, key in ipairs({ "f", "F", "t", "T" }) do
+        ret[#ret + 1] = { key, mode = { "n", "x", "o" }, desc = key }
+      end
+      return ret
+    end,
+    opts = { labeled_modes = "nx" },
   },
 
   {
@@ -88,25 +32,6 @@ return {
             return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
           end,
         },
-      },
-    },
-  },
-
-  {
-    "dinhhuy258/git.nvim",
-    event = "BufReadPre",
-    opts = {
-      keymaps = {
-        -- Open blame window
-        blame = "<Leader>gb",
-        -- Open file/folder in git repository
-        browse = "<Leader>go",
-        -- Close blame window
-        quit_blame = "q",
-        -- Opens a new diff that compares against the current index
-        diff = "<Leader>gd",
-        -- Close git diff
-        diff_close = "<Leader>q",
       },
     },
   },
@@ -450,5 +375,15 @@ return {
     "barrett-ruth/live-server.nvim",
     build = "yarn global add live-server",
     config = true,
+  },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
   },
 }
