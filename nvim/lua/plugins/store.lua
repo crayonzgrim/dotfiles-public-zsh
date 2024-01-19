@@ -4,8 +4,14 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    event = "VeryLazy",
+    opts = {
+      menu = {
+        width = 140,
+      },
+    },
     config = function()
-      global_settings = {
+      local global_settings = {
         -- sets the marks upon calling 'toggle' on the ui, instead of require ":w"
         save_on_toggle = false,
 
@@ -84,7 +90,7 @@ return {
       local config_dir = vim.fn.stdpath("config")
 
       vim.opt.undofile = true
-      vim.opt.undodir = config_dir .. "/.config/nvim/undodir"
+      vim.opt.undodir = config_dir .. "/undodir"
       vim.opt.undolevels = 300
     end,
   },

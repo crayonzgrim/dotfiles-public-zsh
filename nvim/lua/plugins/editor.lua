@@ -1,4 +1,35 @@
 return {
+  -- Incremental rename
+  {
+    "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
+    config = true,
+  },
+
+  -- Go forward/backward with square brackets
+  {
+    "echasnovski/mini.bracketed",
+    event = "BufReadPost",
+    config = function()
+      local bracketed = require("mini.bracketed")
+      bracketed.setup({
+        file = { suffix = "" },
+        window = { suffix = "" },
+        quickfix = { suffix = "" },
+        yank = { suffix = "" },
+        treesitter = { suffix = "n" },
+      })
+    end,
+  },
+
+  {
+    "nvim-cmp",
+    dependencies = { "hrsh7th/cmp-emoji" },
+    opts = function(_, opts)
+      table.insert(opts.sources, { name = "emoji" })
+    end,
+  },
+
   {
     "ggandor/flit.nvim",
     enabled = true,
@@ -18,6 +49,11 @@ return {
   },
 
   {
+    "folke/flash.nvim",
+    enabled = false,
+  },
+
+  {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
     opts = {
@@ -26,8 +62,11 @@ return {
           pattern = "hsl%(%d+,? %d+,? %d+%)",
           group = function(_, match)
             local utils = require("solarized-osaka.hsl")
-            local h, s, l = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
-            h, s, l = tonumber(h), tonumber(s), tonumber(l)
+            --- @type string, string, string
+            local nh, ns, nl = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
+            --- @type number?, number?, number?
+            local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
+            --- @type string
             local hex_color = utils.hslToHex(h, s, l)
             return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
           end,

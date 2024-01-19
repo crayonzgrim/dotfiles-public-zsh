@@ -113,3 +113,7 @@ end)
 
 keymap.set("n", "Q", "@qj")
 keymap.set("x", "Q", ":norm @q<CR>")
+
+keymap.set("n", "<leader>i", function()
+  require("crayonzgrim.lsp").toggleInlayHints()
+end)
