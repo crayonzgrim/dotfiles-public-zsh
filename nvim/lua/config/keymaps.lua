@@ -108,7 +108,7 @@ keymap.set("n", "\\]", "<cmd>cnext<CR>zz", { desc = "Forward qfixlist" })
 keymap.set("n", "\\[", "<cmd>cprev<CR>zz", { desc = "Backward qfixlist" })
 
 keymap.set("n", "<leader>r", function()
-  require("crayonzgrim.utils").replaceHexWithHSL()
+  require("crayonzgrim.hsl").replaceHexWithHSL()
 end)
 
 keymap.set("n", "Q", "@qj")

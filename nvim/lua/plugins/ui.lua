@@ -52,9 +52,9 @@ return {
       opts.presets.lsp_doc_border = true
     end,
   },
-
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     opts = {
       timeout = 5000,
       background_colour = "#000000",
@@ -72,7 +72,6 @@ return {
   --   end,
   -- },
 
-  -- buffer line
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
