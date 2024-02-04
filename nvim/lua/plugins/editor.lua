@@ -413,7 +413,8 @@ return {
   },
   {
     "barrett-ruth/live-server.nvim",
-    build = "yarn global add live-server",
+    build = "pnpm add -g live-server",
+    cmd = { "LiveServerStart", "LiveServerStop" },
     config = true,
   },
   {

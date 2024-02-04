@@ -4,6 +4,7 @@ return {
   config = function()
     local keymap = vim.keymap -- for conciseness
 
-    keymap.set("n", "<leader>df", "<cmd>DartFmt<cr>", { noremap = true })
+    -- flutter prettier
+    keymap.set("n", "<leader>fp", "<cmd>DartFmt<cr>", { noremap = true })
   end,
 }

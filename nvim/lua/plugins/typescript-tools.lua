@@ -9,7 +9,11 @@ return {
       },
       settings = {
         tsserver_file_preferences = {
+          includeInlayParameterNameHints = "all",
           importModuleSpecifierPreference = "non-relative",
+        },
+        tsserver_format_options = {
+          TSToolsRemoveUnusedImports = false,
         },
       },
     })

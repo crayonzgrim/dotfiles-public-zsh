@@ -85,7 +85,7 @@ return {
       })
 
       vim.keymap.set("n", "\\u", require("undotree").toggle, { noremap = true, silent = true })
-      --
+
       -- Enable undofile and specify undodir
       local config_dir = vim.fn.stdpath("config")
 

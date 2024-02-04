@@ -13,9 +13,11 @@ keymap.set("i", "jk", "<ESC>", opts)
 keymap.set("n", "<C-s>", ":w<CR>", opts)
 keymap.set("n", "<C-w>", ":wa<CR>", opts)
 
--- Copy current buffer name and path
-keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
-
+-- Copy current file name and path
+keymap.set("n", "<leader>cf", '<cmd>let @+ = expand("%")<CR>', { desc = "Copy File Name" })
+keymap.set("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<CR>', { desc = "Copy File Path Name" })
+-- keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer path" })
+--
 -- Move normally even if multiple lines
 keymap.set("n", "j", [[v:count?'j':'gj']], { noremap = true, expr = true })
 keymap.set("n", "k", [[v:count?'k':'gk']], { noremap = true, expr = true })

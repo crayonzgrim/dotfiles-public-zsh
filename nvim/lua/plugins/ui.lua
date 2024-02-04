@@ -270,7 +270,7 @@ return {
           { "?", cmd("Telescope search_history"), { desc = "search history" } },
           { ";", cmd("Telescope command_history"), { desc = "command-line history" } },
           { "c", cmd("Telescope commands"), { desc = "execute command" } },
-          { "u", cmd("silent! %foldopen! | UndotreeToggle"), { desc = "undotree" } },
+          { "u", cmd("silent! %foldopen! | undotree.toggle"), { desc = "undotree" } },
           -- { "<Enter>", cmd("Telescope"), { exit = true, desc = "list all pickers" } },
 
           -- exit this Hydra
