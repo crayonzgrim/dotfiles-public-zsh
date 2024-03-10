@@ -4,7 +4,7 @@ vim.opt.fileencoding = "utf-8"
 
 vim.opt.number = true
 
-vim.opt.shell = "zsh"
+-- vim.opt.shell = "zsh"
 vim.opt.title = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -43,6 +43,7 @@ vim.opt.splitbelow = true -- Put new windows below current
 vim.opt.splitright = true -- Put new windows right of current
 vim.opt.splitkeep = "cursor"
 vim.opt.mouse = "a" -- 마우스 지원 활성화
+vim.opt.clipboard:append({ "unnamedplus" })
 -- vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("c") -- 'c' 옵션을 추가하여 "Pattern not found" 메시지를 표시하지 않음
 vim.opt.wrap = false -- Disable line wrap

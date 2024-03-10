@@ -1,60 +1,159 @@
 return {
   {
+    -- {{{ Define the Harpoon lazy.vim specificaiton.
     "ThePrimeagen/harpoon",
+    enabled = true,
+    branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
     },
-    event = "VeryLazy",
-    opts = {
-      menu = {
-        width = 140,
-      },
-    },
-    config = function()
-      local global_settings = {
-        -- sets the marks upon calling 'toggle' on the ui, instead of require ":w"
-        save_on_toggle = false,
 
-        -- saves the harpoon file upon every change. disabling is unrecommended
-        save_on_change = true,
+    -- ----------------------------------------------------------------------- }}}
+    -- {{{ Define events to load Harpoon.
 
-        -- sets harpoon to run the command immediately as it's passed to the terminal when calling 'sendCommand'
-        enter_on_sendcmd = false,
+    keys = function()
+      local harpoon = require("harpoon")
+      local conf = require("telescope.config").values
 
-        -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
-        tmux_autoclose_window = false,
+      local function toggle_telescope(harpoon_files)
+        local file_paths = {}
+        for _, item in ipairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+        require("telescope.pickers")
+          .new({}, {
+            prompt_title = "Harpoon",
+            finder = require("telescope.finders").new_table({
+              results = file_paths,
+            }),
+            previewer = conf.file_previewer({}),
+            sorter = conf.generic_sorter({}),
+          })
+          :find()
+      end
 
-        -- filetypes that you want to prevent from adding to the harpoon list menu.
-        excluded_filetypes = { "harpoon" },
+      return {
+        -- Harpoon marked files 1 through 4
+        {
+          "<a-1>",
+          function()
+            harpoon:list():select(1)
+          end,
+          desc = "Harpoon buffer 1",
+        },
+        {
+          "<a-2>",
+          function()
+            harpoon:list():select(2)
+          end,
+          desc = "Harpoon buffer 2",
+        },
+        {
+          "<a-3>",
+          function()
+            harpoon:list():select(3)
+          end,
+          desc = "Harpoon buffer 3",
+        },
+        {
+          "<a-4>",
+          function()
+            harpoon:list():select(4)
+          end,
+          desc = "Harpoon buffer 4",
+        },
 
-        -- set marks specific to each git branch inside git repository.
-        -- Each branch will have it's own set of marked files.
-        mark_branch = true,
+        -- Harpoon next and previous.
+        {
+          "<a-5>",
+          function()
+            harpoon:list():next()
+          end,
+          desc = "Harpoon next buffer",
+        },
+        {
+          "<a-6>",
+          function()
+            harpoon:list():prev()
+          end,
+          desc = "Harpoon prev buffer",
+        },
 
-        -- Enable tabline with harpoon marks.
-        tabline = false,
-        tabline_prefix = " ",
-        tabline_suffix = " ",
+        -- Harpoon user interface.
+        {
+          "<a-7>",
+          function()
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Toggle Menu",
+        },
+        {
+          "<a-8>",
+          function()
+            harpoon:list():append()
+          end,
+          desc = "Harpoon add file",
+        },
+
+        -- Use Telescope as Harpoon user interface.
+        {
+          "<a-9>",
+          function()
+            toggle_telescope(harpoon:list())
+          end,
+          desc = "Open Harpoon window",
+        },
       }
+    end,
 
-      -- set keymaps
-      local keymap = vim.keymap -- for conciseness
+    -- ----------------------------------------------------------------------- }}}
+    -- {{{ Use Harpoon defaults or my customizations.
 
-      keymap.set(
-        "n",
-        "<leader>ha",
-        "<cmd>lua require('harpoon.mark').add_file()<cr>",
-        { desc = "Mark file with harpoon" }
-      )
-      keymap.set(
-        "n",
-        "<leader>ho",
-        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
-        { desc = "Open harpoon quick menu" }
-      )
-      keymap.set("n", "<leader>sh", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
-      keymap.set("n", "<leader>hn", require("harpoon.ui").nav_next, { desc = "Next mark file on harpoon" })
-      keymap.set("n", "<leader>hp", require("harpoon.ui").nav_prev, { desc = "Previous mark file on harpoon" })
+    opts = function(_, opts)
+      opts.settings = {
+        save_on_toggle = false,
+        sync_on_ui_close = false,
+        save_on_change = true,
+        enter_on_sendcmd = false,
+        tmux_autoclose_windows = false,
+        excluded_filetypes = { "harpoon", "alpha", "dashboard", "gitcommit" },
+        mark_branch = false,
+        key = function()
+          return vim.loop.cwd()
+        end,
+      }
+    end,
+
+    -- ----------------------------------------------------------------------- }}}
+    -- {{{ Configure Harpoon.
+
+    config = function(_, opts)
+      require("harpoon").setup(opts)
+    end,
+
+    -- ----------------------------------------------------------------------- }}} }}}
+    -- {{{ Use Harpoon defaults or my customizations.
+    opts = function(_, opts)
+      opts.settings = {
+        save_on_toggle = false,
+        sync_on_ui_close = false,
+        save_on_change = true,
+        enter_on_sendcmd = false,
+        tmux_autoclose_windows = false,
+        excluded_filetypes = { "harpoon", "alpha", "dashboard", "gitcommit" },
+        mark_branch = false,
+        key = function()
+          return vim.loop.cwd()
+        end,
+      }
+    end,
+
+    -- ----------------------------------------------------------------------- }}}
+    -- {{{ Configure Harpoon.
+
+    config = function(_, opts)
+      require("harpoon").setup(opts)
     end,
   },
 

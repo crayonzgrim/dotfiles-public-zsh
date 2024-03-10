@@ -59,17 +59,28 @@ return {
     opts = {
       highlighters = {
         hsl_color = {
-          pattern = "hsl%(%d+,? %d+,? %d+%)",
+          pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
           group = function(_, match)
             local utils = require("solarized-osaka.hsl")
             --- @type string, string, string
-            local nh, ns, nl = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
+            local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
             --- @type number?, number?, number?
             local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
             --- @type string
             local hex_color = utils.hslToHex(h, s, l)
             return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
           end,
+          -- pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
+          -- group = function(_, match)
+          --   local utils = require("solarized-osaka.hsl")
+          --   --- @type string, string, string
+          --   local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
+          --   --- @type number?, number?, number?
+          --   local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
+          --   --- @type string
+          --   local hex_color = utils.hslToHex(h, s, l)
+          --   return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
+          -- end,
         },
       },
     },
@@ -240,15 +251,36 @@ return {
     end,
   },
   {
-    -- "christoomey/vim-tmux-navigator", -- tmux & split window navigation
+    "alexghergh/nvim-tmux-navigation",
+    enabled = true,
+    event = "VeryLazy",
+
+    opts = function(_, opts)
+      opts.disable_when_zoomed = true
+      opts.keybindings = {
+        left = "<C-h>",
+        down = "<C-j>",
+        up = "<C-k>",
+        right = "<C-l>",
+        last_active = "<C-\\>",
+        next = "<C-]>",
+      }
+    end,
+
+    config = function(_, opts)
+      require("nvim-tmux-navigation").setup(opts)
+    end,
+  },
+  {
     "christoomey/vim-tmux-navigator",
+    enabled = true,
+    event = "VeryLazy",
 
     keys = {
-      { "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", desc = "Go to the previous pane" },
-      { "<C-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Got to the left pane" },
-      { "<C-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Got to the down pane" },
-      { "<C-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Got to the up pane" },
-      { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Got to the right pane" },
+      { "<C-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Navigate Window Left" },
+      { "<C-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Navigate Window Down" },
+      { "<C-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Navigate Window Up" },
+      { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Navigate Window Right" },
     },
   },
   {
