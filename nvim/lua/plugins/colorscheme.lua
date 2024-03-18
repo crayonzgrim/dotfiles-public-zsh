@@ -43,6 +43,7 @@ return {
   -- catppuccin
   {
     "AlexvZyl/nordic.nvim",
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -98,6 +99,7 @@ return {
 
   {
     "sainnhe/sonokai",
+    enabled = false,
     priority = 1000,
     config = function()
       vim.g.sonokai_transparent_background = "1"

@@ -35,6 +35,10 @@ keymap.set("n", "dw", 'vb"_d')
 -- Select all
 -- keymap.set("n", "<C-a>", "gg<S-v>G")
 
+-- Keep cursor centered when scrolling
+keymap.set("n", "<C-d>", "<C-d>zz", opts)
+keymap.set("n", "<C-u>", "<C-u>zz", opts)
+
 -- Disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
 keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
@@ -77,7 +81,9 @@ end, { expr = true })
 -- keymap.set("n", "<C-w><down>", "<C-w>-")
 
 -- Greatest remap ever-1 -> About paste
-keymap.set("v", "p", '"_dP', { silent = true })
+-- keymap.set("v", "p", '"_dP', { silent = true })
+keymap.set("v", "p", '"_dp')
+keymap.set("v", "P", '"_dP')
 
 -- Greatest remap ever-2 ---> Move up & down with all of blocks
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", opts)

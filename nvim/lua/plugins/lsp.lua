@@ -24,6 +24,18 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       { "antosha417/nvim-lsp-file-operations", config = true },
     },
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = {
+        "gd",
+        function()
+          -- DO NOT RESUSE WINDOW
+          require("telescope.builtin").lsp_definitions({ reuse_win = false })
+        end,
+        desc = "Goto Definition",
+        has = "definition",
+      }
+    end,
     config = function()
       -- import lspconfig plugin
       local lspconfig = require("lspconfig")
@@ -32,50 +44,52 @@ return {
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
       local keymap = vim.keymap -- for conciseness
-
-      local opts = { noremap = true, silent = true }
+      local options = {
+        noremap = true,
+        silent = true,
+      }
       local on_attach = function(client, bufnr)
-        opts.buffer = bufnr
+        options.buffer = bufnr
 
         -- set keybinds
-        opts.desc = "Show LSP references"
-        keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+        options.desc = "Show LSP references"
+        keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", options) -- show definition, references
 
-        opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+        options.desc = "Go to declaration"
+        keymap.set("n", "gD", vim.lsp.buf.declaration, options) -- go to declaration
 
-        opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        -- options.desc = "Show LSP definitions"
+        -- keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", options) -- show lsp definitions
 
-        opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+        options.desc = "Show LSP implementations"
+        keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", options) -- show lsp implementations
 
-        opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        options.desc = "Show LSP type definitions"
+        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", options) -- show lsp type definitions
 
-        opts.desc = "See available code actions"
-        keymap.set({ "n", "v" }, "<C-a>", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+        options.desc = "See available code actions"
+        keymap.set({ "n", "v" }, "<C-a>", vim.lsp.buf.code_action, options) -- see available code actions, in visual mode will apply to selection
 
-        opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+        options.desc = "Smart rename"
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, options) -- smart rename
 
-        opts.desc = "Show current buffer diagnostics"
-        keymap.set("n", "\\d", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+        options.desc = "Show current buffer diagnostics"
+        keymap.set("n", "\\e", "<cmd>Telescope diagnostics bufnr=0<CR>", options) -- show  diagnostics for file
 
-        opts.desc = "Show line diagnostics"
-        keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+        options.desc = "Show line diagnostics"
+        keymap.set("n", "<leader>d", vim.diagnostic.open_float, options) -- show diagnostics for line
 
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+        options.desc = "Go to previous diagnostic"
+        keymap.set("n", "[d", vim.diagnostic.goto_prev, options) -- jump to previous diagnostic in buffer
 
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+        options.desc = "Go to next diagnostic"
+        keymap.set("n", "]d", vim.diagnostic.goto_next, options) -- jump to next diagnostic in buffer
 
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+        options.desc = "Show documentation for what is under cursor"
+        keymap.set("n", "K", vim.lsp.buf.hover, options) -- show documentation for what is under cursor
 
-        opts.desc = "Signature_help"
-        keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, opts) -- Signature_help
+        options.desc = "Signature help"
+        keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, options) -- mapping to restart lsp if necessary
       end
 
       -- used to enable autocompletion (assign to every lsp server config)
@@ -191,13 +205,20 @@ return {
                 [vim.fn.stdpath("config") .. "/lua"] = true,
               },
             },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+            hint = {
+              enable = true,
+            },
           },
         },
       })
     end,
+
     opts = {
       inlay_hints = { enabled = true },
-      ---@type lspconfig.options
       servers = {
         cssls = {},
         tailwindcss = {
@@ -211,21 +232,21 @@ return {
           end,
           single_file_support = false,
           settings = {
-            typescript = {
+            javascript = {
               inlayHints = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
+                includeInlayVariableTypeHints = true,
                 includeInlayPropertyDeclarationTypeHints = true,
                 includeInlayFunctionLikeReturnTypeHints = true,
                 includeInlayEnumMemberValueHints = true,
               },
             },
-            javascript = {
+            typescript = {
               inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayParameterNameHints = "literal",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayVariableTypeHints = true,
                 includeInlayPropertyDeclarationTypeHints = true,
@@ -244,7 +265,7 @@ return {
           },
         },
         lua_ls = {
-          -- enabled = false,
+          enabled = true,
           single_file_support = true,
           settings = {
             Lua = {
@@ -262,11 +283,6 @@ return {
               },
               hint = {
                 enable = true,
-                setType = false,
-                paramType = true,
-                paramName = "Disable",
-                semicolon = "Disable",
-                arrayIndex = "Disable",
               },
               doc = {
                 privateName = { "^_" },
