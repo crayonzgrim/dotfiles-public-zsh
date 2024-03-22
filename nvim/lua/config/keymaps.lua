@@ -119,9 +119,10 @@ keymap.set("n", "<leader>r", function()
   require("crayonzgrim.hsl").replaceHexWithHSL()
 end)
 
-keymap.set("n", "Q", "@qj")
-keymap.set("x", "Q", ":norm @q<CR>")
-
+-- make inlay hint able to toggle with a keymap <leader>i
 keymap.set("n", "<leader>i", function()
   require("crayonzgrim.lsp").toggleInlayHints()
 end)
+
+keymap.set("n", "Q", "@qj")
+keymap.set("x", "Q", ":norm @q<CR>")
