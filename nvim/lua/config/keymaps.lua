@@ -82,7 +82,7 @@ end, { expr = true })
 
 -- Greatest remap ever-1 -> About paste
 -- keymap.set("v", "p", '"_dP', { silent = true })
-keymap.set("v", "p", '"_dp')
+-- keymap.set("v", "p", '"_dp')
 keymap.set("v", "P", '"_dP')
 
 -- Greatest remap ever-2 ---> Move up & down with all of blocks

@@ -92,16 +92,16 @@ return {
   },
 
   -- statusline
-  {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = {
-      options = {
-        -- globalstatus = false,
-        theme = "solarized-osaka", --"rose-pine", "catppuccin", "tokyonight", "solarized-osaka" , "sonokai"
-      },
-    },
-  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     options = {
+  --       -- globalstatus = false,
+  --       theme = "solarized-osaka", --"rose-pine", "catppuccin", "tokyonight", "solarized-osaka" , "sonokai"
+  --     },
+  --   },
+  -- },
 
   -- Floating file name
   {

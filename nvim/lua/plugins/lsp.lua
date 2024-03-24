@@ -4,7 +4,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
-        "luacheck",
+        -- "luacheck",
         "stylua",
         "selene",
         "shellcheck",
@@ -154,7 +154,7 @@ return {
       lspconfig["graphql"].setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+        filetypes = { "graphql", "gql", "svelte", "svelte", "typescriptreact", "javascriptreact" },
       })
 
       -- configure emmet language server
@@ -174,6 +174,8 @@ return {
           "pug",
           "typescriptreact",
           "vue",
+          "astro",
+          "svelte",
         },
       })
 
