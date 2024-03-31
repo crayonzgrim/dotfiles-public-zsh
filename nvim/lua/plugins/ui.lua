@@ -1,4 +1,9 @@
 return {
+  {
+    "ryanoasis/vim-devicons",
+    enabled = true,
+  },
+
   -- messages, cmdline and the popupmenu
   {
     "folke/noice.nvim",

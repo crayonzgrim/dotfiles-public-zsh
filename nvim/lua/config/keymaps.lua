@@ -20,8 +20,19 @@ keymap.set("n", "cbp", ":let @+=@%<cr>", { desc = "Copy Buffer name and path" })
 keymap.set("n", "j", [[v:count?'j':'gj']], { noremap = true, expr = true })
 keymap.set("n", "k", [[v:count?'k':'gk']], { noremap = true, expr = true })
 
--- Do not yank with 'x'
+-- Do things without affecting the registers
 keymap.set({ "n", "v" }, "x", '"_x')
+-- keymap.set("n", "<Leader>p", '"0p')
+-- keymap.set("n", "<Leader>P", '"0P')
+-- keymap.set("v", "<Leader>p", '"0p')
+-- keymap.set("n", "<Leader>c", '"_c')
+-- keymap.set("n", "<Leader>C", '"_C')
+-- keymap.set("v", "<Leader>c", '"_c')
+-- keymap.set("v", "<Leader>C", '"_C')
+-- keymap.set("n", "<Leader>d", '"_d')
+-- keymap.set("n", "<Leader>D", '"_D')
+-- keymap.set("v", "<Leader>d", '"_d')
+-- keymap.set("v", "<Leader>D", '"_D')
 
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
@@ -113,3 +124,16 @@ end)
 
 keymap.set("n", "Q", "@qj")
 keymap.set("x", "Q", ":norm @q<CR>")
+
+-- Diagnostics
+keymap.set("n", "<C-j>", function()
+  vim.diagnostic.goto_next()
+end, opts)
+
+keymap.set("n", "<leader>r", function()
+  require("crayonzgrim.hsl").replaceHexWithHSL()
+end)
+
+keymap.set("n", "<leader>i", function()
+  require("crayonzgrim.lsp").toggleInlayHints()
+end)
