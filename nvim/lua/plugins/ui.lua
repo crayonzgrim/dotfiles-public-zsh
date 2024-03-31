@@ -65,6 +65,7 @@ return {
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
+    enabled = false,
     opts = function(_, opts)
       opts.scroll = {
         enable = false,
@@ -77,22 +78,43 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+      -- { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      -- { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
     },
     opts = {
       options = {
         mode = "tabs",
+        -- separator_style = "slant",
         always_show_bufferline = true,
         show_close_icon = false,
         show_buffer_close_icons = false,
         truncate_names = false,
+        color_icons = true,
+        highlight = {
+          separator = {
+            guifg = "#073642",
+            huibg = "#002b36",
+          },
+          separator_selected = {
+            guifg = "#073642",
+          },
+          background = {
+            guifg = "#657b83",
+            guibg = "#002b36",
+          },
+          buffer_selected = {
+            guifg = "#fdf6e3",
+            gui = "bold",
+          },
+          fill = {
+            guibg = "#073642",
+          },
+        },
         hover = {
           enbale = true,
           delay = 150,
           reveal = { "close" },
         },
-        separator_style = "slant",
       },
     },
   },
