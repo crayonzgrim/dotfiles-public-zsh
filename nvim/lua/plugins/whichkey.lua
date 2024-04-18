@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  enabled = true,
   "folke/which-key.nvim",
   event = "VeryLazy",
   init = function()

@@ -78,6 +78,8 @@ return {
         build = "make",
       },
       "nvim-telescope/telescope-file-browser.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     keys = {
       {
@@ -257,10 +259,66 @@ return {
 
   {
     "stevearc/oil.nvim",
-    opt = {},
+    opts = {
+      -- Set to false if you still want to use netrw.
+      default_file_explorer = true,
+      -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
+      skip_confirm_for_simple_edits = true,
+      -- Set to false to disable all of the above keymaps
+      use_default_keymaps = true,
+      view_options = {
+        -- Show files and directories that start with "."
+        show_hidden = false,
+        -- This function defines what is considered a "hidden" file
+        is_hidden_file = function(name)
+          local ignore_folders = { "node_modules", "dist", "build", "coverage" }
+          return vim.startswith(name, ".") or vim.tbl_contains(ignore_folders, name)
+        end,
+      },
+      -- Configuration for the floating window in oil.open_float
+      float = {
+        padding = 2,
+        max_width = 120,
+        border = "rounded",
+        win_options = {
+          winblend = 0,
+        },
+      },
+      -- Custom Keymap
+      keymaps = {
+        ["<C-c>"] = false,
+        ["<C-s>"] = "actions.save",
+        ["q"] = "actions.close",
+        ["<C-y>"] = "actions.copy_entry_path",
+      },
+    },
+    -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function() end,
+    -- Use g? to see default key mappings
+    keys = {
+      {
+        "\\e",
+        function()
+          require("oil").toggle_float()
+        end,
+        desc = "Open file explorer",
+      },
+    },
   },
+  -- {
+  --   "stevearc/oil.nvim",
+  --   opt = {},
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   keys = {
+  --     {
+  --       "\\e",
+  --       function()
+  --         require("oil").toggle_float()
+  --       end,
+  --       desc = "Toggle Oil",
+  --     },
+  --   },
+  -- },
 
   {
     "Exafunction/codeium.vim",

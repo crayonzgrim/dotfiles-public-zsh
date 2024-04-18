@@ -104,11 +104,11 @@ return {
               },
               hint = {
                 enable = true,
-                setType = false,
-                paramType = true,
-                paramName = "Disable",
-                semicolon = "Disable",
-                arrayIndex = "Disable",
+                -- setType = false,
+                -- paramType = true,
+                -- paramName = "Disable",
+                -- semicolon = "Disable",
+                -- arrayIndex = "Disable",
               },
               doc = {
                 privateName = { "^_" },
@@ -154,6 +154,8 @@ return {
       setup = {},
     },
     config = function(_, opts)
+      vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { noremap = true, silent = true })
+
       if LazyVim.has("neoconf.nvim") then
         local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
         require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
