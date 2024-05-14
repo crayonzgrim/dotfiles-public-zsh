@@ -2,18 +2,71 @@ return {
   -- tools
   {
     "williamboman/mason.nvim",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "stylua",
-        "selene",
-        "luacheck",
-        "shellcheck",
-        "shfmt",
-        "tailwindcss-language-server",
-        "typescript-language-server",
-        "css-lsp",
-      })
-    end,
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
+config = function()
+    -- import mason
+    local mason = require("mason")
+
+    -- import mason-lspconfig
+    local mason_lspconfig = require("mason-lspconfig")
+
+    local mason_tool_installer = require("mason-tool-installer")
+
+    -- enable mason and configure icons
+    mason.setup({
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    })
+
+    mason_lspconfig.setup({
+      -- list of servers for mason to install
+      ensure_installed = {
+        "tsserver",
+        "html",
+        "cssls",
+        "tailwindcss",
+        "svelte",
+        "lua_ls",
+        "graphql",
+        "emmet_ls",
+        "prismals",
+        "pyright",
+      },
+    })
+
+    mason_tool_installer.setup({
+      ensure_installed = {
+        "prettier", -- prettier formatter
+        "stylua", -- lua formatter
+        "isort", -- python formatter
+        "black", -- python formatter
+        "pylint",
+        "eslint_d",
+      },
+    })
+  end,
+    -- opts = function(_, opts)
+    --   vim.list_extend(opts.ensure_installed, {
+    --     "stylua",
+    --     "selene",
+    --     "luacheck",
+    --     "shellcheck",
+    --     "shfmt",
+    --     "tailwindcss-language-server",
+    --     "typescript-language-server",
+    --     "astro-language-server",
+    --     "css-lsp",
+    --     "gitui",
+    --   })
+    -- end,
   },
 
   {

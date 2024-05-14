@@ -70,7 +70,7 @@ return {
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
-    enabled = false,
+    enabled = true,
     opts = function(_, opts)
       opts.scroll = {
         enable = false,
@@ -94,55 +94,7 @@ return {
         color_icons = true,
       },
     },
-    -- opts = {
-    --   options = {
-    --     mode = "tabs",
-    --     -- separator_style = "slant",
-    --     always_show_bufferline = true,
-    --     show_close_icon = false,
-    --     show_buffer_close_icons = false,
-    --     truncate_names = false,
-    --     color_icons = true,
-    --     highlight = {
-    --       separator = {
-    --         guifg = "#073642",
-    --         huibg = "#002b36",
-    --       },
-    --       separator_selected = {
-    --         guifg = "#073642",
-    --       },
-    --       background = {
-    --         guifg = "#657b83",
-    --         guibg = "#002b36",
-    --       },
-    --       buffer_selected = {
-    --         guifg = "#fdf6e3",
-    --         gui = "bold",
-    --       },
-    --       fill = {
-    --         guibg = "#073642",
-    --       },
-    --     },
-    --     hover = {
-    --       enbale = true,
-    --       delay = 150,
-    --       reveal = { "close" },
-    --     },
-    --   },
-    -- },
   },
-
-  -- statusline
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     options = {
-  --       -- globalstatus = false,
-  --       theme = "solarized-osaka",
-  --     },
-  --   },
-  -- },
 
   -- filename
   {
@@ -219,7 +171,7 @@ return {
         user_default_options = {
           RGB = true, -- #RGB hex codes
           RRGGBB = true, -- #RRGGBB hex codes
-          names = true, -- "Name" codes like Blue or blue
+          names = false, -- "Name" codes like Blue or blue
           RRGGBBAA = true, -- #RRGGBBAA hex codes
           AARRGGBB = true, -- 0xAARRGGBB hex codes
           rgb_fn = true, -- CSS rgb() and rgba() functions
@@ -236,7 +188,7 @@ return {
           virtualtext = "■",
           -- update color values even if buffer is not focused
           -- example use: cmp_menu, cmp_docs
-          always_update = false,
+          always_update = true,
         },
         -- all the sub-options of filetypes apply to buftypes
         buftypes = {},

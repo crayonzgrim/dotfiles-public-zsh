@@ -6,6 +6,6 @@ return {
   },
   opts = {
     backend = "ollama",
-    model = "codellama:latest",
+    model = "llama3:latest",
   },
 }
