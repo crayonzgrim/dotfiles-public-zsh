@@ -60,7 +60,7 @@ return {
 
   {
     "rcarriga/nvim-notify",
-    enabled = false,
+    enabled = true,
     opts = {
       timeout = 5000,
     },
@@ -82,18 +82,33 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    version = "*",
+    keys = {
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    },
     opts = {
       options = {
         mode = "tabs",
         separator_style = "slant",
         always_show_bufferline = true,
         show_buffer_close_icons = false,
-        truncate_names = false,
-        color_icons = true,
+        show_close_icon = false,
       },
     },
+    -- "akinsho/bufferline.nvim",
+    -- event = "VeryLazy",
+    -- dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- version = "*",
+    -- opts = {
+    --   options = {
+    --     mode = "tabs",
+    --     separator_style = "slant",
+    --     always_show_bufferline = true,
+    --     show_buffer_close_icons = false,
+    --     truncate_names = false,
+    --     color_icons = true,
+    --   },
+    -- },
   },
 
   -- filename
