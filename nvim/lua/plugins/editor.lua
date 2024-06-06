@@ -170,6 +170,33 @@ return {
       local telescope = require("telescope")
       local actions = require("telescope.actions")
       local fb_actions = require("telescope").extensions.file_browser.actions
+      local transform_mod = require("telescope.actions.mt").transform_mod
+      local open_with_trouble = require("trouble.sources.telescope").open
+
+      local trouble = require("trouble")
+      local trouble_telescope = require("trouble.sources.telescope")
+
+      -- or create your custom action
+      local custom_actions = transform_mod({
+        open_trouble_qflist = function(prompt_bufnr)
+          trouble.toggle("quickfix")
+        end,
+      })
+
+      telescope.setup({
+        defaults = {
+          path_display = { "smart" },
+          mappings = {
+            i = {
+              ["<C-k>"] = actions.move_selection_previous, -- move to prev result
+              ["<C-j>"] = actions.move_selection_next, -- move to next result
+              ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+              -- ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
+              -- ["<C-t>"] = trouble_telescope.open(),
+            },
+          },
+        },
+      })
 
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
         wrap_results = true,
@@ -717,5 +744,36 @@ return {
         -- Configuration here, or leave empty to use defaults
       })
     end,
+  },
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
+      {
+        "<leader>cS",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP references/definitions/... (Trouble)",
+      },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+      {
+        "[q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Previous Trouble/Quickfix Item",
+      },
+    },
   },
 }
