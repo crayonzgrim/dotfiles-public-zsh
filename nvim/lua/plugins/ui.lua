@@ -1,12 +1,26 @@
 return {
   {
     "ryanoasis/vim-devicons",
+    enabled = false,
+  },
+
+  {
+    "DaikyXendo/nvim-material-icon",
+    enabled = false,
+  },
+
+  {
+    "nvim-tree/nvim-web-devicons",
     enabled = true,
   },
 
-  -- messages, cmdline and the popupmenu
   {
     "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
     opts = function(_, opts)
       table.insert(opts.routes, {
         filter = {
@@ -70,7 +84,6 @@ return {
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
-    enabled = true,
     opts = function(_, opts)
       opts.scroll = {
         enable = false,
@@ -82,34 +95,55 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    keys = {
-      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
-      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
-    },
     opts = {
       options = {
         mode = "tabs",
-        separator_style = "slant",
+        -- separator_style = "slant",
         always_show_bufferline = true,
-        show_buffer_close_icons = false,
         show_close_icon = false,
+        show_buffer_close_icons = false,
+        truncate_names = false,
+        color_icons = true,
+        highlight = {
+          separator = {
+            guifg = "#073642",
+            huibg = "#002b36",
+          },
+          separator_selected = {
+            guifg = "#073642",
+          },
+          background = {
+            guifg = "#657b83",
+            guibg = "#002b36",
+          },
+          buffer_selected = {
+            guifg = "#fdf6e3",
+            gui = "bold",
+          },
+          fill = {
+            guibg = "#073642",
+          },
+        },
+        hover = {
+          enbale = true,
+          delay = 150,
+          reveal = { "close" },
+        },
       },
     },
-    -- "akinsho/bufferline.nvim",
-    -- event = "VeryLazy",
-    -- dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- version = "*",
-    -- opts = {
-    --   options = {
-    --     mode = "tabs",
-    --     separator_style = "slant",
-    --     always_show_bufferline = true,
-    --     show_buffer_close_icons = false,
-    --     truncate_names = false,
-    --     color_icons = true,
-    --   },
-    -- },
   },
+
+  -- statusline
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     options = {
+  --       -- globalstatus = false,
+  --       theme = "solarized-osaka",
+  --     },
+  --   },
+  -- },
 
   -- filename
   {
@@ -142,20 +176,6 @@ return {
       })
     end,
   },
-
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        gitsigns = true,
-        tmux = true,
-        kitty = { enabled = false, font = "+2" },
-      },
-    },
-    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  },
-
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
@@ -173,7 +193,6 @@ return {
       opts.config.header = vim.split(logo, "\n")
     end,
   },
-
   {
     "NvChad/nvim-colorizer.lua", -- showex color
     event = "VeryLazy",
@@ -210,11 +229,9 @@ return {
       })
     end,
   },
-
   {
     "ap/vim-css-color",
   },
-
   {
     "anuvyklack/hydra.nvim",
     config = function()
@@ -305,7 +322,6 @@ return {
       })
     end,
   },
-
   {
     "ziontee113/color-picker.nvim",
     enable = true,
@@ -341,7 +357,6 @@ return {
       vim.cmd([[hi FloatBorder guibg=NONE]]) -- if you don't want weird border background colors around the popup.
     end,
   },
-
   {
     "mg979/vim-visual-multi",
     -- press n/N to get next/previous occurrence
@@ -386,7 +401,12 @@ return {
       vim.api.nvim_set_keymap("n", "gq", "<Cmd>q<CR>", { noremap = true })
     end,
   },
-
+  {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = true,
+  },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -429,6 +449,7 @@ return {
         max_line_len = 400, -- ignore lines longer than this
         exclude = {}, -- list of file types to exclude highlighting
       },
+
       -- list of named colors where we try to extract the guifg from the
       -- list of highlight groups or use the hex color if hl not found as a fallback
       colors = {

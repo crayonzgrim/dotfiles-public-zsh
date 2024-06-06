@@ -1,10 +1,9 @@
 return {
-  { "nvim-lua/plenary.nvim" },
-
   {
     "ThePrimeagen/harpoon",
-    -- branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
       -- set keymaps
       local keymap = vim.keymap -- for conciseness
@@ -21,7 +20,7 @@ return {
         "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
         { desc = "Open harpoon quick menu" }
       )
-      keymap.set("n", "sh", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
+      keymap.set("n", "<leader>sf", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
       keymap.set(
         "n",
         "<leader>hn",
@@ -39,6 +38,7 @@ return {
 
   {
     "jiaoshijie/undotree",
+    enabled = true,
     requires = {
       "nvim-lua/plenary.nvim",
     },
@@ -47,7 +47,7 @@ return {
 
       undotree.setup({
         float_diff = true, -- using float window previews diff, set this `true` will disable layout option
-        layout = "left_left_bottom", -- "left_bottom", "left_left_bottom"
+        layout = "left_bottom", -- "left_bottom", "left_left_bottom"
         ignore_filetype = { "undotree", "undotreeDiff", "qf", "TelescopePrompt", "spectre_panel", "tsplayground" },
         window = {
           winblend = 5,

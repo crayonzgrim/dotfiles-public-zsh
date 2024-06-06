@@ -3,7 +3,26 @@ return {
 
   { "tpope/vim-fugitive" },
 
-  { "kdheepak/lazygit.nvim" },
+  -- { "kdheepak/lazygit.nvim" },
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    -- keys = {
+    --   { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open lazy git" },
+    -- },
+  },
 
   {
     "dinhhuy258/git.nvim",
@@ -31,8 +50,8 @@ return {
       vim.keymap.set("n", "<leader>dmo", "<cmd>DiffviewOpen master<cr>", { silent = true })
       vim.keymap.set("n", "<leader>dq", "<cmd>DiffviewClose<cr>", { silent = true })
 
-      vim.keymap.set("n", "<leader>dh", "<cmd>DiffviewFileHistory<cr>", { silent = true })
-      vim.keymap.set("n", "<leader>dmh", "<cmd>DiffviewFileHistory %<cr>", { silent = true })
+      vim.keymap.set("n", "<leader>da", "<cmd>DiffviewFileHistory<cr>", { silent = true })
+      vim.keymap.set("n", "<leader>dc", "<cmd>DiffviewFileHistory %<cr>", { silent = true })
     end,
   },
 

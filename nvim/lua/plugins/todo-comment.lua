@@ -4,6 +4,6 @@ return {
   opts = {},
   cmd = { "TodoQuickFix" },
   keys = {
-    { "<leader>T", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+    { "<leader>td", "<cmd>TodoTelescope<cr>", desc = "Todo" },
   },
 }

@@ -28,21 +28,20 @@ return {
   },
   keys = {
     { "<leader>e", "<cmd>Neotree toggle left<cr>", silent = true, desc = "Neotree" },
-    { "<leader>fe", "<cmd>Neotree focus<cr>", silent = true, desc = "Neotree Focus" },
     { "<leader><tab>", "<cmd>Neotree toggle float<cr>", silent = true, desc = "Float file explorer" },
   },
   config = function()
     require("neo-tree").setup({
       filesystem = {
         filtered_items = {
-          visible = true,
+          visible = false,
           show_hidden_count = true,
           hide_dotfiles = false,
           hide_gitignored = false,
           hide_by_name = {
+            ".yarn",
             ".git",
             ".github",
-            ".yarn",
             ".DS_Store",
             "thumbs.db",
           },

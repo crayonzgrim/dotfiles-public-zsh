@@ -1,5 +1,6 @@
 return {
   "nvimdev/lspsaga.nvim", -- LSP UIs
+  enabled = false,
   config = function()
     require("lspsaga").setup({
       ui = {

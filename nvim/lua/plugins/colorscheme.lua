@@ -38,8 +38,9 @@ return {
         ---@param colors ColorScheme
         on_highlights = function(highlights, colors)
           highlights.LspInlayHint = {
-            bg = "#23242b", -- 배경색 설정 (어두운 회색)
-            fg = "#8F908A", -- 글자색 설정 (밝은 회색)
+            -- bg = "#23242b", -- 배경색 설정 (어두운 회색)
+            bg = nil, -- 배경색 설정 (어두운 회색)
+            fg = "#3b3c4c", -- 글자색 설정 (밝은 회색)
           }
         end,
       }
@@ -48,7 +49,6 @@ return {
   {
     "catppuccin/nvim",
     lazy = true,
-    enabled = true,
     name = "catppuccin",
     opts = {
       transparent_background = true,
@@ -86,6 +86,30 @@ return {
         treesitter = true,
         treesitter_context = true,
         which_key = true,
+      },
+    },
+  },
+
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    -- Optional; default configuration will be used if setup isn't called.
+    config = function()
+      require("everforest").setup({
+        transparent_background_level = 1,
+      })
+    end,
+  },
+
+  {
+    "folke/tokyonight.nvim",
+    opts = {
+      transparent = true,
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
       },
     },
   },

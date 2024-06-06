@@ -11,17 +11,18 @@ return {
         tsserver_file_preferences = {
           includeInlayParameterNameHints = "all",
           importModuleSpecifierPreference = "non-relative",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
         },
         tsserver_format_options = {
-          TSToolsOrganizeImports = true, -- sorts and removes unused imports
-          TSToolsRemoveUnusedImports = true, --  removes unused imports
-          TSToolsRemoveUnused = true, --  removes all unused statements
-          TSToolsSortImports = true, --  sorts imports
-          TSToolsAddMissingImports = true, -- adds imports for all statements that lack one and can be imported
-          TSToolsFixAll = true, -- fixes all fixable errors
-          TSToolsGoToSourceDefinition = true, -- goes to source definition (available since TS v4.7)
-          TSToolsRenameFile = true, -- allow to rename current file and apply changes to connected files
-          TSToolsFileReferences = true, -- find files that reference the current file (available since TS v4.2)
+          TSToolsRemoveUnusedImports = true,
+          TSToolsRemoveUnused = true,
+          TSToolsOrganizeImports = true,
         },
         tsserver_plugin = {
           "@styled/typescript-styled-plugin",

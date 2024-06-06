@@ -7,14 +7,7 @@ return {
       ensure_installed = {
         "astro",
         "svelte",
-        "cmake",
-        "cpp",
-        "fish",
-        "go",
-        "http",
-        "java",
         "php",
-        "rust",
         "scss",
         "sql",
         "json",
@@ -34,9 +27,13 @@ return {
         "vim",
         "dockerfile",
         "gitignore",
-        "query",
       },
 
+      auto_install = true,
+
+      highlight = {
+        enable = true,
+      },
       matchup = {
         enable = true,
       },
