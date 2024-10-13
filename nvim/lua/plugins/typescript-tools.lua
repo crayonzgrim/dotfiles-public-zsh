@@ -23,6 +23,7 @@ return {
           TSToolsRemoveUnusedImports = true,
           TSToolsRemoveUnused = true,
           TSToolsOrganizeImports = true,
+          TSToolsRenameFile = true,
         },
         tsserver_plugin = {
           "@styled/typescript-styled-plugin",

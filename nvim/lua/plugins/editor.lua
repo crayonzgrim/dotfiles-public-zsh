@@ -29,6 +29,48 @@ return {
     },
   },
 
+  -- Use mini.icon for better performance
+  {
+    "echasnovski/mini.icons",
+    opts = {
+      file = {
+        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        [".eslintrc.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+        [".node-version"] = { glyph = "", hl = "MiniIconsGreen" },
+        [".prettierrc"] = { glyph = "", hl = "MiniIconsPurple" },
+        [".yarnrc.yml"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["eslint.config.js"] = { glyph = "󰱺", hl = "MiniIconsYellow" },
+        ["package.json"] = { glyph = "", hl = "MiniIconsGreen" },
+        ["tsconfig.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["tsconfig.build.json"] = { glyph = "", hl = "MiniIconsAzure" },
+        ["yarn.lock"] = { glyph = "", hl = "MiniIconsBlue" },
+        [".go-version"] = { glyph = "", hl = "MiniIconsBlue" },
+        [".chezmoiignore"] = { glyph = "", hl = "MiniIconsGrey" },
+        [".chezmoiremove"] = { glyph = "", hl = "MiniIconsGrey" },
+        [".chezmoiroot"] = { glyph = "", hl = "MiniIconsGrey" },
+        [".chezmoiversion"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["bash.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["json.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["ps1.tmpl"] = { glyph = "󰨊", hl = "MiniIconsGrey" },
+        ["sh.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["toml.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["yaml.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+        ["zsh.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
+      },
+      filetype = {
+        dotenv = { glyph = "", hl = "MiniIconsYellow" },
+        gotmpl = { glyph = "󰟓", hl = "MiniIconsGrey" },
+      },
+    },
+    config = function(_, options)
+      local icons = require("mini.icons")
+      icons.setup(options)
+      -- Mocking methods of 'nvim-tree/nvim-web-devicons' for better integrations with plugins outside 'mini.nvim'
+      icons.mock_nvim_web_devicons()
+    end,
+  },
+
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
@@ -46,29 +88,28 @@ return {
             local hex_color = utils.hslToHex(h, s, l)
             return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
           end,
-          -- pattern = "hsl%(%d+,? %d+%%?,? %d+%%?%)",
-          -- group = function(_, match)
-          --   local utils = require("solarized-osaka.hsl")
-          --   --- @type string, string, string
-          --   local nh, ns, nl = match:match("hsl%((%d+),? (%d+)%%?,? (%d+)%%?%)")
-          --   --- @type number?, number?, number?
-          --   local h, s, l = tonumber(nh), tonumber(ns), tonumber(nl)
-          --   --- @type string
-          --   local hex_color = utils.hslToHex(h, s, l)
-          --   return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
-          -- end,
         },
       },
     },
   },
 
   {
+    "dharmx/telescope-media.nvim",
+    config = function()
+      require("telescope").load_extension("media")
+    end,
+  },
+
+  {
     "telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "nvim-lua/popup.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-tree/nvim-web-devicons",
+      "echasnovski/mini.icons",
       "folke/todo-comments.nvim",
+      "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },
@@ -99,6 +140,7 @@ return {
           local builtin = require("telescope.builtin")
           builtin.live_grep({
             additional_args = { "--hidden" },
+            -- additional_args = { "--hidden", "--ignore=.yarn" }, -- .yarn 파일을 무시
           })
         end,
         desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
@@ -170,35 +212,28 @@ return {
       local telescope = require("telescope")
       local actions = require("telescope.actions")
       local fb_actions = require("telescope").extensions.file_browser.actions
+
       local transform_mod = require("telescope.actions.mt").transform_mod
-      local open_with_trouble = require("trouble.sources.telescope").open
 
       local trouble = require("trouble")
       local trouble_telescope = require("trouble.sources.telescope")
 
-      -- or create your custom action
       local custom_actions = transform_mod({
         open_trouble_qflist = function(prompt_bufnr)
           trouble.toggle("quickfix")
         end,
       })
 
-      telescope.setup({
-        defaults = {
-          path_display = { "smart" },
-          mappings = {
-            i = {
-              ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-              ["<C-j>"] = actions.move_selection_next, -- move to next result
-              ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-              -- ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
-              -- ["<C-t>"] = trouble_telescope.open(),
-            },
+      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
+        path_display = { "smart" },
+        mappings = {
+          i = {
+            ["<C-k>"] = actions.move_selection_previous, -- move to prev result
+            ["<C-j>"] = actions.move_selection_next, -- move to next result
+            ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+            ["<C-t>"] = trouble_telescope.open,
           },
         },
-      })
-
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
         wrap_results = true,
         layout_strategy = "horizontal",
         layout_config = { prompt_position = "top" },
@@ -218,6 +253,13 @@ return {
         },
       }
       opts.extensions = {
+        -- media_files = {
+        --   -- filetypes whitelist
+        --   -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+        --   filetypes = { "png", "webp", "jpg", "jpeg", "webm", "pdf", "mp4" },
+        --   -- find command (defaults to `fd`)
+        --   find_cmd = "rg",
+        -- },
         file_browser = {
           theme = "dropdown",
           -- disables netrw and use telescope-file-browser in its place
@@ -254,305 +296,66 @@ return {
       require("telescope").load_extension("flutter")
     end,
   },
-
   {
-    -- "telescope.nvim",
-    -- branch = "0.1.x",
-    -- dependencies = {
-    --   "nvim-lua/plenary.nvim",
-    --   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    --   "nvim-tree/nvim-web-devicons",
-    --   "folke/todo-comments.nvim",
-    --   "nvim-telescope/telescope-file-browser.nvim",
-    -- },
-    -- -- keys = {
-    -- --   {
-    -- --     "<leader>fP",
-    -- --     function()
-    -- --       require("telescope.builtin").find_files({
-    -- --         cwd = require("lazy.core.config").options.root,
-    -- --       })
-    -- --     end,
-    -- --     desc = "Find Plugin File",
-    -- --   },
-    -- --   {
-    -- --     ";f",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.find_files({
-    -- --         no_ignore = true,
-    -- --         hidden = true,
-    -- --       })
-    -- --     end,
-    -- --     desc = "Lists files in your current working directory, respects .gitignore",
-    -- --   },
-    -- --   {
-    -- --     ";r",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.live_grep({
-    -- --         file_ignore_patterns = { "node_modules" }, -- Exclude node_modules directory
-    -- --       })
-    -- --     end,
-    -- --     desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
-    -- --   },
-    -- --   {
-    -- --     "\\\\",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.buffers()
-    -- --     end,
-    -- --     desc = "Lists open buffers",
-    -- --   },
-    -- --   {
-    -- --     ";t",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.help_tags()
-    -- --     end,
-    -- --     desc = "Lists available help tags and opens a new window with the relevant help info on <cr>",
-    -- --   },
-    -- --   {
-    -- --     ";;",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.resume()
-    -- --     end,
-    -- --     desc = "Resume the previous telescope picker",
-    -- --   },
-    -- --   {
-    -- --     ";e",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.diagnostics()
-    -- --     end,
-    -- --     desc = "Lists Diagnostics for all open buffers or a specific buffer",
-    -- --   },
-    -- --   {
-    -- --     ";s",
-    -- --     function()
-    -- --       local builtin = require("telescope.builtin")
-    -- --       builtin.treesitter()
-    -- --     end,
-    -- --     desc = "Lists Function names, variables, from Treesitter",
-    -- --   },
-    -- --   {
-    -- --     "sf",
-    -- --     function()
-    -- --       local telescope = require("telescope")
-    -- --
-    -- --       local function telescope_buffer_dir()
-    -- --         return vim.fn.expand("%:p:h")
-    -- --       end
-    -- --
-    -- --       telescope.extensions.file_browser.file_browser({
-    -- --         path = "%:p:h",
-    -- --         cwd = telescope_buffer_dir(),
-    -- --         respect_gitignore = false,
-    -- --         hidden = true,
-    -- --         grouped = true,
-    -- --         previewer = false,
-    -- --         initial_mode = "normal",
-    -- --         layout_config = { height = 40 },
-    -- --       })
-    -- --     end,
-    -- --     desc = "Open File Browser with the path of the current buffer",
-    -- --   },
-    -- -- },
-    -- config = function(_, opts)
-    --   local telescope = require("telescope")
-    --   local actions = require("telescope.actions")
-    --   local fb_actions = require("telescope").extensions.file_browser.actions
-    --
-    --   local transform_mod = require("telescope.actions.mt").transform_mod
-    --   local trouble = require("trouble")
-    --   local trouble_telescope = require("trouble.providers.telescope")
-    --
-    --   local custom_actions = transform_mod({
-    --     open_trouble_qflist = function(prompt_bufnr)
-    --       trouble.toggle("quickfix")
-    --     end,
-    --   })
-    --
-    --   telescope.setup({
-    --     defaults = {
-    --       path_display = { "smart" },
-    --       mappings = {
-    --         i = {
-    --           ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-    --           ["<C-j>"] = actions.move_selection_next, -- move to next result
-    --           ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
-    --           ["<C-t>"] = trouble_telescope.smart_open_with_trouble,
-    --         },
-    --       },
-    --     },
-    --   })
-    --
-    --   telescope.load_extension("fzf")
-    --
-    --   -- set keymaps
-    --   local keymap = vim.keymap -- for conciseness
-    --
-    --   -- keymap.set("n", ";f", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-    --   keymap.set("n", ";f", function()
-    --     local builtin = require("telescope.builtin")
-    --     builtin.find_files({
-    --       no_ignore = true,
-    --       hidden = false,
-    --     })
-    --   end, { desc = "Lists files in your current working directory, respects .gitignore" })
-    --   keymap.set("n", ";o", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-    --   -- keymap.set("n", ";r", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-    --   keymap.set("n", ";r", function()
-    --     local builtin = require("telescope.builtin")
-    --     builtin.live_grep({
-    --       file_ignore_patterns = { "node_modules" }, -- Exclude node_modules directory
-    --     })
-    --   end, {
-    --     desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
-    --   })
-    --   keymap.set("n", ";gs", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-    --   keymap.set("n", ";td", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
-    --   keymap.set("n", "\\\\", function()
-    --     local builtin = require("telescope.builtin")
-    --     builtin.buffers()
-    --   end, { desc = "Lists open buffers" })
-    --   keymap.set("n", ";;", function()
-    --     local builtin = require("telescope.builtin")
-    --     builtin.resume()
-    --   end, { desc = "Resume the previous telescope picker" })
-    --   keymap.set("n", ";e", function()
-    --     local builtin = require("telescope.builtin")
-    --     builtin.diagnostics()
-    --   end, { desc = "Lists Diagnostics for all open buffers or a specific buffer" })
-    --   keymap.set("n", "sf", function()
-    --     local function telescope_buffer_dir()
-    --       return vim.fn.expand("%:p:h")
-    --     end
-    --
-    --     telescope.extensions.file_browser.file_browser({
-    --       path = "%:p:h",
-    --       cwd = telescope_buffer_dir(),
-    --       respect_gitignore = false,
-    --       hidden = false,
-    --       grouped = true,
-    --       previewer = true,
-    --       initial_mode = "normal",
-    --       layout_config = { height = 40 },
-    --     })
-    --   end, { desc = "Open File Browser with the path of the current buffer" })
-    --
-    --   -- opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
-    --   --   wrap_results = true,
-    --   --   layout_strategy = "horizontal",
-    --   --   layout_config = { prompt_position = "top" },
-    --   --   sorting_strategy = "ascending",
-    --   --   winblend = 0,
-    --   --   mappings = {
-    --   --     n = {},
-    --   --   },
-    --   -- })
-    --   -- opts.pickers = {
-    --   --   diagnostics = {
-    --   --     theme = "ivy",
-    --   --     initial_mode = "normal",
-    --   --     layout_config = {
-    --   --       preview_cutoff = 9999,
-    --   --     },
-    --   --   },
-    --   -- }
-    --   -- opts.extensions = {
-    --   --   file_browser = {
-    --   --     theme = "dropdown",
-    --   --     -- disables netrw and use telescope-file-browser in its place
-    --   --     hijack_netrw = true,
-    --   --     mappings = {
-    --   --       -- your custom insert mode mappings
-    --   --       ["n"] = {
-    --   --         -- your custom normal mode mappings
-    --   --         ["N"] = fb_actions.create,
-    --   --         ["h"] = fb_actions.goto_parent_dir,
-    --   --         ["/"] = function()
-    --   --           vim.cmd("startinsert")
-    --   --         end,
-    --   --         ["<C-u>"] = function(prompt_bufnr)
-    --   --           for i = 1, 10 do
-    --   --             actions.move_selection_previous(prompt_bufnr)
-    --   --           end
-    --   --         end,
-    --   --         ["<C-d>"] = function(prompt_bufnr)
-    --   --           for i = 1, 10 do
-    --   --             actions.move_selection_next(prompt_bufnr)
-    --   --           end
-    --   --         end,
-    --   --         ["<PageUp>"] = actions.preview_scrolling_up,
-    --   --         ["<PageDown>"] = actions.preview_scrolling_down,
-    --   --       },
-    --   --     },
-    --   --   },
-    --   -- }
-    --   telescope.setup(opts)
-    --   require("telescope").load_extension("fzf")
-    --   require("telescope").load_extension("file_browser")
-    --   require("telescope").load_extension("harpoon")
-    --   require("telescope").load_extension("flutter")
-    -- end,
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
+    opts = {
+      focus = true,
+    },
+    cmd = "Trouble",
+    keys = {
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      -- { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
+      -- {
+      --   "<leader>cS",
+      --   "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+      --   desc = "LSP references/definitions/... (Trouble)",
+      -- },
+      { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Open todos in trouble" },
+      {
+        "<leader>q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Previous Trouble/Quickfix Item",
+      },
+    },
   },
   {
     "christoomey/vim-tmux-navigator",
     enabled = true,
-    event = "VeryLazy",
-    -- keys = {
-    --   {
-    --     "<C-k>",
-    --     function()
-    --       require("tmux-navigator").NvimTmuxNavigateUp()
-    --     end,
-    --     desc = { "TmuxNavigateUp" },
-    --   },
-    --   {
-    --     "<C-j>",
-    --     function()
-    --       require("tmux-navigator").NvimTmuxNavigateDown()
-    --     end,
-    --     desc = { "TmuxNavigateDown" },
-    --   },
-    --   {
-    --     "<C-h>",
-    --     function()
-    --       require("tmux-navigator").NvimTmuxNavigateLeft()
-    --     end,
-    --     desc = { "TmuxNavigateLeft" },
-    --   },
-    --   {
-    --     "<C-l>",
-    --     function()
-    --       require("tmux-navigator").NvimTmuxNavigateRight()
-    --     end,
-    --     desc = { "TmuxNavigateRight" },
-    --   },
-    --   {
-    --     "<C-\\>",
-    --     function()
-    --       require("tmux-navigator").NvimTmuxNavigatePrevious()
-    --     end,
-    --     desc = { "TmuxNavigatePrevious" },
-    --   },
-    -- },
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
   {
     "inkarkat/vim-ReplaceWithRegister", -- replace with register contents using motion (gr + motion)
   },
   {
-    "szw/vim-maximizer",
-    config = function()
-      vim.keymap.set("n", "<leader>mx", ":MaximizerToggle<CR>", { silent = true }) -- toggle split window maximization
-    end,
-  },
-  {
     "stevearc/oil.nvim",
     opt = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
     keys = {
       {
         "\\e",
@@ -560,34 +363,14 @@ return {
           require("oil").toggle_float()
         end,
       },
-      {
-        "<leader>o",
-        function()
-          require("Oil")
-        end,
-      },
     },
     config = function()
       local oil = require("oil")
 
       oil.setup({
-        -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
-        -- Set to false if you still want to use netrw.
         default_file_explorer = true,
-        -- Id is automatically added at the beginning, and name at the end
-        -- See :help oil-columns
-        columns = {
-          "icon",
-          -- "permissions",
-          -- "size",
-          -- "mtime",
-        },
-        -- Buffer-local options to use for oil buffers
-        buf_options = {
-          buflisted = false,
-          bufhidden = "hide",
-        },
-        -- Window-local options to use for oil buffers
+        delete_to_trash = true,
+        skip_confirm_for_simple_edits = true,
         win_options = {
           wrap = false,
           signcolumn = "no",
@@ -598,18 +381,24 @@ return {
           conceallevel = 3,
           concealcursor = "nvic",
         },
-        -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-        delete_to_trash = false,
-        -- Skip the confirmation popup for simple operations
-        skip_confirm_for_simple_edits = true,
-        -- Change this to customize the command used when deleting to trash
         trash_command = "trash-put",
-        -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
         prompt_save_on_select_new_entry = true,
         -- Oil will automatically delete hidden buffers after this delay
         -- You can set the delay to false to disable cleanup entirely
         -- Note that the cleanup process only starts when none of the oil buffers are currently displayed
         cleanup_delay_ms = 2000,
+        lsp_file_methods = {
+          -- Time to wait for LSP file operations to complete before skipping
+          timeout_ms = 1000,
+          -- Set to true to autosave buffers that are updated with LSP willRenameFiles
+          -- Set to "unmodified" to only save unmodified buffers
+          autosave_changes = false,
+        },
+        -- Constrain the cursor to the editable parts of the oil buffer
+        -- Set to `false` to disable, or "name" to keep it on the file names
+        constrain_cursor = "editable",
+        -- Set to true to watch the filesystem for changes and reload oil
+        watch_for_changes = true,
         -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
         -- options with a `callback` (e.g. { callback = function() ... end, desc = "", mode = "n" })
         -- Additionally, if it is a string that matches "actions.<name>",
@@ -617,15 +406,16 @@ return {
         -- Set to `false` to remove a keymap
         -- See :help oil-actions for a list of all available actions
         keymaps = {
-          ["g?"] = "actions.show_help",
+          ["?"] = "actions.show_help",
           ["<CR>"] = "actions.select",
-          ["<C-s>"] = "actions.select_vsplit",
-          ["<C-h>"] = "actions.select_split",
+          ["<C-v>"] = "actions.select_vsplit",
+          ["<C-s>"] = "actions.select_split",
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["q"] = "actions.close",
           ["<C-l>"] = "actions.refresh",
-          ["-"] = "actions.parent",
+          ["<S-H>"] = "actions.parent",
+          -- ["-"] = "actions.parent",
           ["_"] = "actions.open_cwd",
           ["`"] = "actions.cd",
           ["~"] = "actions.tcd",
@@ -638,17 +428,11 @@ return {
         view_options = {
           -- Show files and directories that start with "."
           show_hidden = true,
-          -- This function defines what is considered a "hidden" file
-          is_hidden_file = function(name, bufnr)
-            return vim.startswith(name, ".")
-          end,
           -- This function defines what will never be shown, even when `show_hidden` is set
-          is_always_hidden = function(name, bufnr)
-            return false
+          is_always_hidden = function(name, _)
+            return name == ".." or name == ".git"
           end,
           sort = {
-            -- sort order can be "asc" or "desc"
-            -- see :help oil-columns to see which columns are sortable
             { "type", "asc" },
             { "name", "asc" },
           },
@@ -656,9 +440,9 @@ return {
         -- Configuration for the floating window in oil.open_float
         float = {
           -- Padding around the floating window
-          padding = 5,
-          max_width = 100,
-          max_height = 0,
+          padding = 2,
+          max_width = 60,
+          max_height = 30,
           border = "rounded",
           win_options = {
             winblend = 0,
@@ -674,7 +458,7 @@ return {
           -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
           -- min_width and max_width can be a single value or a list of mixed integer/float types.
           -- max_width = {100, 0.8} means "the lesser of 100 columns or 80% of total"
-          max_width = 0.9,
+          max_width = { 100, 1 },
           -- min_width = {40, 0.4} means "the greater of 40 columns or 40% of total"
           min_width = { 40, 0.4 },
           -- optionally define an integer/float for the exact width of the preview window
@@ -711,24 +495,79 @@ return {
       vim.keymap.set("n", "<leader>o", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
   },
+
+  {
+    -- add this to the file where you setup your other plugins:
+    "monkoose/neocodeium",
+    event = "VeryLazy",
+    config = function()
+      local neocodeium = require("neocodeium")
+      neocodeium.setup()
+      vim.keymap.set("i", "<C-g>", neocodeium.accept)
+      vim.keymap.set("i", "<C-c>", neocodeium.clear)
+    end,
+  },
+
   {
     "Exafunction/codeium.vim",
+    enabled = false,
+    version = "1.8.37",
     config = function()
       -- Change '<C-g>' here to any keycode you like.
       vim.keymap.set("i", "<C-g>", function()
         return vim.fn["codeium#Accept"]()
       end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-;>", function()
+      vim.keymap.set("i", "<c-n>", function()
         return vim.fn["codeium#CycleCompletions"](1)
       end, { expr = true, silent = true })
-      vim.keymap.set("i", "<c-,>", function()
+      vim.keymap.set("i", "<c-p>", function()
         return vim.fn["codeium#CycleCompletions"](-1)
       end, { expr = true, silent = true })
       vim.keymap.set("i", "<c-x>", function()
         return vim.fn["codeium#Clear"]()
       end, { expr = true, silent = true })
+      -- vim.keymap.set("n", "<C-c>", function()
+      --   return vim.fn["codeium#Chat"]()
+      -- end, { expr = true, silent = true })
     end,
   },
+
+  {
+    "Exafunction/codeium.nvim",
+    enabled = false,
+    event = "InsertEnter",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      vim.keymap.set("i", "<C-g>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true, silent = true })
+    end,
+  },
+
+  {
+    "tzachar/cmp-tabnine",
+    build = {
+      LazyVim.is_win() and "pwsh -noni .\\install.ps1" or "./install.sh",
+      ":CmpTabnineHub",
+    },
+    dependencies = "hrsh7th/nvim-cmp",
+    opts = {
+      max_lines = 1000,
+      max_num_results = 20,
+      sort = true,
+      run_on_every_keystroke = true,
+      snippet_placeholder = "...",
+      show_prediction_strength = true,
+      min_percent = 0,
+    },
+    config = function(_, opts)
+      require("cmp_tabnine.config"):setup(opts)
+    end,
+  },
+
   {
     "barrett-ruth/live-server.nvim",
     build = "pnpm add -g live-server",
@@ -737,43 +576,19 @@ return {
   },
   {
     "kylechui/nvim-surround",
+    event = { "BufReadPre", "BufNewFile" },
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end,
-  },
-  {
-    "folke/trouble.nvim",
-    opts = {}, -- for default options, refer to the configuration section for custom setup.
-    cmd = "Trouble",
+    config = true,
     keys = {
-      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-      { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
-      {
-        "<leader>cS",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP references/definitions/... (Trouble)",
-      },
-      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
-      {
-        "[q",
-        function()
-          if require("trouble").is_open() then
-            require("trouble").prev({ skip_groups = true, jump = true })
-          else
-            local ok, err = pcall(vim.cmd.cprev)
-            if not ok then
-              vim.notify(err, vim.log.levels.ERROR)
-            end
-          end
-        end,
-        desc = "Previous Trouble/Quickfix Item",
-      },
+      --     Old text                    Command         New text
+      -- --------------------------------------------------------------------------------
+      --     surr*ound_words             ysiw)           (surround_words)
+      --     *make strings               ys$"            "make strings"
+      --     [delete ar*ound me!]        ds]             delete around me!
+      --     remove <b>HTML t*ags</b>    dst             remove HTML tags
+      --     'change quot*es'            cs'"            "change quotes"
+      --     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+      --     delete(functi*on calls)     dsf             function calls
     },
   },
 }

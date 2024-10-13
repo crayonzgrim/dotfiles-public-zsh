@@ -1,9 +1,21 @@
 return {
-  { "lewis6991/gitsigns.nvim" },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
+    opts = {
+      signs = {
+        add = { text = "▎" },
+        change = { text = "▎" },
+        delete = { text = "" },
+        topdelete = { text = "" },
+        changedelete = { text = "▎" },
+        untracked = { text = "▎" },
+      },
+    },
+  },
 
   { "tpope/vim-fugitive" },
 
-  -- { "kdheepak/lazygit.nvim" },
   {
     "kdheepak/lazygit.nvim",
     cmd = {
@@ -47,7 +59,7 @@ return {
     "sindrets/diffview.nvim",
     config = function()
       vim.keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<cr>", { silent = true })
-      vim.keymap.set("n", "<leader>dmo", "<cmd>DiffviewOpen master<cr>", { silent = true })
+      vim.keymap.set("n", "<leader>dmo", "<cmd>DiffviewOpen main<cr>", { silent = true })
       vim.keymap.set("n", "<leader>dq", "<cmd>DiffviewClose<cr>", { silent = true })
 
       vim.keymap.set("n", "<leader>da", "<cmd>DiffviewFileHistory<cr>", { silent = true })

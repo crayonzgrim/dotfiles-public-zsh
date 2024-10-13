@@ -1,6 +1,14 @@
-vim.scriptencoding = "utf-8"
+vim.g.mapleader = " "
+
+vim.opt.sessionoptions:append("globals")
+
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
+
+vim.g.barbar_auto_setup = false -- disable auto-setup
+
+-- Save undo history
+vim.o.undofile = true
 
 -- clipboard
 vim.opt.clipboard:append("unnamedplus") -- use system clipboard as default register
@@ -15,9 +23,9 @@ vim.opt.hlsearch = true
 vim.opt.backup = false
 vim.opt.showcmd = true
 vim.opt.cmdheight = 1
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 vim.opt.expandtab = true
-vim.opt.scrolloff = 3
+vim.opt.scrolloff = 5
 vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
@@ -50,12 +58,6 @@ vim.opt.shortmess:append("c") -- 'c' 옵션을 추가하여 "Pattern not found" 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
-
--- Turn off paste mode when leaving insert
--- vim.api.nvim_create_autocmd("InsertLeave", {
---   pattern = "*",
---   command = "set nopaste",
--- })
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append({ "r" })

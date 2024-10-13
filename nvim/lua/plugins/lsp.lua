@@ -70,9 +70,8 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    -- event = "LazyFile",
-    version = "*",
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LazyFile",
+    -- event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
       -- { "folke/neodev.nvim", opts = {} },
@@ -112,7 +111,7 @@ return {
           settings = {
             typescript = {
               inlayHints = {
-                includeInlayParameterNameHints = "literal",
+                includeInlayParameterNameHints = "literals",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
                 includeInlayFunctionParameterTypeHints = true,
                 includeInlayVariableTypeHints = false,
@@ -135,6 +134,44 @@ return {
             },
           },
         },
+        vtsls = {
+          -- explicitly add default filetypes, so that we can extend
+          -- them in related extras
+          filetypes = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+            "typescript",
+            "typescriptreact",
+            "typescript.tsx",
+          },
+          settings = {
+            complete_function_calls = true,
+            vtsls = {
+              enableMoveToFileCodeAction = true,
+              autoUseWorkspaceTsdk = true,
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = true,
+                },
+              },
+            },
+            typescript = {
+              updateImportsOnFileMove = { enabled = "always" },
+              suggest = {
+                completeFunctionCalls = true,
+              },
+              inlayHints = {
+                enumMemberValues = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                parameterNames = { enabled = "literals" },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
         html = {},
         yamlls = {
           settings = {
@@ -144,7 +181,7 @@ return {
           },
         },
         lua_ls = {
-          -- enabled = false,
+          enabled = true,
           single_file_support = true,
           settings = {
             Lua = {
@@ -162,11 +199,11 @@ return {
               },
               hint = {
                 enable = true,
-                -- setType = false,
-                -- paramType = true,
-                -- paramName = "Disable",
-                -- semicolon = "Disable",
-                -- arrayIndex = "Disable",
+                setType = false,
+                paramType = true,
+                paramName = "All",
+                semicolon = "All",
+                arrayIndex = "All",
               },
               doc = {
                 privateName = { "^_" },

@@ -1,9 +1,9 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
   requires = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    "echasnovski/mini.icons",
     "MunifTanjim/nui.nvim",
     "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     {
@@ -28,10 +28,14 @@ return {
   },
   keys = {
     { "<leader>e", "<cmd>Neotree toggle left<cr>", silent = true, desc = "Neotree" },
+    { "<leader>E", "<cmd>Neotree toggle reveal_force_cwd<cr>", silent = true, desc = "Neotree" },
     { "<leader><tab>", "<cmd>Neotree toggle float<cr>", silent = true, desc = "Float file explorer" },
   },
   config = function()
     require("neo-tree").setup({
+      enable_git_status = true,
+      enable_diagnostics = true,
+      use_libuv_file_watcher = true,
       filesystem = {
         filtered_items = {
           visible = false,
@@ -45,11 +49,15 @@ return {
             ".DS_Store",
             "thumbs.db",
           },
+          always_show_by_pattern = { -- uses glob style patterns
+            ".env",
+            ".env.*",
+          },
           never_show = {},
         },
       },
     })
 
-    vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+    -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
   end,
 }

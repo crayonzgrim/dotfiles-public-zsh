@@ -1,15 +1,5 @@
 return {
   {
-    "ryanoasis/vim-devicons",
-    enabled = false,
-  },
-
-  {
-    "DaikyXendo/nvim-material-icon",
-    enabled = false,
-  },
-
-  {
     "nvim-tree/nvim-web-devicons",
     enabled = true,
   },
@@ -17,6 +7,7 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
+    enabled = true,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -74,76 +65,130 @@ return {
 
   {
     "rcarriga/nvim-notify",
-    enabled = true,
+    enabled = false,
     opts = {
-      timeout = 5000,
+      timeout = 2000,
     },
   },
 
   -- animations
   {
-    "echasnovski/mini.animate",
-    event = "VeryLazy",
+    -- "echasnovski/mini.animate",
+    -- event = "VeryLazy",
+    -- opts = function(_, opts)
+    --   opts.scroll = {
+    --     enable = false,
+    --   }
+    -- end,
+  },
+
+  -- statusline
+  {
+    "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      opts.scroll = {
-        enable = false,
+      local LazyVim = require("lazyvim.util")
+      opts.sections.lualine_c[4] = {
+        LazyVim.lualine.pretty_path({
+          length = 0,
+          relative = "cwd",
+          modified_hl = "MatchParen",
+          directory_hl = "",
+          filename_hl = "Bold",
+          modified_sign = "",
+          readonly_icon = " 󰌾 ",
+        }),
       }
     end,
   },
 
   -- buffer line
   {
+    "romgrk/barbar.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    dependencies = {
+      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+      "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {},
+    config = function()
+      require("barbar").setup({
+        tabpages = false,
+      })
+    end,
+    keys = {
+      {
+        "<S-H>",
+        "<Cmd>BufferPrevious<CR>",
+        desc = "Previous tab",
+      },
+      {
+        "<S-L>",
+        "<Cmd>BufferNext<CR>",
+        desc = "Next tab",
+      },
+      {
+        "<S-Left>",
+        "<Cmd>BufferMovePrevious<CR>",
+        desc = "Tab move previous",
+      },
+      {
+        "<S-Right>",
+        "<Cmd>BufferMoveNext<CR>",
+        desc = "Tab move next",
+      },
+    },
+    version = "^1.0.0", -- optional: only update when a new 1.x version is released
+  },
+  {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
+    version = "*",
+    dependencies = "echasnovski/mini.icons",
+    -- dependencies = "nvim-tree/nvim-web-devicons",
+    -- keys = {
+    -- { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+    -- { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    -- },
     opts = {
       options = {
         mode = "tabs",
-        -- separator_style = "slant",
-        always_show_bufferline = true,
-        show_close_icon = false,
+        diagnostics = "nvim_lsp",
         show_buffer_close_icons = false,
-        truncate_names = false,
-        color_icons = true,
-        highlight = {
-          separator = {
-            guifg = "#073642",
-            huibg = "#002b36",
+        always_show_bufferline = true,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "Neo-tree",
+            highlight = "Directory",
+            text_align = "left",
           },
-          separator_selected = {
-            guifg = "#073642",
-          },
-          background = {
-            guifg = "#657b83",
-            guibg = "#002b36",
-          },
-          buffer_selected = {
-            guifg = "#fdf6e3",
-            gui = "bold",
-          },
-          fill = {
-            guibg = "#073642",
-          },
-        },
-        hover = {
-          enbale = true,
-          delay = 150,
-          reveal = { "close" },
         },
       },
     },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
+    end,
+    -- opts = {
+    --   options = {
+    --     mode = "tabs",
+    --     always_show_bufferline = true, -- 항상 bufferline 표시
+    --     show_buffer_close_icons = false,
+    --     -- persist_buffer_sort = true, -- 버퍼 정렬 상태를 유지
+    --   },
+    -- },
   },
-
-  -- statusline
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     options = {
-  --       -- globalstatus = false,
-  --       theme = "solarized-osaka",
-  --     },
-  --   },
-  -- },
 
   -- filename
   {
@@ -330,8 +375,8 @@ return {
 
       local opts = { noremap = true, silent = true }
 
-      vim.keymap.set("n", "\\cp", "<cmd>PickColor<cr>", opts)
-      vim.keymap.set("i", "\\cp", "<cmd>PickColorInsert<cr>", opts)
+      vim.keymap.set("n", "\\c", "<cmd>PickColor<cr>", opts)
+      vim.keymap.set("i", "\\c", "<cmd>PickColorInsert<cr>", opts)
 
       -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandRGB<cr>", opts)
       -- vim.keymap.set("n", "your_keymap", "<cmd>ConvertHEXandHSL<cr>", opts)
@@ -367,6 +412,7 @@ return {
   },
   {
     "rmagatti/goto-preview", -- preview
+    event = "BufEnter",
     config = function()
       local preview = require("goto-preview")
 
@@ -390,6 +436,7 @@ return {
         bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
         stack_floating_preview_windows = true, -- Whether to nest floating windows
         preview_window_title = { enable = true, position = "left" }, -- Whether to set the preview window title as the filename
+        -- zindex = 1, -- Starting zindex for the stack of floating windows
       })
 
       vim.api.nvim_set_keymap(
@@ -405,7 +452,6 @@ return {
     "folke/ts-comments.nvim",
     opts = {},
     event = "VeryLazy",
-    enabled = true,
   },
   {
     "folke/todo-comments.nvim",
@@ -475,5 +521,18 @@ return {
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
       },
     },
+  },
+  {
+    "voldikss/vim-floaterm",
+    config = function()
+      vim.keymap.set(
+        "n",
+        "<leader>ft",
+        "<cmd>:FloatermNew --height=0.7 --width=0.8 --wintype=float --name=floaterm1 --position=center --autoclose=2<CR>",
+        { desc = "Open FloatTerm" }
+      )
+      vim.keymap.set("n", "<leader>flt", "<cmd>:FloatermToggle<CR>", { desc = "Toggle FloatTerm" })
+      vim.keymap.set("t", "<leader>flt", "<cmd>:FloatermToggle<CR>", { desc = "Toggle FloatTerm" })
+    end,
   },
 }

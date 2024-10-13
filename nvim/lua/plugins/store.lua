@@ -1,38 +1,62 @@
 return {
   {
     "ThePrimeagen/harpoon",
+    branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    config = function()
-      -- set keymaps
-      local keymap = vim.keymap -- for conciseness
+    opts = {
+      menu = {
+        width = 50,
+        -- width = vim.api.nvim_win_get_width(0) - 8,
+      },
+      settings = {
+        save_on_toggle = true,
+      },
+    },
+    keys = function()
+      local keys = {
+        {
+          "<leader>ha",
+          function()
+            require("harpoon"):list():add()
+          end,
+          desc = "Harpoon File",
+        },
+        {
+          "<leader>ho",
+          function()
+            local harpoon = require("harpoon")
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+        {
+          "<leader>hn",
+          function()
+            local harpoon = require("harpoon")
+            harpoon:list():next()
+          end,
+        },
+        {
+          "<leader>hp",
+          function()
+            local harpoon = require("harpoon")
+            harpoon:list():prev()
+          end,
+        },
+      }
 
-      keymap.set(
-        "n",
-        "<leader>ha",
-        "<cmd>lua require('harpoon.mark').add_file()<cr>",
-        { desc = "Mark file with harpoon" }
-      )
-      keymap.set(
-        "n",
-        "<leader>ho",
-        "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>",
-        { desc = "Open harpoon quick menu" }
-      )
-      keymap.set("n", "<leader>sf", "<cmd>Telescope harpoon marks<cr>", { desc = "Harpoon in Telescope" })
-      keymap.set(
-        "n",
-        "<leader>hn",
-        "<cmd>lua require('harpoon.ui').nav_next()<cr>",
-        { desc = "Go to next harpoon mark" }
-      )
-      keymap.set(
-        "n",
-        "<leader>hp",
-        "<cmd>lua require('harpoon.ui').nav_prev()<cr>",
-        { desc = "Go to prev harpoon mark" }
-      )
+      for i = 1, 5 do
+        table.insert(keys, {
+          "<leader>" .. i,
+          function()
+            require("harpoon"):list():select(i)
+          end,
+          desc = "Harpoon to File " .. i,
+        })
+      end
+      return keys
     end,
   },
 
@@ -70,7 +94,7 @@ return {
 
       vim.opt.undofile = true
       vim.opt.undodir = config_dir .. "~/.config/nvim/undodir"
-      vim.opt.undolevels = 100
+      vim.opt.undolevels = 300
     end,
   },
 }
