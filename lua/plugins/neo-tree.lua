@@ -1,0 +1,56 @@
+return {
+  "nvim-neo-tree/neo-tree.nvim",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+    "MunifTanjim/nui.nvim",
+  },
+  keys = {
+    { "<leader>e", "<cmd>Neotree toggle left<cr>", silent = true, desc = "Neotree" },
+    { "<leader>E", "<cmd>Neotree toggle reveal_force_cwd<cr>", silent = true, desc = "Neotree" },
+    { "<leader><tab>", "<cmd>Neotree toggle float<cr>", silent = true, desc = "Float file explorer" },
+  },
+  config = function()
+    require("neo-tree").setup({
+      enable_git_status = true,
+      enable_diagnostics = true,
+      use_libuv_file_watcher = true,
+      filesystem = {
+        window = {
+          mappings = {
+            ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+            ["<leader>p"] = "image_wezterm", -- " or another map
+          },
+        },
+        commands = {
+          image_wezterm = function(state)
+            local node = state.tree:get_node()
+            if node.type == "file" then
+              require("image_preview").PreviewImage(node.path)
+            end
+          end,
+        },
+        filtered_items = {
+          visible = false,
+          show_hidden_count = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_by_name = {
+            ".yarn",
+            ".git",
+            ".github",
+            ".DS_Store",
+            "thumbs.db",
+          },
+          always_show_by_pattern = { -- uses glob style patterns
+            ".env",
+            ".env.*",
+          },
+          never_show = {},
+        },
+      },
+    })
+
+    vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+  end,
+}
