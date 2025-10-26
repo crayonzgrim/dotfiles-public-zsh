@@ -76,7 +76,7 @@ return {
 
   -- Go forward/backward with square brackets
   {
-    "echasnovski/mini.bracketed",
+    "nvim-mini/mini.bracketed",
     event = "BufReadPost",
     config = function()
       local bracketed = require("mini.bracketed")
@@ -182,7 +182,7 @@ return {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     version = "*",
-    dependencies = "echasnovski/mini.icons",
+    dependencies = "nvim-mini/mini.icons",
     opts = {
       options = {
         mode = "tabs",

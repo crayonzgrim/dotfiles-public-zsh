@@ -346,7 +346,7 @@ If the user uses Korean, reply in Korean.
       providers = {
         claude = {
           endpoint = "https://api.anthropic.com",
-          model = "claude-3-5-sonnet-20241022",
+          model = "claude-sonnet-4-20250514",
           timeout = 30000,
           extra_request_body = {
             temperature = 0.75,
@@ -403,7 +403,7 @@ If the user uses Korean, reply in Korean.
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "echasnovski/mini.pick",
+      "nvim-mini/mini.pick",
       "nvim-telescope/telescope.nvim",
       "hrsh7th/nvim-cmp",
       "ibhagwan/fzf-lua",
