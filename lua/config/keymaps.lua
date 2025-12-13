@@ -38,9 +38,6 @@ keymap.set("n", "dw", 'vb"_d')
 -- Do not yank with 'x'
 keymap.set({ "n", "v" }, "x", '"_x')
 
--- Do not yank with 'x'
-keymap.set({ "n", "v" }, "d", '"_d')
-
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
 
