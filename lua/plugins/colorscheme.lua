@@ -1,23 +1,5 @@
 return {
   {
-    "Mofiqul/vscode.nvim",
-    opts = {
-      transparent = true,
-    },
-  },
-
-  {
-    "ellisonleao/gruvbox.nvim",
-    priority = 1000,
-    config = true,
-    opts = function()
-      return {
-        transparent_mode = true,
-      }
-    end,
-  },
-
-  {
     "craftzdog/solarized-osaka.nvim",
     lazy = true,
     priority = 1000,
