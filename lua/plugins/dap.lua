@@ -1,6 +1,5 @@
 return {
   "mfussenegger/nvim-dap",
-  recommend = true,
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
@@ -387,51 +386,5 @@ return {
         end,
       },
     }
-
-    -- local convertArgStringToArray = function(config)
-    --   local c = {}
-    --
-    --   for k, v in pairs(vim.deepcopy(config)) do
-    --     if k == "args" and type(v) == "string" then
-    --       c[k] = require("dap.utils").splitstr(v)
-    --     else
-    --       c[k] = v
-    --     end
-    --   end
-    --
-    --   return c
-    -- end
-    --
-    -- for key, _ in pairs(dap.configurations) do
-    --   dap.listeners.on_config[key] = convertArgStringToArray
-    -- end
-
-    -- dap.listeners.before.attach.dapui_config = function()
-    --   dapui.open()
-    -- end
-    -- dap.listeners.before.launch.dapui_config = function()
-    --   dapui.open()
-    -- end
-    -- dap.listeners.before.event_terminated.dapui_config = function()
-    --   dapui.close()
-    -- end
-    -- dap.listeners.before.event_exited.dapui_config = function()
-    --   dapui.close()
-    -- end
-
-    -- vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
-    -- vim.keymap.set("n", "<Leader>dbc", dap.clear_breakpoints, { desc = "Clear all breakpoints" })
-    -- vim.keymap.set("n", "<Leader>dbl", dap.list_breakpoints, { desc = "Clear all breakpoints" })
-
-    -- local continue = function()
-    --   -- support for vscode launch.json is partial.
-    --   -- not all configuration options and features supported
-    --   if vim.fn.filereadable(".vscode/launch.json") then
-    --     require("dap.ext.vscode").load_launchjs()
-    --   end
-    --   dap.continue()
-    -- end
-
-    -- vim.keymap.set("n", "<Leader>dc", continue, { desc = "Continue" })
   end,
 }
