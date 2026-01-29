@@ -207,7 +207,8 @@ return {
       {
         "\\e",
         function()
-          require("oil").toggle_float()
+          require("oil").open_float(nil, { preview = {} })
+          -- require("oil").toggle_float()
         end,
       },
       {
@@ -294,9 +295,10 @@ return {
         float = {
           -- Padding around the floating window
           padding = 2,
-          max_width = 60,
+          max_width = 100,
           max_height = 30,
           border = "rounded",
+          preview_split = "right",
           win_options = {
             winblend = 0,
           },
@@ -318,7 +320,7 @@ return {
           -- max_width = {100, 0.8} means "the lesser of 100 columns or 80% of total"
           max_width = { 100, 1 },
           -- min_width = {40, 0.4} means "the greater of 40 columns or 40% of total"
-          min_width = { 40, 0.4 },
+          min_width = { 80, 0.8 },
           -- optionally define an integer/float for the exact width of the preview window
           width = nil,
           -- Height dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
