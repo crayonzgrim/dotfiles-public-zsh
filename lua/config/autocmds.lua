@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+
 -- Resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   callback = function()

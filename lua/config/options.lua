@@ -70,6 +70,9 @@ vim.filetype.add({
   },
 })
 
+-- Keep English spell check but exclude CJK (Korean/Chinese/Japanese) characters
+vim.opt.spelllang = { "en", "cjk" }
+
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_picker = "telescope"
 vim.g.lazyvim_cmp = "blink.cmp"
