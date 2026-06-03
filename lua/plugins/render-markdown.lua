@@ -5,7 +5,33 @@ return {
   -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
-  opts = {},
+  opts = {
+    heading = {
+      enabled = true,
+      sign = false,
+      icons = { "# ", "## ", "### ", "#### ", "##### ", "###### " },
+    },
+    code = {
+      enabled = true,
+      sign = false,
+      style = "full",
+      left_pad = 1,
+      right_pad = 1,
+      border = "thin",
+      language_pad = 1,
+    },
+    bullet = {
+      enabled = true,
+      icons = { "●", "○", "◆", "◇" },
+    },
+    checkbox = {
+      enabled = true,
+      unchecked = { icon = "☐ " },
+      checked = { icon = "☑ " },
+    },
+    quote = { enabled = true, icon = "▎" },
+    pipe_table = { enabled = true, style = "full" },
+  },
   config = function(_, opts)
     require("render-markdown").setup({
       link = {

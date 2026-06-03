@@ -2,7 +2,7 @@ return {
   {
     "monkoose/neocodeium",
     event = "VeryLazy",
-    enabled = false,
+    enabled = true,
     config = function()
       local neocodeium = require("neocodeium")
       neocodeium.setup()
@@ -12,7 +12,7 @@ return {
 
   {
     "yetone/avante.nvim",
-    enabled = true,
+    enabled = false,
     build = "make",
     event = "VeryLazy",
     version = false,
